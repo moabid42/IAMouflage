@@ -23,7 +23,7 @@ from pathlib import Path
 
 import yaml
 
-from normalize import op_signature
+from core.normalize import op_signature
 
 OP_BEARING_FIELDS = {
     "gcp.audit.method_name",

@@ -35,11 +35,11 @@ from pathlib import Path
 
 from neo4j import GraphDatabase
 
-from mappings import (
-    CAPABILITY_IMPLIES, CROWN_JEWELS, PIVOTS,
-    capability_unlocks, classify_method, technique_grants,
+from core.normalize import op_matches, op_signature
+from detection.logtype import classify_method
+from library.capabilities import (
+    CAPABILITY_IMPLIES, CROWN_JEWELS, PIVOTS, capability_unlocks, technique_grants,
 )
-from normalize import op_matches, op_signature
 
 URI = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
 USER = os.environ.get("NEO4J_USER", "neo4j")

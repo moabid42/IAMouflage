@@ -31,10 +31,10 @@ GraphDatabase.driver(os.environ["NEO4J_URI"],
 EOF
   do sleep 2; done
 
-  echo ">> parsing sigma detections";   $PY src/parse_sigma.py
-  echo ">> parsing hacktricks techniques"; $PY src/parse_techniques.py
-  echo ">> building neo4j graph";        $PY src/build_graph.py
+  echo ">> parsing sigma detections";   $PY -m detection.parse_sigma
+  echo ">> parsing hacktricks techniques"; $PY -m library.parse_techniques
+  echo ">> building neo4j graph";        $PY -m graph.build_graph
 fi
 
-echo ">> running gap-analysis queries";  $PY src/run_queries.py
+echo ">> running gap-analysis queries";  $PY -m graph.run_queries
 echo ">> done. See out/findings.md   (Neo4j browser: http://localhost:7474)"

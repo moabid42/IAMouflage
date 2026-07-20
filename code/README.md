@@ -7,11 +7,10 @@ attack scenarios the detections cannot catch.
 This is the graph-baseline for the thesis: it establishes precisely **what per-event
 signatures miss**, which is the gap the model is meant to fill.
 
-> **Full documentation is in [`docs/`](docs/README.md)** — architecture, the build pipeline,
-> the graph schema, exactly how detection coverage is calculated, the findings, usage, and
-> assumptions. If you're wondering why detections and techniques aren't directly wired
-> together in the graph, see
-> [docs/03 — how detections correlate to techniques](docs/03-graph-model.md#how-detections-correlate-to-techniques).
+> **Documentation lives in [`../docs/`](../docs/)** (architecture placeholders for now — the
+> rest is being rewritten). One thing worth stating up front: detections and techniques are
+> **not** joined by a direct edge; they meet on shared **`ApiMethod`** (operation) nodes, and
+> that overlap is deliberately tiny — the smallness *is* the finding.
 
 ---
 
@@ -48,7 +47,7 @@ So a technique falls into exactly one bucket:
 
 Because permissions, audit methodNames and Sigma strings use three incompatible notations,
 everything is normalised to a canonical `service.resource.verb` operation signature
-(`src/normalize.py`) before joining. The normaliser is deliberately conservative, so the
+(`core/normalize.py`) before joining. The normaliser is deliberately conservative, so the
 blind-spot counts are **lower bounds**.
 
 ---
@@ -112,7 +111,7 @@ credential-access operations that dominate the attack corpus (`05_rules_without_
 Per-event signatures never reason about *chains*. To express multi-step attacks purely in
 the graph — no model — each technique is annotated with the **capabilities** it grants, and
 capabilities unlock further techniques. All rules are deterministic and documented in
-`src/mappings.py`:
+`library/capabilities.py` (the log-type classifier lives in `detection/logtype.py`):
 
 - **GRANTS** — e.g. `*.setIamPolicy` on a project → `PROJECT_ADMIN`; `getAccessToken`/
   `serviceAccountKeys.create` → `IMPERSONATE_SA`; `secretmanager.versions.access` →
@@ -147,14 +146,18 @@ RETURN t.primary_perm, c.name;
 ```
 code/
   docker-compose.yml         Neo4j 5.26
-  run.sh                     one-shot pipeline
+  run.sh                     one-shot pipeline (invokes the packages via python -m)
   requirements.txt
-  src/
-    normalize.py             perm/methodName -> service.resource.verb (the join key)
+  core/
+    normalize.py             perm/methodName -> service.resource.verb (the shared join key)
+  detection/                 DETECTION side — rules and what telemetry they can see
     parse_sigma.py           detections/  -> data/detections.json
+    logtype.py               ADMIN_ACTIVITY vs DATA_ACCESS classifier (is an op even logged?)
+  library/                   LIBRARY side — techniques / actions and how they chain
     parse_techniques.py      techniques/  -> data/techniques.json
-    mappings.py              log-type classifier + capability model  (knowledge layer)
-    build_graph.py           load nodes/edges into Neo4j
+    capabilities.py          capability model: GRANTS / IMPLIES / UNLOCKS (attack chaining)
+  graph/                     assembly + analysis
+    build_graph.py           load nodes/edges into Neo4j (derives DETECTED_BY + ENABLES)
     run_queries.py           run queries/*.cypher -> out/findings.{md,json}
   queries/*.cypher           the 10 gap-analysis questions (documented headers)
   data/*.json                extracted corpora

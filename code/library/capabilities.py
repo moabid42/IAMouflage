@@ -1,86 +1,14 @@
 """
-Knowledge layer: two documented mappings that turn raw parsed data into graph semantics.
+Library-side knowledge: the CAPABILITY MODEL.
 
-(1) LOG-TYPE CLASSIFIER  -- what telemetry does an operation produce?
-    GCP Cloud Audit Logs split into:
-      * ADMIN_ACTIVITY  : configuration / IAM / metadata writes. ALWAYS ON, cannot be
-                          disabled. A signature rule can see these.
-      * DATA_ACCESS     : reads and data-plane writes (object content, secret payloads,
-                          token minting, KMS decrypt). OFF BY DEFAULT for almost every
-                          service. A signature rule literally never receives the event
-                          unless the operator explicitly turned Data Access logging on.
-    => A technique whose only observable operation is DATA_ACCESS is a *telemetry* blind
-       spot (Class B): no signature can help until logging is reconfigured. This is
-       distinct from a technique that IS logged but has no rule written (Class A).
-
-(2) CAPABILITY MODEL     -- how do techniques chain into multi-step attack paths?
-    Per-event signatures never reason about chains. We attach to each technique the
-    capabilities it GRANTS and let capabilities UNLOCK further techniques, so the graph
-    can express "foothold -> ... -> project owner" without any ML model, purely by
-    traversal. The rules below are deterministic and auditable.
-
-Both mappings are intentionally conservative and are documented in the README.
+How do techniques chain into multi-step attack paths? Per-event signatures never
+reason about chains. We attach to each technique the capabilities it GRANTS and let
+capabilities UNLOCK further techniques, so the graph can express
+"foothold -> ... -> project owner" without any ML model, purely by traversal. The
+rules below are deterministic and auditable, and are documented in the README.
 """
 
-from normalize import op_signature
-
-# --------------------------------------------------------------------------- #
-# (1) log-type classification
-# --------------------------------------------------------------------------- #
-
-ADMIN_ACTIVITY = "ADMIN_ACTIVITY"
-DATA_ACCESS = "DATA_ACCESS"
-
-# Read / data-plane / credential-minting / crypto verbs -> DATA_ACCESS (off by default).
-DATA_ACCESS_VERBS = {
-    "get", "list", "aggregatedlist", "batchget", "getiampolicy", "testiampermissions",
-    "access", "view", "read", "export", "exportdata", "getdata", "getfilecontents",
-    "downloadartifacts", "accessreadtoken", "accessreadwritetoken",
-    "fetchlinkablerepositories", "consume", "reidentify", "portforward", "exec",
-    # credential / token minting (iamcredentials + friends)
-    "getaccesstoken", "getopenidtoken", "getidtoken", "generateaccesstoken",
-    "generateidtoken", "signblob", "signjwt", "createtoken", "implicitdelegation",
-    # KMS crypto operations
-    "usetodecrypt", "usetodecryptviadelegation", "usetoencrypt", "decrypt", "encrypt",
-}
-
-# Configuration / IAM / metadata writes -> ADMIN_ACTIVITY (always on).
-ADMIN_VERBS = {
-    "create", "delete", "update", "patch", "insert", "setiampolicy", "disable",
-    "enable", "undelete", "set", "upload", "import", "run", "runwithoverrides",
-    "bind", "escalate", "add", "remove", "attachsubscription", "sourcecodeset",
-    "setmetadata", "setcommoninstancemetadata", "setserviceaccount", "enabledebug",
-    "deploy", "oslogin", "osadminlogin", "useexternalip", "use", "updateprojectconfig",
-    "replace", "destroy",
-}
-
-# (service, resource) pairs whose content operations are DATA_ACCESS regardless of verb
-# (object/secret payload planes).
-DATA_PLANE_RESOURCES = {
-    ("storage", "objects"),
-    ("secretmanager", "versions"),
-}
-
-
-def classify_method(op: str):
-    """Return (log_type, logged_by_default) for an operation signature."""
-    parts = op.split(".")
-    service, resource, verb = parts[0], parts[-2], parts[-1]
-    if verb in DATA_ACCESS_VERBS:
-        lt = DATA_ACCESS
-    elif (service, resource) in DATA_PLANE_RESOURCES:
-        lt = DATA_ACCESS
-    elif verb in ADMIN_VERBS:
-        lt = ADMIN_ACTIVITY
-    else:
-        lt = ADMIN_ACTIVITY  # default: unknown writes behave like admin activity
-    logged_by_default = lt == ADMIN_ACTIVITY
-    return lt, logged_by_default
-
-
-# --------------------------------------------------------------------------- #
-# (2) capability model
-# --------------------------------------------------------------------------- #
+from core.normalize import op_signature
 
 IMPERSONATE_SA = "IMPERSONATE_SA"      # pivot: obtain a service account identity
 CODE_EXEC_AS_SA = "CODE_EXEC_AS_SA"    # pivot: run attacker code as an attached SA

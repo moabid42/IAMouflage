@@ -28,7 +28,7 @@ import json
 import re
 from pathlib import Path
 
-from normalize import PERM_RE, find_permissions, op_signature, perm_service
+from core.normalize import PERM_RE, find_permissions, op_signature, perm_service
 
 # Each directory maps to (tactic, extraction_mode).
 #
