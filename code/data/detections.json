@@ -1,0 +1,944 @@
+[
+  {
+    "id": "32438676-1dba-4ac7-bf69-b86cba995e05",
+    "title": "GCP Access Policy Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_access_policy_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "persistence",
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [
+      "T1098"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_iam_authinfo",
+    "covered_ops": [
+      "accesscontextmanager.accesslevels.delete",
+      "accesscontextmanager.accesspolicies.delete",
+      "accesscontextmanager.accesszones.delete",
+      "accesscontextmanager.authorizedorgsdescs.delete"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "data.protoPayload.authorizationInfo.permission",
+        "value": "accesscontextmanager.accessPolicies.delete"
+      },
+      {
+        "field": "data.protoPayload.authorizationInfo.permission",
+        "value": "accesscontextmanager.accessPolicies.accessLevels.delete"
+      },
+      {
+        "field": "data.protoPayload.authorizationInfo.permission",
+        "value": "accesscontextmanager.accessPolicies.accessZones.delete"
+      },
+      {
+        "field": "data.protoPayload.authorizationInfo.permission",
+        "value": "accesscontextmanager.accessPolicies.authorizedOrgsDescs.delete"
+      }
+    ]
+  },
+  {
+    "id": "76737c19-66ee-4c07-b65a-a03301d1573d",
+    "title": "GCP Break-glass Container Workload Deployed",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_breakglass_container_workload_deployed.yml",
+    "domain": "k8s",
+    "mitre_tactics": [
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [
+      "T1548"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "gke.pods.create"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "data.protoPayload.methodName",
+        "value": "io.k8s.core.v1.pods.create"
+      }
+    ]
+  },
+  {
+    "id": "e2feb918-4e77-4608-9697-990a1aaf74c3",
+    "title": "Google Cloud Storage Buckets Enumeration",
+    "level": "low",
+    "status": "test",
+    "file": "gcp_bucket_enumeration.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "discovery"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "storage.buckets.list",
+      "storage.buckets.listchannels"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.list"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.listChannels"
+      }
+    ]
+  },
+  {
+    "id": "4d9f2ee2-c903-48ab-b9c1-8c0f474913d0",
+    "title": "Google Cloud Storage Buckets Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_bucket_modified_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "storage.buckets.delete",
+      "storage.buckets.insert",
+      "storage.buckets.patch",
+      "storage.buckets.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.insert"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "storage.buckets.patch"
+      }
+    ]
+  },
+  {
+    "id": "234f9f48-904b-4736-a34c-55d23919e4b7",
+    "title": "Google Cloud Re-identifies Sensitive Information",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_dlp_re_identifies_sensitive_information.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [
+      "T1565"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "projects.content.reidentify"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "projects.content.reidentify"
+      }
+    ]
+  },
+  {
+    "id": "28268a8f-191f-4c17-85b2-f5aa4fa829c3",
+    "title": "Google Cloud DNS Zone Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_dns_zone_modified_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "dns.managedzones.delete",
+      "dns.managedzones.patch",
+      "dns.managedzones.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "Dns.ManagedZones.Delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "Dns.ManagedZones.Update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "Dns.ManagedZones.Patch"
+      }
+    ]
+  },
+  {
+    "id": "fe513c69-734c-4d4a-8548-ac5f609be82b",
+    "title": "Google Cloud Firewall Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_firewall_rule_modified_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "defense-impairment"
+    ],
+    "mitre_techniques": [
+      "T1685"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "compute.firewalls.delete",
+      "compute.firewalls.insert",
+      "compute.firewalls.patch",
+      "compute.firewalls.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.Firewalls.Delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.Firewalls.Patch"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.Firewalls.Update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.Firewalls.Insert"
+      }
+    ]
+  },
+  {
+    "id": "980a7598-1e7f-4962-9372-2d754c930d0e",
+    "title": "Google Full Network Traffic Packet Capture",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_full_network_traffic_packet_capture.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "collection"
+    ],
+    "mitre_techniques": [
+      "T1074"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "compute.packetmirrorings.aggregatedlist",
+      "compute.packetmirrorings.delete",
+      "compute.packetmirrorings.get",
+      "compute.packetmirrorings.insert",
+      "compute.packetmirrorings.list",
+      "compute.packetmirrorings.patch"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.Get"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.Delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.Insert"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.Patch"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.List"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "v*.Compute.PacketMirrorings.aggregatedList"
+      }
+    ]
+  },
+  {
+    "id": "6ad91e31-53df-4826-bd27-0166171c8040",
+    "title": "Google Cloud Kubernetes Admission Controller",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_kubernetes_admission_controller.yml",
+    "domain": "k8s",
+    "mitre_tactics": [
+      "credential-access",
+      "initial-access",
+      "persistence",
+      "privilege-escalation",
+      "stealth"
+    ],
+    "mitre_techniques": [
+      "T1078",
+      "T1552",
+      "T1552.007"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "gke.mutatingwebhookconfigurations.create",
+      "gke.mutatingwebhookconfigurations.patch",
+      "gke.mutatingwebhookconfigurations.replace",
+      "gke.validatingwebhookconfigurations.create",
+      "gke.validatingwebhookconfigurations.patch",
+      "gke.validatingwebhookconfigurations.replace"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name|startswith",
+        "value": "admissionregistration.k8s.io.v"
+      },
+      {
+        "field": "gcp.audit.method_name|contains",
+        "value": ".mutatingwebhookconfigurations."
+      },
+      {
+        "field": "gcp.audit.method_name|contains",
+        "value": ".validatingwebhookconfigurations."
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": "create"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": "patch"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": "replace"
+      }
+    ]
+  },
+  {
+    "id": "cd3a808c-c7b7-4c50-a2f3-f4cfcd436435",
+    "title": "Google Cloud Kubernetes CronJob",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_kubernetes_cronjob.yml",
+    "domain": "k8s",
+    "mitre_tactics": [
+      "execution",
+      "persistence",
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "gke.cronjobs.create",
+      "gke.cronjobs.update",
+      "gke.jobs.create",
+      "gke.jobs.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.api.batch.v*.Job"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.api.batch.v*.CronJob"
+      }
+    ]
+  },
+  {
+    "id": "0322d9f2-289a-47c2-b5e1-b63c90901a3e",
+    "title": "Google Cloud Kubernetes RoleBinding",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_kubernetes_rolebinding.yml",
+    "domain": "k8s",
+    "mitre_tactics": [
+      "credential-access"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "gke.clusterrolebindings.create",
+      "gke.clusterrolebindings.delete",
+      "gke.clusterrolebindings.patch",
+      "gke.clusterrolebindings.update",
+      "gke.rolebindings.create",
+      "gke.rolebindings.delete",
+      "gke.rolebindings.patch",
+      "gke.rolebindings.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.clusterrolebindings.create"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.rolebindings.create"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.clusterrolebindings.patch"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.rolebindings.patch"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.clusterrolebindings.update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.rolebindings.update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.clusterrolebindings.delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.authorization.rbac.v*.rolebindings.delete"
+      }
+    ]
+  },
+  {
+    "id": "2f0bae2d-bf20-4465-be86-1311addebaa3",
+    "title": "Google Cloud Kubernetes Secrets Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_kubernetes_secrets_modified_or_deleted.yml",
+    "domain": "k8s",
+    "mitre_tactics": [
+      "credential-access"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "gke.secrets.create",
+      "gke.secrets.delete",
+      "gke.secrets.patch",
+      "gke.secrets.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.core.v*.secrets.create"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.core.v*.secrets.update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.core.v*.secrets.patch"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "io.k8s.core.v*.secrets.delete"
+      }
+    ]
+  },
+  {
+    "id": "13f81a90-a69c-4fab-8f07-b5bb55416a9f",
+    "title": "Google Cloud Service Account Disabled or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_service_account_disabled_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [
+      "T1531"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "?.serviceaccounts.delete",
+      "?.serviceaccounts.disable"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.disable"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.delete"
+      }
+    ]
+  },
+  {
+    "id": "6b67c12e-5e40-47c6-b3b0-1e6b571184cc",
+    "title": "Google Cloud Service Account Modified",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_service_account_modified.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "?.serviceaccounts.create",
+      "?.serviceaccounts.enable",
+      "?.serviceaccounts.patch",
+      "?.serviceaccounts.undelete",
+      "?.serviceaccounts.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.patch"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.create"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.update"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.enable"
+      },
+      {
+        "field": "gcp.audit.method_name|endswith",
+        "value": ".serviceAccounts.undelete"
+      }
+    ]
+  },
+  {
+    "id": "f346bbd5-2c4e-4789-a221-72de7685090d",
+    "title": "Google Cloud SQL Database Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_sql_database_modified_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "cloudsql.instances.create",
+      "cloudsql.instances.delete",
+      "cloudsql.users.delete",
+      "cloudsql.users.update"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "cloudsql.instances.create"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "cloudsql.instances.delete"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "cloudsql.users.update"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "cloudsql.users.delete"
+      }
+    ]
+  },
+  {
+    "id": "99980a85-3a61-43d3-ac0f-b68d6b4797b1",
+    "title": "Google Cloud VPN Tunnel Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_vpn_tunnel_modified_or_deleted.yml",
+    "domain": "gcp",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "gcp.audit",
+    "signal": "gcp_audit",
+    "covered_ops": [
+      "compute.vpntunnels.delete",
+      "compute.vpntunnels.insert"
+    ],
+    "event_names": [],
+    "raw_matchers": [
+      {
+        "field": "gcp.audit.method_name",
+        "value": "compute.vpnTunnels.insert"
+      },
+      {
+        "field": "gcp.audit.method_name",
+        "value": "compute.vpnTunnels.delete"
+      }
+    ]
+  },
+  {
+    "id": "22f2fb54-5312-435d-852f-7c74f81684ca",
+    "title": "Google Workspace Application Access Level Modified",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_application_access_levels_modified.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "persistence",
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [
+      "T1098.003"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "CHANGE_APPLICATION_SETTING"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "CHANGE_APPLICATION_SETTING"
+      }
+    ]
+  },
+  {
+    "id": "ee2803f0-71c8-4831-b48b-a1fc57601ee4",
+    "title": "Google Workspace Application Removed",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_application_removed.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "REMOVE_APPLICATION",
+      "REMOVE_APPLICATION_FROM_WHITELIST"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "REMOVE_APPLICATION"
+      },
+      {
+        "field": "eventName",
+        "value": "REMOVE_APPLICATION_FROM_WHITELIST"
+      }
+    ]
+  },
+  {
+    "id": "04e2a23a-9b29-4a5c-be3a-3542e3f982ba",
+    "title": "Google Workspace Granted Domain API Access",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_granted_domain_api_access.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "persistence",
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [
+      "T1098"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "AUTHORIZE_API_CLIENT_ACCESS"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "AUTHORIZE_API_CLIENT_ACCESS"
+      }
+    ]
+  },
+  {
+    "id": "780601d1-6376-4f2a-884e-b8d45599f78c",
+    "title": "Google Workspace MFA Disabled",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_mfa_disabled.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "ALLOW_STRONG_AUTHENTICATION",
+      "ENFORCE_STRONG_AUTHENTICATION"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "ENFORCE_STRONG_AUTHENTICATION"
+      },
+      {
+        "field": "eventName",
+        "value": "ALLOW_STRONG_AUTHENTICATION"
+      }
+    ]
+  },
+  {
+    "id": "6aef64e3-60c6-4782-8db3-8448759c714e",
+    "title": "Google Workspace Role Modified or Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_role_modified_or_deleted.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "DELETE_ROLE",
+      "RENAME_ROLE",
+      "UPDATE_ROLE"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "DELETE_ROLE"
+      },
+      {
+        "field": "eventName",
+        "value": "RENAME_ROLE"
+      },
+      {
+        "field": "eventName",
+        "value": "UPDATE_ROLE"
+      }
+    ]
+  },
+  {
+    "id": "bf638ef7-4d2d-44bb-a1dc-a238252e6267",
+    "title": "Google Workspace Role Privilege Deleted",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_role_privilege_deleted.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "impact"
+    ],
+    "mitre_techniques": [],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "REMOVE_PRIVILEGE"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "REMOVE_PRIVILEGE"
+      }
+    ]
+  },
+  {
+    "id": "2d1b83e4-17c6-4896-a37b-29140b40a788",
+    "title": "Google Workspace User Granted Admin Privileges",
+    "level": "medium",
+    "status": "test",
+    "file": "gcp_gworkspace_user_granted_admin_privileges.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "persistence",
+      "privilege-escalation"
+    ],
+    "mitre_techniques": [
+      "T1098"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.admin",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "GRANT_ADMIN_PRIVILEGE",
+      "GRANT_DELEGATED_ADMIN_PRIVILEGES"
+    ],
+    "raw_matchers": [
+      {
+        "field": "eventName",
+        "value": "GRANT_DELEGATED_ADMIN_PRIVILEGES"
+      },
+      {
+        "field": "eventName",
+        "value": "GRANT_ADMIN_PRIVILEGE"
+      }
+    ]
+  },
+  {
+    "id": "eafe6f2b-cfec-4612-aec2-49563c33a087",
+    "title": "Google Workspace Government Attack Warning",
+    "level": "medium",
+    "status": "experimental",
+    "file": "gcp_gworkspace_govattack.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "impact",
+      "initial-access",
+      "persistence",
+      "privilege-escalation",
+      "stealth"
+    ],
+    "mitre_techniques": [
+      "T1078"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.login",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "gov_attack_warning"
+    ],
+    "raw_matchers": [
+      {
+        "field": "protoPayload.metadata.event.eventName",
+        "value": "gov_attack_warning"
+      }
+    ]
+  },
+  {
+    "id": "2a0bb2dd-eb5f-4517-8cb9-404f8ba764a5",
+    "title": "Google Workspace Out Of Domain Email Forwarding",
+    "level": "medium",
+    "status": "experimental",
+    "file": "gcp_gworkspace_out_of_domain_email_forwarding.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "collection"
+    ],
+    "mitre_techniques": [
+      "T1114.003"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.login",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "email_forwarding_out_of_domain"
+    ],
+    "raw_matchers": [
+      {
+        "field": "protoPayload.metadata.event.eventName",
+        "value": "email_forwarding_out_of_domain"
+      }
+    ]
+  },
+  {
+    "id": "38360161-76c4-4283-842e-efcf997dafc8",
+    "title": "Suspicious Login Activity Classified By Google",
+    "level": "medium",
+    "status": "experimental",
+    "file": "gcp_gworkspace_suspicious_login.yml",
+    "domain": "workspace",
+    "mitre_tactics": [
+      "initial-access",
+      "persistence",
+      "privilege-escalation",
+      "stealth"
+    ],
+    "mitre_techniques": [
+      "T1078.004"
+    ],
+    "logsource_product": "gcp",
+    "logsource_service": "google_workspace.login",
+    "signal": "workspace_event",
+    "covered_ops": [],
+    "event_names": [
+      "suspicious_login",
+      "suspicious_login_less_secure_app",
+      "suspicious_programmatic_login"
+    ],
+    "raw_matchers": [
+      {
+        "field": "protoPayload.metadata.event.eventName",
+        "value": "suspicious_login_less_secure_app"
+      },
+      {
+        "field": "protoPayload.metadata.event.eventName",
+        "value": "suspicious_login"
+      },
+      {
+        "field": "protoPayload.metadata.event.eventName",
+        "value": "suspicious_programmatic_login"
+      }
+    ]
+  }
+]

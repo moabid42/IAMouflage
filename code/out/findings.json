@@ -1,0 +1,5150 @@
+{
+  "00_coverage_overview.cypher": {
+    "title": "Detection coverage overview",
+    "why": "Baseline \u2014 of every abusable GCP technique in the corpus, how many does the sigma signature set actually detect? A technique is DETECTED only if one of the operations it must perform is (a) matched by a rule AND (b) written to a log that is on by default. Everything else is a blind spot, split into: RULE_GAP      (Class A) operation IS logged by default, but no rule matches it -> fixable by writing a signature TELEMETRY_GAP (Class B) operation is a Data Access log, OFF by default -> no signature can ever fire until logging is reconfigured",
+    "row_count": 3,
+    "rows": [
+      {
+        "status": "RULE_GAP",
+        "techniques": 189,
+        "pct": 74.4
+      },
+      {
+        "status": "TELEMETRY_GAP",
+        "techniques": 50,
+        "pct": 19.7
+      },
+      {
+        "status": "DETECTED",
+        "techniques": 15,
+        "pct": 5.9
+      }
+    ]
+  },
+  "01_blind_spot_techniques.cypher": {
+    "title": "Every technique with zero detection coverage",
+    "why": "The direct answer to \"which situations can my detections not figure out?\". These techniques have NO path Technique-[:INVOKES]->ApiMethod<-[:COVERS]-Rule that also lands on an on-by-default log, so executing them raises no signature alert.",
+    "row_count": 239,
+    "rows": [
+      {
+        "tactic": "discovery",
+        "service": "billing",
+        "primary_permission": "billing.accounts.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "billing.accounts.create"
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "primary_permission": "cloudasset.assets.analyzeIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudasset.assets.analyzeIamPolicy"
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "primary_permission": "cloudasset.assets.analyzeMove",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudasset.assets.analyzeMove"
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "primary_permission": "cloudasset.assets.queryIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudasset.assets.queryIamPolicy"
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "primary_permission": "cloudasset.assets.searchAllIamPolicies",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudasset.assets.searchAllIamPolicies"
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "primary_permission": "cloudasset.assets.searchAllResources",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudasset.assets.searchAllResources"
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "primary_permission": "compute.instances.getSerialPortOutput",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.getSerialPortOutput"
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "primary_permission": "compute.networks.addPeering",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.networks.addPeering"
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "primary_permission": "compute.networks.listPeeringRoutes",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.networks.listPeeringRoutes"
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "primary_permission": "compute.networks.removePeering",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.networks.removePeering"
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "primary_permission": "compute.networks.updatePeering",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.networks.updatePeering"
+      },
+      {
+        "tactic": "discovery",
+        "service": "container",
+        "primary_permission": "container.clusters.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.clusters.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "resourcemanager.organizations.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.projects.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "resourcemanager.projects.create"
+      },
+      {
+        "tactic": "discovery",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.services.enable",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.services.enable"
+      },
+      {
+        "tactic": "discovery",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.services.use",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.services.use"
+      },
+      {
+        "tactic": "discovery",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.services.use",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.services.use"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.list"
+      },
+      {
+        "tactic": "persistence",
+        "service": "logging",
+        "primary_permission": "logging.sinks.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.sinks.create"
+      },
+      {
+        "tactic": "persistence",
+        "service": "storage",
+        "primary_permission": "storage.hmacKeys.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "primary_permission": "appengine.memcache.addKey",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.memcache.addKey"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "primary_permission": "appengine.memcache.flush",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.memcache.flush"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "primary_permission": "appengine.memcache.getKey",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.memcache.getKey"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "primary_permission": "appengine.memcache.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.memcache.list"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.builds.approve",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudbuild.builds.approve"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudfunctions.functions.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.sourceCodeGet",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudfunctions.functions.sourceCodeGet"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.destroy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.destroy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.restore",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.restore"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToEncrypt",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToEncrypt"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToSign",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToSign"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToVerify",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToVerify"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.backupRuns.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.backupRuns.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.databases.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.databases.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.export",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.instances.export, storage.objects.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.import",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.instances.import, storage.objects.get"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.restoreBackup",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.instances.restoreBackup, cloudsql.backupRuns.get"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.instances.update, ( cloudsql.instances.get)"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.users.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.users.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.users.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudsql.users.list"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.disable",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccountKeys.disable"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.buckets.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.buckets.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.buckets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.buckets.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.links.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.links.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logEntries.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "Write logs - logging.logEntries.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logEntries.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "Read logs - logging.logEntries.list"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logMetrics.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.logMetrics.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logMetrics.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.logMetrics.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logs.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.logs.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.sinks.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.sinks.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.sinks.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.sinks.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.views.access",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "logging.views.access"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.views.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.views.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.views.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "logging.views.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.alertPolicies.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.alertPolicies.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.alertPolicies.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.alertPolicies.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.dashboards.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.dashboards.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.dashboards.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.dashboards.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.notificationChannels.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.notificationChannels.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.notificationChannels.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.notificationChannels.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.snoozes.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.snoozes.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "primary_permission": "monitoring.snoozes.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "monitoring.snoozes.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.schemas.attach",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.schemas.attach, pubsub.topics.update,(pubsub.schemas.create)"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.schemas.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.schemas.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.schemas.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.schemas.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.snapshots.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.snapshots.create, pubsub.snapshots.seek"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume)"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.detachSubscription",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.detachSubscription"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.publish",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.publish"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.secrets.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.secrets.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.secrets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.secrets.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.destroy",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.versions.destroy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.disable",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.versions.disable"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "primary_permission": "securitycenter.findings.bulkMuteUpdate",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "securitycenter.findings.bulkMuteUpdate"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "primary_permission": "securitycenter.findings.setMute",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "securitycenter.findings.setMute"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "primary_permission": "securitycenter.findings.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "securitycenter.findings.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "primary_permission": "securitycenter.muteconfigs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "securitycenter.muteconfigs.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "primary_permission": "securitycenter.muteconfigs.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "securitycenter.muteconfigs.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.restore",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "storage.buckets.restore"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.objects.delete",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.delete (storage.objects.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.batchPredictionJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.customJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.customJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.datasets.export",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "aiplatform.datasets.export"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.datasets.import",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "aiplatform.datasets.import"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.models.export",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "aiplatform.models.export"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.models.upload",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "aiplatform.models.upload, aiplatform.models.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.notebookExecutionJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.pipelineJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.get",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.get",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.instances.enableDebug",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.instances.enableDebug",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.versions.getFileContents",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.versions.getFileContents, appengine.versions.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.versions.getFileContents",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "appengine.versions.getFileContents, appengine.versions.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.delete"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.downloadArtifacts",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.downloadArtifacts"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.uploadArtifacts",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.uploadArtifacts"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.tags.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "batch",
+        "primary_permission": "batch.jobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "batch.jobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.datasets.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.datasets.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.datasets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.datasets.update, (bigquery.datasets.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.tables.delete",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.tables.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.tables.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.authorizedViews.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.authorizedViews.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.backups.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.backups.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.instances.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.instances.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.tables.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.tables.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.builds.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudbuild.builds.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.connections.fetchLinkableRepositories",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudbuild.connections.fetchLinkableRepositories"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.repositories.accessReadToken",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudbuild.repositories.accessReadToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.repositories.accessReadWriteToken",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudbuild.repositories.accessReadWriteToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.sourceCodeSet",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudfunctions.functions.sourceCodeSet"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudfunctions.functions.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecrypt",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToDecrypt"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeys.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "primary_permission": "cloudscheduler.jobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "primary_permission": "cloudscheduler.jobs.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "primary_permission": "cloudtasks.queues.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudtasks.queues.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "primary_permission": "cloudtasks.tasks.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudtasks.tasks.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "primary_permission": "cloudtasks.tasks.run",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudtasks.tasks.run, cloudtasks.tasks.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "composer",
+        "primary_permission": "composer.environments.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "composer.environments.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "composer",
+        "primary_permission": "composer.environments.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "composer.environments.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.disks.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.disks.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.osAdminLogin",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.osAdminLogin"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.osLogin",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.osLogin"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.setMetadata",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.setMetadata"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.machineImages.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.machineImages.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.projects.setCommonInstanceMetadata",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.projects.setCommonInstanceMetadata"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.snapshots.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.snapshots.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.clusterRoles.bind",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.clusterRoles.bind"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.clusterRoles.escalate",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.clusterRoles.escalate"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.clusters.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.clusters.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.daemonSets.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.daemonSets.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.daemonSets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.daemonSets.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.deployments.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.deployments.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.deployments.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.deployments.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.mutatingWebhookConfigurations.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.mutatingWebhookConfigurations.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.exec",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.pods.exec"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.portForward",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.pods.portForward"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.pods.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.replicaSets.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.replicaSets.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.replicaSets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.replicaSets.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.replicationControllers.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.replicationControllers.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.replicationControllers.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.replicationControllers.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.roles.bind",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.roles.bind"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.roles.escalate",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.roles.escalate"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.scheduledJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.scheduledJobs.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.scheduledJobs.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.scheduledJobs.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.secrets.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.secrets.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.serviceAccounts.createToken",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "container.serviceAccounts.createToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.statefulSets.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.statefulSets.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.statefulSets.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "container.statefulSets.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "dataproc",
+        "primary_permission": "dataproc.clusters.get",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "dataproc.clusters.get, dataproc.clusters.use, dataproc.jobs.create, dataproc.jobs.get, dataproc.jobs.list, storage.objects.create, storage.objects.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "primary_permission": "deploymentmanager.deployments.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "deploymentmanager.deployments.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "primary_permission": "deploymentmanager.deployments.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "deploymentmanager.deployments.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "primary_permission": "deploymentmanager.deployments.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "deploymentmanager.deployments.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.ServiceAccounts.actAs",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "iam.ServiceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.roles.update (iam.roles.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getAccessToken",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.getAccessToken (iam.serviceAccounts.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getOpenIdToken",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.getOpenIdToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.implicitDelegation",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.implicitDelegation"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signBlob",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.signBlob"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signJwt",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.signJwt"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "orgpolicy",
+        "primary_permission": "orgpolicy.policy.set",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "orgpolicy.policy.set"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "orgpolicy",
+        "primary_permission": "orgpolicy.policy.set",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "orgpolicy.policy.set, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "osconfig",
+        "primary_permission": "osconfig.patchDeployments.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "osconfig.patchDeployments.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "osconfig",
+        "primary_permission": "osconfig.patchJobs.exec",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "osconfig.patchJobs.exec"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.snapshots.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.snapshots.create (pubsub.topics.attachSubscription)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.snapshots.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.snapshots.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.consume",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.consume"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.folders.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "resourcemanager.folders.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "resourcemanager.organizations.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.projects.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "resourcemanager.projects.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.jobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.jobs.run",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "run.jobs.run, run.jobs.runWithOverrides, (run.jobs.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.jobs.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "run.jobs.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.jobs.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "run.services.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.secrets.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.secrets.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.apiKeys.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.apiKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.apiKeys.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.apiKeys.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.services.enable",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.services.enable , serviceusage.services.use"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "source.repos.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "source.repos.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "source.repos.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.updateProjectConfig",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "source.repos.updateProjectConfig"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.hmacKeys.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.create, storage.objects.get, storage.objects.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.create, storage.objects.delete = Storage Write permissions"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.setIamPolicy",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "workflows",
+        "primary_permission": "workflows.workflows.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "apikeys",
+        "primary_permission": "apikeys.keys.lookup",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "apikeys.keys.lookup"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.apiKeys.getProjectForKey",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.apiKeys.getProjectForKey"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.buckets.get"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.getIamPolicy",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.buckets.getIamPolicy"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.create"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.delete",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.delete"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.list"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.update",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "storage.objects.update"
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccountKeys.create"
+      }
+    ]
+  },
+  "02_rule_gap_classA.cypher": {
+    "title": "Class A blind spots \u2014 logged by default, but no rule (write-a-signature gaps)",
+    "why": "These are the \"cheap wins\". The operation lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today \u2014 there simply is no sigma rule matching it. Each row is a signature that could be authored immediately.",
+    "row_count": 235,
+    "rows": [
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.batchpredictionjobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.batchPredictionJobs.create",
+        "technique": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.customjobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.customJobs.create",
+        "technique": "aiplatform.customJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.datasets.import",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.datasets.import",
+        "technique": "aiplatform.datasets.import"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.hyperparametertuningjobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "technique": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.models.upload",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.models.upload",
+        "technique": "aiplatform.models.upload, aiplatform.models.get"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.notebookexecutionjobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.notebookExecutionJobs.create",
+        "technique": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "aiplatform.pipelinejobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.pipelineJobs.create",
+        "technique": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.customJobs.create",
+        "technique": "aiplatform.customJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.batchPredictionJobs.create",
+        "technique": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.pipelineJobs.create",
+        "technique": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "technique": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.notebookExecutionJobs.create",
+        "technique": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "apikeys",
+        "logged_but_unwatched_operation": "apikeys.keys.lookup",
+        "tactic": "unauthenticated-access",
+        "primary_permission": "apikeys.keys.lookup",
+        "technique": "apikeys.keys.lookup"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.applications.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.update",
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.applications.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.update",
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.instances.enabledebug",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.instances.enableDebug",
+        "technique": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.instances.enabledebug",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.instances.enableDebug",
+        "technique": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.memcache.addkey",
+        "tactic": "post-exploitation",
+        "primary_permission": "appengine.memcache.addKey",
+        "technique": "appengine.memcache.addKey"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.memcache.flush",
+        "tactic": "post-exploitation",
+        "primary_permission": "appengine.memcache.flush",
+        "technique": "appengine.memcache.flush"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.memcache.getkey",
+        "tactic": "post-exploitation",
+        "primary_permission": "appengine.memcache.getKey",
+        "technique": "appengine.memcache.getKey"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.versions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.versions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.versions.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.versions.getFileContents",
+        "technique": "appengine.versions.getFileContents, appengine.versions.update"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "appengine.versions.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.versions.getFileContents",
+        "technique": "appengine.versions.getFileContents, appengine.versions.update"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.packages.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.tags.delete",
+        "technique": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.repositories.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.repositories.delete",
+        "technique": "artifactregistry.repositories.delete"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.repositories.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.repositories.setIamPolicy",
+        "technique": "artifactregistry.repositories.setIamPolicy"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.repositories.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.repositories.update",
+        "technique": "artifactregistry.repositories.update"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.repositories.uploadartifacts",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.repositories.uploadArtifacts",
+        "technique": "artifactregistry.repositories.uploadArtifacts"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.tags.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.tags.delete",
+        "technique": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)"
+      },
+      {
+        "service": "artifactregistry",
+        "logged_but_unwatched_operation": "artifactregistry.versions.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.tags.delete",
+        "technique": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)"
+      },
+      {
+        "service": "batch",
+        "logged_but_unwatched_operation": "batch.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "batch.jobs.create",
+        "technique": "batch.jobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "batch",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "batch.jobs.create",
+        "technique": "batch.jobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.datasets.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.tables.delete",
+        "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.datasets.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.datasets.setIamPolicy",
+        "technique": "bigquery.datasets.setIamPolicy"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.datasets.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.datasets.update",
+        "technique": "bigquery.datasets.update, (bigquery.datasets.get)"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.models.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.tables.delete",
+        "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.rowaccesspolicies.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.rowaccesspolicies.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.tables.delete",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.tables.delete",
+        "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_operation": "bigquery.tables.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.tables.setIamPolicy",
+        "technique": "bigquery.tables.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_operation": "bigtable.authorizedviews.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.authorizedViews.setIamPolicy",
+        "technique": "bigtable.authorizedViews.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_operation": "bigtable.backups.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.backups.setIamPolicy",
+        "technique": "bigtable.backups.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_operation": "bigtable.instances.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.instances.setIamPolicy",
+        "technique": "bigtable.instances.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_operation": "bigtable.tables.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.tables.setIamPolicy",
+        "technique": "bigtable.tables.setIamPolicy"
+      },
+      {
+        "service": "billing",
+        "logged_but_unwatched_operation": "billing.accounts.create",
+        "tactic": "discovery",
+        "primary_permission": "billing.accounts.create",
+        "technique": "billing.accounts.create"
+      },
+      {
+        "service": "cloudasset",
+        "logged_but_unwatched_operation": "cloudasset.assets.analyzeiampolicy",
+        "tactic": "discovery",
+        "primary_permission": "cloudasset.assets.analyzeIamPolicy",
+        "technique": "cloudasset.assets.analyzeIamPolicy"
+      },
+      {
+        "service": "cloudasset",
+        "logged_but_unwatched_operation": "cloudasset.assets.analyzemove",
+        "tactic": "discovery",
+        "primary_permission": "cloudasset.assets.analyzeMove",
+        "technique": "cloudasset.assets.analyzeMove"
+      },
+      {
+        "service": "cloudasset",
+        "logged_but_unwatched_operation": "cloudasset.assets.queryiampolicy",
+        "tactic": "discovery",
+        "primary_permission": "cloudasset.assets.queryIamPolicy",
+        "technique": "cloudasset.assets.queryIamPolicy"
+      },
+      {
+        "service": "cloudasset",
+        "logged_but_unwatched_operation": "cloudasset.assets.searchalliampolicies",
+        "tactic": "discovery",
+        "primary_permission": "cloudasset.assets.searchAllIamPolicies",
+        "technique": "cloudasset.assets.searchAllIamPolicies"
+      },
+      {
+        "service": "cloudasset",
+        "logged_but_unwatched_operation": "cloudasset.assets.searchallresources",
+        "tactic": "discovery",
+        "primary_permission": "cloudasset.assets.searchAllResources",
+        "technique": "cloudasset.assets.searchAllResources"
+      },
+      {
+        "service": "cloudbuild",
+        "logged_but_unwatched_operation": "cloudbuild.builds.approve",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudbuild.builds.approve",
+        "technique": "cloudbuild.builds.approve"
+      },
+      {
+        "service": "cloudbuild",
+        "logged_but_unwatched_operation": "cloudbuild.builds.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudbuild.builds.create",
+        "technique": "cloudbuild.builds.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudbuild",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudbuild.builds.create",
+        "technique": "cloudbuild.builds.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.create",
+        "technique": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudfunctions.functions.delete",
+        "technique": "cloudfunctions.functions.delete"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.setIamPolicy",
+        "technique": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.sourcecodeget",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudfunctions.functions.sourceCodeGet",
+        "technique": "cloudfunctions.functions.sourceCodeGet"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.sourcecodeset",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.create",
+        "technique": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.sourcecodeset",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.update",
+        "technique": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.sourcecodeset",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.sourceCodeSet",
+        "technique": "cloudfunctions.functions.sourceCodeSet"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.update",
+        "technique": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "cloudfunctions.functions.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.update",
+        "technique": "cloudfunctions.functions.update"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.create",
+        "technique": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.update",
+        "technique": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.setIamPolicy",
+        "technique": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeys.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "technique": "cloudkms.cryptoKeys.setIamPolicy"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.destroy",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.destroy",
+        "technique": "cloudkms.cryptoKeyVersions.destroy"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.restore",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.restore",
+        "technique": "cloudkms.cryptoKeyVersions.restore"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.update",
+        "technique": "cloudkms.cryptoKeyVersions.update"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.usetoencryptviadelegation",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation",
+        "technique": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.usetosign",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToSign",
+        "technique": "cloudkms.cryptoKeyVersions.useToSign"
+      },
+      {
+        "service": "cloudkms",
+        "logged_but_unwatched_operation": "cloudkms.cryptokeyversions.usetoverify",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToVerify",
+        "technique": "cloudkms.cryptoKeyVersions.useToVerify"
+      },
+      {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_operation": "cloudscheduler.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.create",
+        "technique": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_operation": "cloudscheduler.jobs.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.update",
+        "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.create",
+        "technique": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.update",
+        "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.backupruns.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.backupRuns.delete",
+        "technique": "cloudsql.backupRuns.delete"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.databases.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.databases.delete",
+        "technique": "cloudsql.databases.delete"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.instances.import",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.instances.import",
+        "technique": "cloudsql.instances.import, storage.objects.get"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.instances.restorebackup",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.instances.restoreBackup",
+        "technique": "cloudsql.instances.restoreBackup, cloudsql.backupRuns.get"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.instances.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.instances.update",
+        "technique": "cloudsql.instances.update, ( cloudsql.instances.get)"
+      },
+      {
+        "service": "cloudsql",
+        "logged_but_unwatched_operation": "cloudsql.users.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "cloudsql.users.create",
+        "technique": "cloudsql.users.create"
+      },
+      {
+        "service": "cloudtasks",
+        "logged_but_unwatched_operation": "cloudtasks.queues.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.queues.setIamPolicy",
+        "technique": "cloudtasks.queues.setIamPolicy"
+      },
+      {
+        "service": "cloudtasks",
+        "logged_but_unwatched_operation": "cloudtasks.tasks.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.tasks.create",
+        "technique": "cloudtasks.tasks.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "cloudtasks",
+        "logged_but_unwatched_operation": "cloudtasks.tasks.run",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.tasks.run",
+        "technique": "cloudtasks.tasks.run, cloudtasks.tasks.list"
+      },
+      {
+        "service": "cloudtasks",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.tasks.create",
+        "technique": "cloudtasks.tasks.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "composer",
+        "logged_but_unwatched_operation": "composer.environments.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "composer.environments.create",
+        "technique": "composer.environments.create"
+      },
+      {
+        "service": "composer",
+        "logged_but_unwatched_operation": "composer.environments.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "composer.environments.update",
+        "technique": "composer.environments.update"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.disks.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.disks.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.disks.setIamPolicy",
+        "technique": "compute.disks.setIamPolicy"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.getserialportoutput",
+        "tactic": "discovery",
+        "primary_permission": "compute.instances.getSerialPortOutput",
+        "technique": "compute.instances.getSerialPortOutput"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.osadminlogin",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.osAdminLogin",
+        "technique": "compute.instances.osAdminLogin"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.oslogin",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.osLogin",
+        "technique": "compute.instances.osLogin"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.setIamPolicy",
+        "technique": "compute.instances.setIamPolicy"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.setmetadata",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.setMetadata",
+        "technique": "compute.instances.setMetadata"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.setmetadata",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.instances.setserviceaccount",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.machineimages.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.machineImages.setIamPolicy",
+        "technique": "compute.machineImages.setIamPolicy"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.networks.addpeering",
+        "tactic": "discovery",
+        "primary_permission": "compute.networks.addPeering",
+        "technique": "compute.networks.addPeering"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.networks.listpeeringroutes",
+        "tactic": "discovery",
+        "primary_permission": "compute.networks.listPeeringRoutes",
+        "technique": "compute.networks.listPeeringRoutes"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.networks.removepeering",
+        "tactic": "discovery",
+        "primary_permission": "compute.networks.removePeering",
+        "technique": "compute.networks.removePeering"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.networks.updatepeering",
+        "tactic": "discovery",
+        "primary_permission": "compute.networks.updatePeering",
+        "technique": "compute.networks.updatePeering"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.projects.setcommoninstancemetadata",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.projects.setCommonInstanceMetadata",
+        "technique": "compute.projects.setCommonInstanceMetadata"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.snapshots.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.snapshots.setIamPolicy",
+        "technique": "compute.snapshots.setIamPolicy"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.subnetworks.use",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "compute.subnetworks.useexternalip",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.create",
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.clusterroles.bind",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.clusterRoles.bind",
+        "technique": "container.clusterRoles.bind"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.clusterroles.escalate",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.clusterRoles.escalate",
+        "technique": "container.clusterRoles.escalate"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.daemonsets.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.daemonSets.create",
+        "technique": "container.daemonSets.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.daemonsets.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.daemonSets.update",
+        "technique": "container.daemonSets.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.deployments.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.deployments.create",
+        "technique": "container.deployments.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.deployments.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.deployments.update",
+        "technique": "container.deployments.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.mutatingwebhookconfigurations.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.mutatingWebhookConfigurations.update",
+        "technique": "container.mutatingWebhookConfigurations.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.pods.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.pods.update",
+        "technique": "container.pods.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.replicasets.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.replicaSets.create",
+        "technique": "container.replicaSets.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.replicasets.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.replicaSets.update",
+        "technique": "container.replicaSets.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.replicationcontrollers.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.replicationControllers.create",
+        "technique": "container.replicationControllers.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.replicationcontrollers.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.replicationControllers.update",
+        "technique": "container.replicationControllers.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.roles.bind",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.roles.bind",
+        "technique": "container.roles.bind"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.roles.escalate",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.roles.escalate",
+        "technique": "container.roles.escalate"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.scheduledjobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.scheduledJobs.create",
+        "technique": "container.scheduledJobs.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.scheduledjobs.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.scheduledJobs.update",
+        "technique": "container.scheduledJobs.update"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.statefulsets.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.statefulSets.create",
+        "technique": "container.statefulSets.create"
+      },
+      {
+        "service": "container",
+        "logged_but_unwatched_operation": "gke.statefulsets.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "container.statefulSets.update",
+        "technique": "container.statefulSets.update"
+      },
+      {
+        "service": "dataproc",
+        "logged_but_unwatched_operation": "dataproc.clusters.use",
+        "tactic": "privilege-escalation",
+        "primary_permission": "dataproc.clusters.get",
+        "technique": "dataproc.clusters.get, dataproc.clusters.use, dataproc.jobs.create, dataproc.jobs.get, dataproc.jobs.list, storage.objects.create, storage.objects.get"
+      },
+      {
+        "service": "dataproc",
+        "logged_but_unwatched_operation": "dataproc.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "dataproc.clusters.get",
+        "technique": "dataproc.clusters.get, dataproc.clusters.use, dataproc.jobs.create, dataproc.jobs.get, dataproc.jobs.list, storage.objects.create, storage.objects.get"
+      },
+      {
+        "service": "deploymentmanager",
+        "logged_but_unwatched_operation": "deploymentmanager.deployments.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "deploymentmanager.deployments.create",
+        "technique": "deploymentmanager.deployments.create"
+      },
+      {
+        "service": "deploymentmanager",
+        "logged_but_unwatched_operation": "deploymentmanager.deployments.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "deploymentmanager.deployments.setIamPolicy",
+        "technique": "deploymentmanager.deployments.setIamPolicy"
+      },
+      {
+        "service": "deploymentmanager",
+        "logged_but_unwatched_operation": "deploymentmanager.deployments.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "deploymentmanager.deployments.update",
+        "technique": "deploymentmanager.deployments.update"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.roles.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.roles.create",
+        "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.roles.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.roles.update",
+        "technique": "iam.roles.update (iam.roles.get)"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccountkeys.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccountkeys.create",
+        "tactic": "workspace-pivoting",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccountkeys.disable",
+        "tactic": "post-exploitation",
+        "primary_permission": "iam.serviceAccountKeys.disable",
+        "technique": "iam.serviceAccountKeys.disable"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "technique": "iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.ServiceAccounts.actAs",
+        "technique": "iam.ServiceAccounts.actAs"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.roles.create",
+        "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.setIamPolicy",
+        "technique": "iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.buckets.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.buckets.delete",
+        "technique": "logging.buckets.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.buckets.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.buckets.update",
+        "technique": "logging.buckets.update"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.links.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.links.delete",
+        "technique": "logging.links.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.logentries.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.logEntries.create",
+        "technique": "Write logs - logging.logEntries.create"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.logmetrics.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.logMetrics.delete",
+        "technique": "logging.logMetrics.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.logmetrics.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.logMetrics.update",
+        "technique": "logging.logMetrics.update"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.logs.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.logs.delete",
+        "technique": "logging.logs.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.sinks.create",
+        "tactic": "persistence",
+        "primary_permission": "logging.sinks.create",
+        "technique": "logging.sinks.create"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.sinks.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.sinks.delete",
+        "technique": "logging.sinks.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.sinks.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.sinks.update",
+        "technique": "logging.sinks.update"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.views.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.views.delete",
+        "technique": "logging.views.delete"
+      },
+      {
+        "service": "logging",
+        "logged_but_unwatched_operation": "logging.views.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "logging.views.update",
+        "technique": "logging.views.update"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.alertpolicies.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.alertPolicies.delete",
+        "technique": "monitoring.alertPolicies.delete"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.alertpolicies.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.alertPolicies.update",
+        "technique": "monitoring.alertPolicies.update"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.dashboards.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.dashboards.delete",
+        "technique": "monitoring.dashboards.delete"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.dashboards.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.dashboards.update",
+        "technique": "monitoring.dashboards.update"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.notificationchannels.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.notificationChannels.delete",
+        "technique": "monitoring.notificationChannels.delete"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.notificationchannels.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.notificationChannels.update",
+        "technique": "monitoring.notificationChannels.update"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.snoozes.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.snoozes.create",
+        "technique": "monitoring.snoozes.create"
+      },
+      {
+        "service": "monitoring",
+        "logged_but_unwatched_operation": "monitoring.snoozes.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "monitoring.snoozes.update",
+        "technique": "monitoring.snoozes.update"
+      },
+      {
+        "service": "orgpolicy",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "orgpolicy.policy.set",
+        "technique": "orgpolicy.policy.set, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "orgpolicy",
+        "logged_but_unwatched_operation": "orgpolicy.policy.set",
+        "tactic": "privilege-escalation",
+        "primary_permission": "orgpolicy.policy.set",
+        "technique": "orgpolicy.policy.set"
+      },
+      {
+        "service": "orgpolicy",
+        "logged_but_unwatched_operation": "orgpolicy.policy.set",
+        "tactic": "privilege-escalation",
+        "primary_permission": "orgpolicy.policy.set",
+        "technique": "orgpolicy.policy.set, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "osconfig",
+        "logged_but_unwatched_operation": "osconfig.patchdeployments.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "osconfig.patchDeployments.create",
+        "technique": "osconfig.patchDeployments.create"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.schemas.attach",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.schemas.attach",
+        "technique": "pubsub.schemas.attach, pubsub.topics.update,(pubsub.schemas.create)"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.schemas.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.schemas.delete",
+        "technique": "pubsub.schemas.delete"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.schemas.setiampolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.schemas.setIamPolicy",
+        "technique": "pubsub.schemas.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.snapshots.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.snapshots.create",
+        "technique": "pubsub.snapshots.create (pubsub.topics.attachSubscription)"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.snapshots.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.snapshots.create",
+        "technique": "pubsub.snapshots.create, pubsub.snapshots.seek"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.snapshots.seek",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.snapshots.create",
+        "technique": "pubsub.snapshots.create, pubsub.snapshots.seek"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.snapshots.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.snapshots.setIamPolicy",
+        "technique": "pubsub.snapshots.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.subscriptions.create",
+        "technique": "pubsub.subscriptions.create"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.create",
+        "technique": "pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume)"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.delete",
+        "technique": "pubsub.subscriptions.delete"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "technique": "pubsub.subscriptions.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.setiampolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "technique": "pubsub.subscriptions.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.subscriptions.update",
+        "technique": "pubsub.subscriptions.update"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.subscriptions.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.update",
+        "technique": "pubsub.subscriptions.update"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.attachsubscription",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.create",
+        "technique": "pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume)"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.delete",
+        "technique": "pubsub.topics.delete"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.detachsubscription",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.detachSubscription",
+        "technique": "pubsub.topics.detachSubscription"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.publish",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.publish",
+        "technique": "pubsub.topics.publish"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.setiampolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.setIamPolicy",
+        "technique": "pubsub.topics.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.update",
+        "technique": "pubsub.topics.update"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_operation": "pubsub.topics.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.schemas.attach",
+        "technique": "pubsub.schemas.attach, pubsub.topics.update,(pubsub.schemas.create)"
+      },
+      {
+        "service": "resourcemanager",
+        "logged_but_unwatched_operation": "resourcemanager.folders.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "resourcemanager.folders.setIamPolicy",
+        "technique": "resourcemanager.folders.setIamPolicy"
+      },
+      {
+        "service": "resourcemanager",
+        "logged_but_unwatched_operation": "resourcemanager.organizations.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "resourcemanager.organizations.setIamPolicy",
+        "technique": "resourcemanager.organizations.setIamPolicy"
+      },
+      {
+        "service": "resourcemanager",
+        "logged_but_unwatched_operation": "resourcemanager.projects.create",
+        "tactic": "discovery",
+        "primary_permission": "resourcemanager.projects.create",
+        "technique": "resourcemanager.projects.create"
+      },
+      {
+        "service": "resourcemanager",
+        "logged_but_unwatched_operation": "resourcemanager.projects.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "resourcemanager.projects.setIamPolicy",
+        "technique": "resourcemanager.projects.setIamPolicy"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.create",
+        "technique": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.update",
+        "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.create",
+        "technique": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.update",
+        "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.create",
+        "technique": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.run",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.create",
+        "technique": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.run",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.update",
+        "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.run",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.run",
+        "technique": "run.jobs.run, run.jobs.runWithOverrides, (run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.runwithoverrides",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.run",
+        "technique": "run.jobs.run, run.jobs.runWithOverrides, (run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.setIamPolicy",
+        "technique": "run.jobs.setIamPolicy"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.jobs.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.update",
+        "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.routes.invoke",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.create",
+        "technique": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.services.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.create",
+        "technique": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.services.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.setIamPolicy",
+        "technique": "run.services.setIamPolicy"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_operation": "run.services.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.update",
+        "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "secretmanager",
+        "logged_but_unwatched_operation": "secretmanager.secrets.delete",
+        "tactic": "post-exploitation",
+        "primary_permission": "secretmanager.secrets.delete",
+        "technique": "secretmanager.secrets.delete"
+      },
+      {
+        "service": "secretmanager",
+        "logged_but_unwatched_operation": "secretmanager.secrets.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "secretmanager.secrets.setIamPolicy",
+        "technique": "secretmanager.secrets.setIamPolicy"
+      },
+      {
+        "service": "secretmanager",
+        "logged_but_unwatched_operation": "secretmanager.secrets.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "secretmanager.secrets.update",
+        "technique": "secretmanager.secrets.update"
+      },
+      {
+        "service": "securitycenter",
+        "logged_but_unwatched_operation": "securitycenter.findings.bulkmuteupdate",
+        "tactic": "post-exploitation",
+        "primary_permission": "securitycenter.findings.bulkMuteUpdate",
+        "technique": "securitycenter.findings.bulkMuteUpdate"
+      },
+      {
+        "service": "securitycenter",
+        "logged_but_unwatched_operation": "securitycenter.findings.setmute",
+        "tactic": "post-exploitation",
+        "primary_permission": "securitycenter.findings.setMute",
+        "technique": "securitycenter.findings.setMute"
+      },
+      {
+        "service": "securitycenter",
+        "logged_but_unwatched_operation": "securitycenter.findings.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "securitycenter.findings.update",
+        "technique": "securitycenter.findings.update"
+      },
+      {
+        "service": "securitycenter",
+        "logged_but_unwatched_operation": "securitycenter.muteconfigs.create",
+        "tactic": "post-exploitation",
+        "primary_permission": "securitycenter.muteconfigs.create",
+        "technique": "securitycenter.muteconfigs.create"
+      },
+      {
+        "service": "securitycenter",
+        "logged_but_unwatched_operation": "securitycenter.muteconfigs.update",
+        "tactic": "post-exploitation",
+        "primary_permission": "securitycenter.muteconfigs.update",
+        "technique": "securitycenter.muteconfigs.update"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.apikeys.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "serviceusage.apiKeys.create",
+        "technique": "serviceusage.apiKeys.create"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.apikeys.getprojectforkey",
+        "tactic": "unauthenticated-access",
+        "primary_permission": "serviceusage.apiKeys.getProjectForKey",
+        "technique": "serviceusage.apiKeys.getProjectForKey"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.services.enable",
+        "tactic": "privilege-escalation",
+        "primary_permission": "serviceusage.services.enable",
+        "technique": "serviceusage.services.enable , serviceusage.services.use"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.services.enable",
+        "tactic": "discovery",
+        "primary_permission": "serviceusage.services.enable",
+        "technique": "serviceusage.services.enable"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.services.use",
+        "tactic": "privilege-escalation",
+        "primary_permission": "serviceusage.services.enable",
+        "technique": "serviceusage.services.enable , serviceusage.services.use"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.services.use",
+        "tactic": "discovery",
+        "primary_permission": "serviceusage.services.use",
+        "technique": "serviceusage.services.use"
+      },
+      {
+        "service": "serviceusage",
+        "logged_but_unwatched_operation": "serviceusage.services.use",
+        "tactic": "discovery",
+        "primary_permission": "serviceusage.services.use",
+        "technique": "serviceusage.services.use"
+      },
+      {
+        "service": "source",
+        "logged_but_unwatched_operation": "source.repos.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "source.repos.setIamPolicy",
+        "technique": "source.repos.setIamPolicy"
+      },
+      {
+        "service": "source",
+        "logged_but_unwatched_operation": "source.repos.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "source.repos.update",
+        "technique": "source.repos.update"
+      },
+      {
+        "service": "source",
+        "logged_but_unwatched_operation": "source.repos.updateprojectconfig",
+        "tactic": "privilege-escalation",
+        "primary_permission": "source.repos.updateProjectConfig",
+        "technique": "source.repos.updateProjectConfig"
+      },
+      {
+        "service": "storage",
+        "logged_but_unwatched_operation": "storage.buckets.restore",
+        "tactic": "post-exploitation",
+        "primary_permission": "storage.buckets.restore",
+        "technique": "storage.buckets.restore"
+      },
+      {
+        "service": "storage",
+        "logged_but_unwatched_operation": "storage.buckets.setiampolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "service": "storage",
+        "logged_but_unwatched_operation": "storage.buckets.setiampolicy",
+        "tactic": "unauthenticated-access",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "service": "storage",
+        "logged_but_unwatched_operation": "storage.hmackeys.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "storage.hmacKeys.create",
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "service": "storage",
+        "logged_but_unwatched_operation": "storage.hmackeys.create",
+        "tactic": "persistence",
+        "primary_permission": "storage.hmacKeys.create",
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "service": "workflows",
+        "logged_but_unwatched_operation": "iam.serviceaccounts.actas",
+        "tactic": "privilege-escalation",
+        "primary_permission": "workflows.workflows.create",
+        "technique": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)"
+      },
+      {
+        "service": "workflows",
+        "logged_but_unwatched_operation": "workflows.executions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "workflows.workflows.create",
+        "technique": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)"
+      },
+      {
+        "service": "workflows",
+        "logged_but_unwatched_operation": "workflows.workflows.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "workflows.workflows.create",
+        "technique": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)"
+      }
+    ]
+  },
+  "03_telemetry_gap_classB.cypher": {
+    "title": "Class B blind spots \u2014 Data Access logs OFF by default (signatures cannot help)",
+    "why": "The most important scenario for the thesis. Every operation this technique performs is a DATA_ACCESS event, which GCP does NOT record unless the operator explicitly enables Data Access audit logging. No signature \u2014 however well written \u2014 can fire on an event that was never logged. This is where impersonation, token minting, secret reads and KMS decryption live: the classic \"invisible privilege escalation\".",
+    "row_count": 50,
+    "rows": [
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.datasets.export",
+        "data_access_operations": [
+          "aiplatform.datasets.export"
+        ],
+        "technique": "aiplatform.datasets.export"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.models.export",
+        "data_access_operations": [
+          "aiplatform.models.export"
+        ],
+        "technique": "aiplatform.models.export"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "primary_permission": "appengine.memcache.list",
+        "data_access_operations": [
+          "appengine.memcache.list"
+        ],
+        "technique": "appengine.memcache.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.downloadArtifacts",
+        "data_access_operations": [
+          "artifactregistry.repositories.downloadartifacts"
+        ],
+        "technique": "artifactregistry.repositories.downloadArtifacts"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.connections.fetchLinkableRepositories",
+        "data_access_operations": [
+          "cloudbuild.connections.fetchlinkablerepositories"
+        ],
+        "technique": "cloudbuild.connections.fetchLinkableRepositories"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.repositories.accessReadToken",
+        "data_access_operations": [
+          "cloudbuild.repositories.accessreadtoken"
+        ],
+        "technique": "cloudbuild.repositories.accessReadToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.repositories.accessReadWriteToken",
+        "data_access_operations": [
+          "cloudbuild.repositories.accessreadwritetoken"
+        ],
+        "technique": "cloudbuild.repositories.accessReadWriteToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecrypt",
+        "data_access_operations": [
+          "cloudkms.cryptokeyversions.usetodecrypt"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.useToDecrypt"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation",
+        "data_access_operations": [
+          "cloudkms.cryptokeyversions.usetodecryptviadelegation"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToEncrypt",
+        "data_access_operations": [
+          "cloudkms.cryptokeyversions.usetoencrypt"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.useToEncrypt"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.export",
+        "data_access_operations": [
+          "cloudsql.instances.export",
+          "storage.objects.create"
+        ],
+        "technique": "cloudsql.instances.export, storage.objects.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.users.list",
+        "data_access_operations": [
+          "cloudsql.users.list"
+        ],
+        "technique": "cloudsql.users.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.clusters.get",
+        "data_access_operations": [
+          "gke.clusters.get"
+        ],
+        "technique": "container.clusters.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "container",
+        "primary_permission": "container.clusters.get",
+        "data_access_operations": [
+          "gke.clusters.get"
+        ],
+        "technique": "container.clusters.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.exec",
+        "data_access_operations": [
+          "gke.pods.exec"
+        ],
+        "technique": "container.pods.exec"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.portForward",
+        "data_access_operations": [
+          "gke.pods.portforward"
+        ],
+        "technique": "container.pods.portForward"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.get",
+        "data_access_operations": [
+          "gke.secrets.get"
+        ],
+        "technique": "container.secrets.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.list",
+        "data_access_operations": [
+          "gke.secrets.list"
+        ],
+        "technique": "container.secrets.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.serviceAccounts.createToken",
+        "data_access_operations": [
+          "gke.serviceaccounts.createtoken"
+        ],
+        "technique": "container.serviceAccounts.createToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getAccessToken",
+        "data_access_operations": [
+          "iam.serviceaccounts.getaccesstoken"
+        ],
+        "technique": "iam.serviceAccounts.getAccessToken (iam.serviceAccounts.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getOpenIdToken",
+        "data_access_operations": [
+          "iam.serviceaccounts.getopenidtoken"
+        ],
+        "technique": "iam.serviceAccounts.getOpenIdToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.implicitDelegation",
+        "data_access_operations": [
+          "iam.serviceaccounts.implicitdelegation"
+        ],
+        "technique": "iam.serviceAccounts.implicitDelegation"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signBlob",
+        "data_access_operations": [
+          "iam.serviceaccounts.signblob"
+        ],
+        "technique": "iam.serviceAccounts.signBlob"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signJwt",
+        "data_access_operations": [
+          "iam.serviceaccounts.signjwt"
+        ],
+        "technique": "iam.serviceAccounts.signJwt"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.logEntries.list",
+        "data_access_operations": [
+          "logging.logentries.list"
+        ],
+        "technique": "Read logs - logging.logEntries.list"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.views.access",
+        "data_access_operations": [
+          "logging.views.access"
+        ],
+        "technique": "logging.views.access"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "osconfig",
+        "primary_permission": "osconfig.patchJobs.exec",
+        "data_access_operations": [
+          "osconfig.patchjobs.exec"
+        ],
+        "technique": "osconfig.patchJobs.exec"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.consume",
+        "data_access_operations": [
+          "pubsub.subscriptions.consume"
+        ],
+        "technique": "pubsub.subscriptions.consume"
+      },
+      {
+        "tactic": "discovery",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.get",
+        "data_access_operations": [
+          "resourcemanager.organizations.get"
+        ],
+        "technique": "resourcemanager.organizations.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "data_access_operations": [
+          "secretmanager.versions.access"
+        ],
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "data_access_operations": [
+          "secretmanager.versions.access"
+        ],
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.destroy",
+        "data_access_operations": [
+          "secretmanager.versions.destroy"
+        ],
+        "technique": "secretmanager.versions.destroy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.disable",
+        "data_access_operations": [
+          "secretmanager.versions.disable"
+        ],
+        "technique": "secretmanager.versions.disable"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "primary_permission": "serviceusage.apiKeys.list",
+        "data_access_operations": [
+          "serviceusage.apikeys.list"
+        ],
+        "technique": "serviceusage.apiKeys.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.get",
+        "data_access_operations": [
+          "source.repos.get"
+        ],
+        "technique": "source.repos.get"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.get",
+        "data_access_operations": [
+          "storage.buckets.get"
+        ],
+        "technique": "storage.buckets.get"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.getIamPolicy",
+        "data_access_operations": [
+          "storage.buckets.getiampolicy"
+        ],
+        "technique": "storage.buckets.getIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "data_access_operations": [
+          "storage.objects.create",
+          "storage.objects.get",
+          "storage.objects.update"
+        ],
+        "technique": "storage.objects.create, storage.objects.get, storage.objects.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "data_access_operations": [
+          "storage.objects.create",
+          "storage.objects.delete"
+        ],
+        "technique": "storage.objects.create, storage.objects.delete = Storage Write permissions"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.create",
+        "data_access_operations": [
+          "storage.objects.create"
+        ],
+        "technique": "storage.objects.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.objects.delete",
+        "data_access_operations": [
+          "storage.objects.delete"
+        ],
+        "technique": "storage.objects.delete (storage.objects.get)"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.delete",
+        "data_access_operations": [
+          "storage.objects.delete"
+        ],
+        "technique": "storage.objects.delete"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "data_access_operations": [
+          "storage.objects.get"
+        ],
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "data_access_operations": [
+          "storage.objects.get"
+        ],
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "data_access_operations": [
+          "storage.objects.get"
+        ],
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.get",
+        "data_access_operations": [
+          "storage.objects.get"
+        ],
+        "technique": "storage.objects.get"
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "primary_permission": "storage.objects.list",
+        "data_access_operations": [
+          "storage.objects.list"
+        ],
+        "technique": "storage.objects.list"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.list",
+        "data_access_operations": [
+          "storage.objects.list"
+        ],
+        "technique": "storage.objects.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.objects.setIamPolicy",
+        "data_access_operations": [
+          "storage.objects.setiampolicy"
+        ],
+        "technique": "storage.objects.setIamPolicy"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.objects.update",
+        "data_access_operations": [
+          "storage.objects.update"
+        ],
+        "technique": "storage.objects.update"
+      }
+    ]
+  },
+  "04_covered_but_unlogged.cypher": {
+    "title": "Rules that look like coverage but are blind by default",
+    "why": "A subtle, dangerous scenario: a rule EXISTS and matches an operation, but that operation is a Data Access event that is off by default \u2014 so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: \"Storage Buckets Enumeration\" keys on storage.buckets.list, a DATA_ACCESS read.",
+    "row_count": 5,
+    "rows": [
+      {
+        "rule": "Google Cloud Re-identifies Sensitive Information",
+        "level": "medium",
+        "operation_matched": "projects.content.reidentify",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "rule": "Google Cloud Storage Buckets Enumeration",
+        "level": "low",
+        "operation_matched": "storage.buckets.list",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "rule": "Google Full Network Traffic Packet Capture",
+        "level": "medium",
+        "operation_matched": "compute.packetmirrorings.aggregatedlist",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "rule": "Google Full Network Traffic Packet Capture",
+        "level": "medium",
+        "operation_matched": "compute.packetmirrorings.get",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "rule": "Google Full Network Traffic Packet Capture",
+        "level": "medium",
+        "operation_matched": "compute.packetmirrorings.list",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      }
+    ]
+  },
+  "05_rules_without_technique.cypher": {
+    "title": "Where the detection effort lands vs. where the attacks are",
+    "why": "Complements the blind-spot view. These rules cover operations that NO technique in the offensive corpus uses (has_technique=false) \u2014 often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the sigma set is weighted toward \"impact/destruction\" and away from the \"privilege-escalation / credential-access\" operations that dominate the corpus.",
+    "row_count": 14,
+    "rows": [
+      {
+        "rule": "GCP Access Policy Deleted",
+        "operations_no_technique_uses": [
+          "accesscontextmanager.accesslevels.delete",
+          "accesscontextmanager.accesspolicies.delete",
+          "accesscontextmanager.accesszones.delete",
+          "accesscontextmanager.authorizedorgsdescs.delete"
+        ],
+        "mitre_tactics": [
+          "persistence",
+          "privilege-escalation"
+        ]
+      },
+      {
+        "rule": "Google Cloud DNS Zone Modified or Deleted",
+        "operations_no_technique_uses": [
+          "dns.managedzones.delete",
+          "dns.managedzones.patch",
+          "dns.managedzones.update"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud Firewall Modified or Deleted",
+        "operations_no_technique_uses": [
+          "compute.firewalls.delete",
+          "compute.firewalls.insert",
+          "compute.firewalls.patch",
+          "compute.firewalls.update"
+        ],
+        "mitre_tactics": [
+          "defense-impairment"
+        ]
+      },
+      {
+        "rule": "Google Cloud Kubernetes Admission Controller",
+        "operations_no_technique_uses": [
+          "gke.mutatingwebhookconfigurations.patch",
+          "gke.mutatingwebhookconfigurations.replace",
+          "gke.validatingwebhookconfigurations.create",
+          "gke.validatingwebhookconfigurations.patch",
+          "gke.validatingwebhookconfigurations.replace"
+        ],
+        "mitre_tactics": [
+          "credential-access",
+          "initial-access",
+          "persistence",
+          "privilege-escalation",
+          "stealth"
+        ]
+      },
+      {
+        "rule": "Google Cloud Kubernetes RoleBinding",
+        "operations_no_technique_uses": [
+          "gke.clusterrolebindings.create",
+          "gke.clusterrolebindings.delete",
+          "gke.clusterrolebindings.patch",
+          "gke.clusterrolebindings.update",
+          "gke.rolebindings.create",
+          "gke.rolebindings.delete",
+          "gke.rolebindings.patch",
+          "gke.rolebindings.update"
+        ],
+        "mitre_tactics": [
+          "credential-access"
+        ]
+      },
+      {
+        "rule": "Google Cloud Kubernetes Secrets Modified or Deleted",
+        "operations_no_technique_uses": [
+          "gke.secrets.create",
+          "gke.secrets.delete",
+          "gke.secrets.patch",
+          "gke.secrets.update"
+        ],
+        "mitre_tactics": [
+          "credential-access"
+        ]
+      },
+      {
+        "rule": "Google Cloud Re-identifies Sensitive Information",
+        "operations_no_technique_uses": [
+          "projects.content.reidentify"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud SQL Database Modified or Deleted",
+        "operations_no_technique_uses": [
+          "cloudsql.instances.create",
+          "cloudsql.instances.delete",
+          "cloudsql.users.delete"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud Service Account Disabled or Deleted",
+        "operations_no_technique_uses": [
+          "?.serviceaccounts.delete"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud Service Account Modified",
+        "operations_no_technique_uses": [
+          "?.serviceaccounts.enable",
+          "?.serviceaccounts.patch",
+          "?.serviceaccounts.undelete",
+          "?.serviceaccounts.update"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud Storage Buckets Enumeration",
+        "operations_no_technique_uses": [
+          "storage.buckets.list",
+          "storage.buckets.listchannels"
+        ],
+        "mitre_tactics": [
+          "discovery"
+        ]
+      },
+      {
+        "rule": "Google Cloud Storage Buckets Modified or Deleted",
+        "operations_no_technique_uses": [
+          "storage.buckets.insert",
+          "storage.buckets.patch"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Cloud VPN Tunnel Modified or Deleted",
+        "operations_no_technique_uses": [
+          "compute.vpntunnels.delete",
+          "compute.vpntunnels.insert"
+        ],
+        "mitre_tactics": [
+          "impact"
+        ]
+      },
+      {
+        "rule": "Google Full Network Traffic Packet Capture",
+        "operations_no_technique_uses": [
+          "compute.packetmirrorings.aggregatedlist",
+          "compute.packetmirrorings.delete",
+          "compute.packetmirrorings.get",
+          "compute.packetmirrorings.insert",
+          "compute.packetmirrorings.list",
+          "compute.packetmirrorings.patch"
+        ],
+        "mitre_tactics": [
+          "collection"
+        ]
+      }
+    ]
+  },
+  "06_coverage_by_tactic_service.cypher": {
+    "title": "Blind-spot concentration by tactic and service",
+    "why": "Shows the shape of the gap. Privilege-escalation and post-exploitation are almost entirely blind; the handful of detections cluster in GKE/container, storage and SQL. Per service you can see exactly where you have 0% coverage.",
+    "row_count": 52,
+    "rows": [
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "detected": 6,
+        "total": 30,
+        "blind": 24,
+        "pct_detected": 20.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "detected": 0,
+        "total": 13,
+        "blind": 13,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "detected": 0,
+        "total": 13,
+        "blind": 13,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "detected": 0,
+        "total": 12,
+        "blind": 12,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "detected": 0,
+        "total": 9,
+        "blind": 9,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "detected": 0,
+        "total": 9,
+        "blind": 9,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "detected": 1,
+        "total": 9,
+        "blind": 8,
+        "pct_detected": 11.1
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "monitoring",
+        "detected": 0,
+        "total": 8,
+        "blind": 8,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "detected": 0,
+        "total": 8,
+        "blind": 8,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "detected": 2,
+        "total": 10,
+        "blind": 8,
+        "pct_detected": 20.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "detected": 0,
+        "total": 7,
+        "blind": 7,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "detected": 0,
+        "total": 7,
+        "blind": 7,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "detected": 0,
+        "total": 6,
+        "blind": 6,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "detected": 0,
+        "total": 6,
+        "blind": 6,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "detected": 0,
+        "total": 6,
+        "blind": 6,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "cloudasset",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "compute",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "securitycenter",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "detected": 0,
+        "total": 5,
+        "blind": 5,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "appengine",
+        "detected": 0,
+        "total": 4,
+        "blind": 4,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "detected": 0,
+        "total": 4,
+        "blind": 4,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "detected": 0,
+        "total": 4,
+        "blind": 4,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "detected": 0,
+        "total": 4,
+        "blind": 4,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "serviceusage",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "storage",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "detected": 0,
+        "total": 3,
+        "blind": 3,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "resourcemanager",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudfunctions",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "detected": 4,
+        "total": 6,
+        "blind": 2,
+        "pct_detected": 66.7
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "composer",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "orgpolicy",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "osconfig",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "billing",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "discovery",
+        "service": "container",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "persistence",
+        "service": "logging",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "persistence",
+        "service": "storage",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudbuild",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "iam",
+        "detected": 1,
+        "total": 2,
+        "blind": 1,
+        "pct_detected": 50.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "batch",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "dataproc",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "workflows",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "apikeys",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "serviceusage",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
+        "detected": 1,
+        "total": 2,
+        "blind": 1,
+        "pct_detected": 50.0
+      }
+    ]
+  },
+  "07_blind_privesc_to_crown_jewels.cypher": {
+    "title": "Undetected techniques that hand over a crown jewel",
+    "why": "The high-impact scenarios. Each technique here is a blind spot (no DETECTED_BY) yet it grants \u2014 directly, or through a documented capability implication \u2014 a crown-jewel capability: project/org ownership, an exportable SA key, secret material, or KMS decryption. An attacker performs one uncovered API call and owns the asset, with no alert. This is a pure graph traversal; no model is involved.",
+    "row_count": 13,
+    "rows": [
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS",
+          "ORG_ADMIN",
+          "PROJECT_ADMIN",
+          "READ_SECRET"
+        ],
+        "technique": "resourcemanager.organizations.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.create",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS",
+          "PROJECT_ADMIN",
+          "READ_SECRET"
+        ],
+        "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.update",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS",
+          "PROJECT_ADMIN",
+          "READ_SECRET"
+        ],
+        "technique": "iam.roles.update (iam.roles.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.folders.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS",
+          "PROJECT_ADMIN",
+          "READ_SECRET"
+        ],
+        "technique": "resourcemanager.folders.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.projects.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS",
+          "PROJECT_ADMIN",
+          "READ_SECRET"
+        ],
+        "technique": "resourcemanager.projects.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "READ_SECRET"
+        ],
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecrypt",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.useToDecrypt"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "DECRYPT_KMS"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.get",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "READ_SECRET"
+        ],
+        "technique": "container.secrets.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.secrets.list",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "READ_SECRET"
+        ],
+        "technique": "container.secrets.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "SA_KEY_PERSIST"
+        ],
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.access",
+        "blind_class": "TELEMETRY_GAP",
+        "crown_jewels": [
+          "READ_SECRET"
+        ],
+        "technique": "secretmanager.versions.access"
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "blind_class": "RULE_GAP",
+        "crown_jewels": [
+          "SA_KEY_PERSIST"
+        ],
+        "technique": "iam.serviceAccountKeys.create"
+      }
+    ]
+  },
+  "08_undetected_pivot_chains.cypher": {
+    "title": "Multi-step pivot chains that no per-event rule can correlate",
+    "why": "This is the scenario a signature engine structurally cannot see, and the graph can. Each ENABLES edge is \"technique A yields a capability that unlocks technique B\" (e.g. mint an SA token -> now satisfy iam.serviceAccounts.actAs -> deploy code as a new SA -> mint the next token...). Every step below is individually a blind spot AND the whole chain is invisible: no rule fires on any hop, and no rule reasons across hops. A low-privilege foothold walks across service accounts undetected. entry = standalone foothold (<=2 perms, no actAs); each subsequent hop is a deploy-as-SA technique reached purely by impersonation.",
+    "row_count": 20,
+    "rows": [
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      },
+      {
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
+        "hops": 4,
+        "chain": [
+          "artifactregistry.setIamPolicy",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
+        ]
+      }
+    ]
+  },
+  "09_invisible_impersonation.cypher": {
+    "title": "Invisible service-account impersonation primitives",
+    "why": "The sharpest instance of a Class B telemetry gap. Every technique here GRANTS the IMPERSONATE_SA capability (the attacker becomes another service account) while its only operations are DATA_ACCESS events that are off by default. So the single most valuable move in a GCP attack \u2014 stealing another identity \u2014 produces no log at all in a default project, let alone an alert. These are also the entry points of the pivot chains in query 08.",
+    "row_count": 6,
+    "rows": [
+      {
+        "service": "container",
+        "primary_permission": "container.serviceAccounts.createToken",
+        "operations": [
+          "gke.serviceaccounts.createtoken"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "container.serviceAccounts.createToken"
+      },
+      {
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getAccessToken",
+        "operations": [
+          "iam.serviceaccounts.getaccesstoken"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "iam.serviceAccounts.getAccessToken (iam.serviceAccounts.get)"
+      },
+      {
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.getOpenIdToken",
+        "operations": [
+          "iam.serviceaccounts.getopenidtoken"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "iam.serviceAccounts.getOpenIdToken"
+      },
+      {
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.implicitDelegation",
+        "operations": [
+          "iam.serviceaccounts.implicitdelegation"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "iam.serviceAccounts.implicitDelegation"
+      },
+      {
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signBlob",
+        "operations": [
+          "iam.serviceaccounts.signblob"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "iam.serviceAccounts.signBlob"
+      },
+      {
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.signJwt",
+        "operations": [
+          "iam.serviceaccounts.signjwt"
+        ],
+        "tactic": "privilege-escalation",
+        "technique": "iam.serviceAccounts.signJwt"
+      }
+    ]
+  }
+}

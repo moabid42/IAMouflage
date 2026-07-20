@@ -1,0 +1,4978 @@
+[
+  {
+    "id": "privilege-escalation:gcp-apikeys-privesc:1",
+    "title": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "apikeys",
+    "section": "App Engine",
+    "file": "gcp-apikeys-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-apikeys-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.applications.get",
+      "appengine.instances.get",
+      "appengine.instances.list",
+      "appengine.operations.get",
+      "appengine.operations.list",
+      "appengine.services.get",
+      "appengine.services.list",
+      "appengine.versions.create",
+      "appengine.versions.get",
+      "appengine.versions.list",
+      "cloudbuild.builds.get",
+      "iam.serviceAccounts.actAs",
+      "resourcemanager.projects.get",
+      "storage.objects.create",
+      "storage.objects.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "appengine.applications.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-apikeys-privesc:2",
+    "title": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "apikeys",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-apikeys-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-apikeys-privesc.md",
+    "line": 75,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.instances.enableDebug",
+      "appengine.instances.get",
+      "appengine.instances.list",
+      "appengine.operations.get",
+      "appengine.services.get",
+      "appengine.services.list",
+      "appengine.versions.get",
+      "appengine.versions.list",
+      "compute.projects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.instances.enableDebug",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-apikeys-privesc:3",
+    "title": "appengine.applications.update, appengine.operations.get",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "apikeys",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-apikeys-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-apikeys-privesc.md",
+    "line": 83,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.applications.update",
+      "appengine.operations.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.applications.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-apikeys-privesc:4",
+    "title": "appengine.versions.getFileContents, appengine.versions.update",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "apikeys",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-apikeys-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-apikeys-privesc.md",
+    "line": 91,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.versions.getFileContents",
+      "appengine.versions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.versions.getFileContents",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-apikeys-privesc:5",
+    "title": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)",
+    "tactic": "privilege-escalation",
+    "service": "bigquery",
+    "file_service": "apikeys",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-apikeys-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-apikeys-privesc.md",
+    "line": 95,
+    "heading_level": 3,
+    "required_perms": [
+      "bigquery.tables.delete",
+      "bigquery.datasets.delete",
+      "bigquery.models.delete"
+    ],
+    "optional_perms": [
+      "bigquery.models.getMetadata"
+    ],
+    "requires_actas": false,
+    "primary_perm": "bigquery.tables.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-appengine-privesc:1",
+    "title": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-appengine-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-appengine-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.applications.get",
+      "appengine.instances.get",
+      "appengine.instances.list",
+      "appengine.operations.get",
+      "appengine.operations.list",
+      "appengine.services.get",
+      "appengine.services.list",
+      "appengine.versions.create",
+      "appengine.versions.get",
+      "appengine.versions.list",
+      "cloudbuild.builds.get",
+      "iam.serviceAccounts.actAs",
+      "resourcemanager.projects.get",
+      "storage.objects.create",
+      "storage.objects.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "appengine.applications.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-appengine-privesc:2",
+    "title": "appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-appengine-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-appengine-privesc.md",
+    "line": 90,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.instances.enableDebug",
+      "appengine.instances.get",
+      "appengine.instances.list",
+      "appengine.operations.get",
+      "appengine.services.get",
+      "appengine.services.list",
+      "appengine.versions.get",
+      "appengine.versions.list",
+      "compute.projects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.instances.enableDebug",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-appengine-privesc:3",
+    "title": "appengine.applications.update, appengine.operations.get",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-appengine-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-appengine-privesc.md",
+    "line": 103,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.applications.update",
+      "appengine.operations.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.applications.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-appengine-privesc:4",
+    "title": "appengine.versions.getFileContents, appengine.versions.update",
+    "tactic": "privilege-escalation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "If you don't have an app.yaml, create one like:",
+    "file": "gcp-appengine-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-appengine-privesc.md",
+    "line": 116,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.versions.getFileContents",
+      "appengine.versions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.versions.getFileContents",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:1",
+    "title": "artifactregistry.repositories.uploadArtifacts",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.repositories.uploadArtifacts"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.repositories.uploadArtifacts",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:2",
+    "title": "artifactregistry.repositories.downloadArtifacts",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 153,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.repositories.downloadArtifacts"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.repositories.downloadArtifacts",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:3",
+    "title": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 189,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.tags.delete",
+      "artifactregistry.versions.delete",
+      "artifactregistry.packages.delete"
+    ],
+    "optional_perms": [
+      "artifactregistry.repositories.get",
+      "artifactregistry.tags.get",
+      "artifactregistry.tags.list"
+    ],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.tags.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:4",
+    "title": "artifactregistry.repositories.delete",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 203,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.repositories.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.repositories.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:5",
+    "title": "artifactregistry.repositories.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 216,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.repositories.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.repositories.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-artifact-registry-privesc:6",
+    "title": "artifactregistry.repositories.update",
+    "tactic": "privilege-escalation",
+    "service": "artifactregistry",
+    "file_service": "artifactregistry",
+    "section": "Artifact Registry",
+    "file": "gcp-artifact-registry-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-artifact-registry-privesc.md",
+    "line": 232,
+    "heading_level": 3,
+    "required_perms": [
+      "artifactregistry.repositories.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "artifactregistry.repositories.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-batch-privesc:1",
+    "title": "batch.jobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "batch",
+    "file_service": "batch",
+    "section": "Batch",
+    "file": "gcp-batch-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-batch-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "batch.jobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "batch.jobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigquery-privesc:1",
+    "title": "bigquery.datasets.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigquery",
+    "file_service": "bigquery",
+    "section": "BigQuery",
+    "file": "gcp-bigquery-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigquery-privesc.md",
+    "line": 58,
+    "heading_level": 3,
+    "required_perms": [
+      "bigquery.datasets.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigquery.datasets.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigquery-privesc:2",
+    "title": "bigquery.datasets.update, (bigquery.datasets.get)",
+    "tactic": "privilege-escalation",
+    "service": "bigquery",
+    "file_service": "bigquery",
+    "section": "BigQuery",
+    "file": "gcp-bigquery-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigquery-privesc.md",
+    "line": 77,
+    "heading_level": 3,
+    "required_perms": [
+      "bigquery.datasets.update"
+    ],
+    "optional_perms": [
+      "bigquery.datasets.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "bigquery.datasets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigquery-privesc:3",
+    "title": "bigquery.tables.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigquery",
+    "file_service": "bigquery",
+    "section": "Read it with",
+    "file": "gcp-bigquery-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigquery-privesc.md",
+    "line": 95,
+    "heading_level": 3,
+    "required_perms": [
+      "bigquery.tables.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigquery.tables.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigquery-privesc:4",
+    "title": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create",
+    "tactic": "privilege-escalation",
+    "service": "bigquery",
+    "file_service": "bigquery",
+    "section": "Read it with",
+    "file": "gcp-bigquery-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigquery-privesc.md",
+    "line": 114,
+    "heading_level": 3,
+    "required_perms": [
+      "bigquery.rowAccessPolicies.update",
+      "bigquery.rowAccessPolicies.setIamPolicy",
+      "bigquery.tables.getData",
+      "bigquery.jobs.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigquery.rowAccessPolicies.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigtable-privesc:1",
+    "title": "bigtable.instances.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigtable",
+    "file_service": "bigtable",
+    "section": "Bigtable",
+    "file": "gcp-bigtable-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigtable-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "bigtable.instances.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigtable.instances.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigtable-privesc:2",
+    "title": "bigtable.tables.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigtable",
+    "file_service": "bigtable",
+    "section": "Bigtable",
+    "file": "gcp-bigtable-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigtable-privesc.md",
+    "line": 34,
+    "heading_level": 3,
+    "required_perms": [
+      "bigtable.tables.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigtable.tables.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigtable-privesc:3",
+    "title": "bigtable.backups.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigtable",
+    "file_service": "bigtable",
+    "section": "Bigtable",
+    "file": "gcp-bigtable-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigtable-privesc.md",
+    "line": 54,
+    "heading_level": 3,
+    "required_perms": [
+      "bigtable.backups.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigtable.backups.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-bigtable-privesc:4",
+    "title": "bigtable.authorizedViews.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "bigtable",
+    "file_service": "bigtable",
+    "section": "Bigtable",
+    "file": "gcp-bigtable-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-bigtable-privesc.md",
+    "line": 114,
+    "heading_level": 3,
+    "required_perms": [
+      "bigtable.authorizedViews.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "bigtable.authorizedViews.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudbuild-privesc:1",
+    "title": "cloudbuild.builds.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "cloudbuild",
+    "file_service": "cloudbuild",
+    "section": "cloudbuild",
+    "file": "gcp-cloudbuild-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudbuild-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudbuild.builds.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "cloudbuild.builds.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudbuild-privesc:2",
+    "title": "cloudbuild.repositories.accessReadToken",
+    "tactic": "privilege-escalation",
+    "service": "cloudbuild",
+    "file_service": "cloudbuild",
+    "section": "cloudbuild",
+    "file": "gcp-cloudbuild-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudbuild-privesc.md",
+    "line": 52,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudbuild.repositories.accessReadToken"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudbuild.repositories.accessReadToken",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudbuild-privesc:3",
+    "title": "cloudbuild.repositories.accessReadWriteToken",
+    "tactic": "privilege-escalation",
+    "service": "cloudbuild",
+    "file_service": "cloudbuild",
+    "section": "cloudbuild",
+    "file": "gcp-cloudbuild-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudbuild-privesc.md",
+    "line": 68,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudbuild.repositories.accessReadWriteToken"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudbuild.repositories.accessReadWriteToken",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudbuild-privesc:4",
+    "title": "cloudbuild.connections.fetchLinkableRepositories",
+    "tactic": "privilege-escalation",
+    "service": "cloudbuild",
+    "file_service": "cloudbuild",
+    "section": "cloudbuild",
+    "file": "gcp-cloudbuild-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudbuild-privesc.md",
+    "line": 84,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudbuild.connections.fetchLinkableRepositories"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudbuild.connections.fetchLinkableRepositories",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudfunctions-privesc:1",
+    "title": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "cloudfunctions",
+    "file": "gcp-cloudfunctions-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudfunctions-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.create",
+      "cloudfunctions.functions.sourceCodeSet",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "cloudfunctions.functions.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudfunctions-privesc:2",
+    "title": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "cloudfunctions",
+    "file": "gcp-cloudfunctions-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudfunctions-privesc.md",
+    "line": 20,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.update",
+      "cloudfunctions.functions.sourceCodeSet",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "cloudfunctions.functions.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudfunctions-privesc:3",
+    "title": "cloudfunctions.functions.sourceCodeSet",
+    "tactic": "privilege-escalation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "cloudfunctions",
+    "file": "gcp-cloudfunctions-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudfunctions-privesc.md",
+    "line": 64,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.sourceCodeSet"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudfunctions.functions.sourceCodeSet",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudfunctions-privesc:4",
+    "title": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "cloudfunctions",
+    "file": "gcp-cloudfunctions-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudfunctions-privesc.md",
+    "line": 78,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.setIamPolicy",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "cloudfunctions.functions.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudfunctions-privesc:5",
+    "title": "cloudfunctions.functions.update",
+    "tactic": "privilege-escalation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "cloudfunctions",
+    "file": "gcp-cloudfunctions-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudfunctions-privesc.md",
+    "line": 89,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudfunctions.functions.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudscheduler-privesc:1",
+    "title": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)",
+    "tactic": "privilege-escalation",
+    "service": "cloudscheduler",
+    "file_service": "cloudscheduler",
+    "section": "Cloud Scheduler",
+    "file": "gcp-cloudscheduler-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudscheduler-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudscheduler.jobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [
+      "cloudscheduler.locations.list"
+    ],
+    "requires_actas": true,
+    "primary_perm": "cloudscheduler.jobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudscheduler-privesc:2",
+    "title": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)",
+    "tactic": "privilege-escalation",
+    "service": "cloudscheduler",
+    "file_service": "cloudscheduler",
+    "section": "Cloud Scheduler",
+    "file": "gcp-cloudscheduler-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudscheduler-privesc.md",
+    "line": 45,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudscheduler.jobs.update",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [
+      "cloudscheduler.locations.list"
+    ],
+    "requires_actas": true,
+    "primary_perm": "cloudscheduler.jobs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudtasks-privesc:1",
+    "title": "cloudtasks.tasks.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "cloudtasks",
+    "file_service": "cloudtasks",
+    "section": "Cloud Tasks",
+    "file": "gcp-cloudtasks-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudtasks-privesc.md",
+    "line": 7,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudtasks.tasks.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "cloudtasks.tasks.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudtasks-privesc:2",
+    "title": "cloudtasks.tasks.run, cloudtasks.tasks.list",
+    "tactic": "privilege-escalation",
+    "service": "cloudtasks",
+    "file_service": "cloudtasks",
+    "section": "Cloud Tasks",
+    "file": "gcp-cloudtasks-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudtasks-privesc.md",
+    "line": 27,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudtasks.tasks.run",
+      "cloudtasks.tasks.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudtasks.tasks.run",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-cloudtasks-privesc:3",
+    "title": "cloudtasks.queues.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "cloudtasks",
+    "file_service": "cloudtasks",
+    "section": "Cloud Tasks",
+    "file": "gcp-cloudtasks-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-cloudtasks-privesc.md",
+    "line": 41,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudtasks.queues.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudtasks.queues.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-composer-privesc:1",
+    "title": "composer.environments.create",
+    "tactic": "privilege-escalation",
+    "service": "composer",
+    "file_service": "composer",
+    "section": "composer",
+    "file": "gcp-composer-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-composer-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "composer.environments.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "composer.environments.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-composer-privesc:2",
+    "title": "composer.environments.update",
+    "tactic": "privilege-escalation",
+    "service": "composer",
+    "file_service": "composer",
+    "section": "composer",
+    "file": "gcp-composer-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-composer-privesc.md",
+    "line": 30,
+    "heading_level": 3,
+    "required_perms": [
+      "composer.environments.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "composer.environments.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:1",
+    "title": "compute.projects.setCommonInstanceMetadata",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 16,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.projects.setCommonInstanceMetadata"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.projects.setCommonInstanceMetadata",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:2",
+    "title": "compute.instances.setMetadata",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 40,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.instances.setMetadata"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.instances.setMetadata",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:3",
+    "title": "compute.instances.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 44,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.instances.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.instances.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:4",
+    "title": "compute.instances.osLogin",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 64,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.instances.osLogin"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.instances.osLogin",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:5",
+    "title": "compute.instances.osAdminLogin",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.instances.osAdminLogin"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.instances.osAdminLogin",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:6",
+    "title": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 78,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.instances.create",
+      "iam.serviceAccounts.actAs",
+      "compute.disks.create",
+      "compute.instances.setMetadata",
+      "compute.instances.setServiceAccount",
+      "compute.subnetworks.use",
+      "compute.subnetworks.useExternalIp"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "compute.instances.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:7",
+    "title": "osconfig.patchDeployments.create",
+    "tactic": "privilege-escalation",
+    "service": "osconfig",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 84,
+    "heading_level": 3,
+    "required_perms": [
+      "osconfig.patchDeployments.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "osconfig.patchDeployments.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:8",
+    "title": "osconfig.patchJobs.exec",
+    "tactic": "privilege-escalation",
+    "service": "osconfig",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 84,
+    "heading_level": 3,
+    "required_perms": [
+      "osconfig.patchJobs.exec"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "osconfig.patchJobs.exec",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:9",
+    "title": "compute.machineImages.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 122,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.machineImages.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.machineImages.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:10",
+    "title": "compute.snapshots.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 126,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.snapshots.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.snapshots.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-compute-privesc:11",
+    "title": "compute.disks.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "compute",
+    "file_service": "compute",
+    "section": "Compute",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-compute-privesc/README.md",
+    "line": 130,
+    "heading_level": 3,
+    "required_perms": [
+      "compute.disks.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.disks.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:1",
+    "title": "container.clusters.get",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 7,
+    "heading_level": 3,
+    "required_perms": [
+      "container.clusters.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.clusters.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:2",
+    "title": "container.roles.escalate",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 59,
+    "heading_level": 3,
+    "required_perms": [
+      "container.roles.escalate"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.roles.escalate",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:3",
+    "title": "container.clusterRoles.escalate",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 59,
+    "heading_level": 3,
+    "required_perms": [
+      "container.clusterRoles.escalate"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.clusterRoles.escalate",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:4",
+    "title": "container.roles.bind",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 65,
+    "heading_level": 3,
+    "required_perms": [
+      "container.roles.bind"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.roles.bind",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:5",
+    "title": "container.clusterRoles.bind",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 65,
+    "heading_level": 3,
+    "required_perms": [
+      "container.clusterRoles.bind"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.clusterRoles.bind",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:6",
+    "title": "container.cronJobs.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.cronJobs.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.cronJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:7",
+    "title": "container.cronJobs.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.cronJobs.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.cronJobs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:8",
+    "title": "container.daemonSets.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.daemonSets.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.daemonSets.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:9",
+    "title": "container.daemonSets.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.daemonSets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.daemonSets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:10",
+    "title": "container.deployments.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.deployments.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.deployments.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:11",
+    "title": "container.deployments.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.deployments.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.deployments.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:12",
+    "title": "container.jobs.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.jobs.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.jobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:13",
+    "title": "container.jobs.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.jobs.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.jobs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:14",
+    "title": "container.pods.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.pods.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.pods.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:15",
+    "title": "container.pods.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.pods.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.pods.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:16",
+    "title": "container.replicaSets.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.replicaSets.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.replicaSets.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:17",
+    "title": "container.replicaSets.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.replicaSets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.replicaSets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:18",
+    "title": "container.replicationControllers.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.replicationControllers.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.replicationControllers.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:19",
+    "title": "container.replicationControllers.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.replicationControllers.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.replicationControllers.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:20",
+    "title": "container.scheduledJobs.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.scheduledJobs.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.scheduledJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:21",
+    "title": "container.scheduledJobs.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.scheduledJobs.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.scheduledJobs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:22",
+    "title": "container.statefulSets.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.statefulSets.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.statefulSets.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:23",
+    "title": "container.statefulSets.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "container.statefulSets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.statefulSets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:24",
+    "title": "container.secrets.get",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 78,
+    "heading_level": 3,
+    "required_perms": [
+      "container.secrets.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.secrets.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:25",
+    "title": "container.secrets.list",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 78,
+    "heading_level": 3,
+    "required_perms": [
+      "container.secrets.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.secrets.list",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:26",
+    "title": "container.pods.exec",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 82,
+    "heading_level": 3,
+    "required_perms": [
+      "container.pods.exec"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.pods.exec",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:27",
+    "title": "container.pods.portForward",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 86,
+    "heading_level": 3,
+    "required_perms": [
+      "container.pods.portForward"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.pods.portForward",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:28",
+    "title": "container.serviceAccounts.createToken",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 90,
+    "heading_level": 3,
+    "required_perms": [
+      "container.serviceAccounts.createToken"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.serviceAccounts.createToken",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:29",
+    "title": "container.mutatingWebhookConfigurations.create",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 94,
+    "heading_level": 3,
+    "required_perms": [
+      "container.mutatingWebhookConfigurations.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.mutatingWebhookConfigurations.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-container-privesc:30",
+    "title": "container.mutatingWebhookConfigurations.update",
+    "tactic": "privilege-escalation",
+    "service": "container",
+    "file_service": "container",
+    "section": "container",
+    "file": "gcp-container-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-container-privesc.md",
+    "line": 94,
+    "heading_level": 3,
+    "required_perms": [
+      "container.mutatingWebhookConfigurations.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.mutatingWebhookConfigurations.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-dataflow-privesc:1",
+    "title": "storage.objects.create, storage.objects.get, storage.objects.update",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "dataflow",
+    "section": "Dataflow",
+    "file": "gcp-dataflow-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-dataflow-privesc.md",
+    "line": 11,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.objects.create",
+      "storage.objects.get",
+      "storage.objects.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-dataproc-privesc:1",
+    "title": "dataproc.clusters.get, dataproc.clusters.use, dataproc.jobs.create, dataproc.jobs.get, dataproc.jobs.list, storage.objects.create, storage.objects.get",
+    "tactic": "privilege-escalation",
+    "service": "dataproc",
+    "file_service": "dataproc",
+    "section": "Dataproc",
+    "file": "gcp-dataproc-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-dataproc-privesc.md",
+    "line": 11,
+    "heading_level": 3,
+    "required_perms": [
+      "dataproc.clusters.get",
+      "dataproc.clusters.use",
+      "dataproc.jobs.create",
+      "dataproc.jobs.get",
+      "dataproc.jobs.list",
+      "storage.objects.create",
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "dataproc.clusters.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-deploymentmaneger-privesc:1",
+    "title": "deploymentmanager.deployments.create",
+    "tactic": "privilege-escalation",
+    "service": "deploymentmanager",
+    "file_service": "deploymentmaneger",
+    "section": "deploymentmanager",
+    "file": "gcp-deploymentmaneger-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-deploymentmaneger-privesc.md",
+    "line": 7,
+    "heading_level": 3,
+    "required_perms": [
+      "deploymentmanager.deployments.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "deploymentmanager.deployments.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-deploymentmaneger-privesc:2",
+    "title": "deploymentmanager.deployments.update",
+    "tactic": "privilege-escalation",
+    "service": "deploymentmanager",
+    "file_service": "deploymentmaneger",
+    "section": "deploymentmanager",
+    "file": "gcp-deploymentmaneger-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-deploymentmaneger-privesc.md",
+    "line": 15,
+    "heading_level": 3,
+    "required_perms": [
+      "deploymentmanager.deployments.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "deploymentmanager.deployments.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-deploymentmaneger-privesc:3",
+    "title": "deploymentmanager.deployments.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "deploymentmanager",
+    "file_service": "deploymentmaneger",
+    "section": "deploymentmanager",
+    "file": "gcp-deploymentmaneger-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-deploymentmaneger-privesc.md",
+    "line": 21,
+    "heading_level": 3,
+    "required_perms": [
+      "deploymentmanager.deployments.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "deploymentmanager.deployments.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:1",
+    "title": "iam.roles.update (iam.roles.get)",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.roles.update"
+    ],
+    "optional_perms": [
+      "iam.roles.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "iam.roles.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:2",
+    "title": "iam.roles.create & iam.serviceAccounts.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 27,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.roles.create",
+      "iam.serviceAccounts.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.roles.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:3",
+    "title": "iam.serviceAccounts.getAccessToken (iam.serviceAccounts.get)",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 38,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.getAccessToken"
+    ],
+    "optional_perms": [
+      "iam.serviceAccounts.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.getAccessToken",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:4",
+    "title": "iam.serviceAccountKeys.create",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 55,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccountKeys.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccountKeys.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:5",
+    "title": "iam.serviceAccounts.implicitDelegation",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 69,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.implicitDelegation"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.implicitDelegation",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:6",
+    "title": "iam.serviceAccounts.signBlob",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 90,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.signBlob"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.signBlob",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:7",
+    "title": "iam.serviceAccounts.signJwt",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 96,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.signJwt"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.signJwt",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:8",
+    "title": "iam.serviceAccounts.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 102,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.setIamPolicy",
+      "iam.serviceaccounts.setiampolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:9",
+    "title": "iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 119,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "iam.serviceAccounts.actAs",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-iam-privesc:10",
+    "title": "iam.serviceAccounts.getOpenIdToken",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-iam-privesc.md",
+    "line": 131,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.getOpenIdToken"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.getOpenIdToken",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-kms-privesc:1",
+    "title": "cloudkms.cryptoKeyVersions.useToDecrypt",
+    "tactic": "privilege-escalation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-kms-privesc.md",
+    "line": 15,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToDecrypt"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToDecrypt",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-kms-privesc:2",
+    "title": "cloudkms.cryptoKeys.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-kms-privesc.md",
+    "line": 33,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeys.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeys.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-kms-privesc:3",
+    "title": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation",
+    "tactic": "privilege-escalation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-kms-privesc.md",
+    "line": 49,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToDecryptViaDelegation",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-misc-perms-privesc:1",
+    "title": "iam.ServiceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "miscperms",
+    "section": "Generic Interesting Permissions",
+    "file": "gcp-misc-perms-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-misc-perms-privesc.md",
+    "line": 25,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.ServiceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "iam.ServiceAccounts.actAs",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-orgpolicy-privesc:1",
+    "title": "orgpolicy.policy.set",
+    "tactic": "privilege-escalation",
+    "service": "orgpolicy",
+    "file_service": "orgpolicy",
+    "section": "orgpolicy",
+    "file": "gcp-orgpolicy-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-orgpolicy-privesc.md",
+    "line": 7,
+    "heading_level": 3,
+    "required_perms": [
+      "orgpolicy.policy.set"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "orgpolicy.policy.set",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-orgpolicy-privesc:2",
+    "title": "orgpolicy.policy.set, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "orgpolicy",
+    "file_service": "orgpolicy",
+    "section": "orgpolicy",
+    "file": "gcp-orgpolicy-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-orgpolicy-privesc.md",
+    "line": 26,
+    "heading_level": 3,
+    "required_perms": [
+      "orgpolicy.policy.set",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "orgpolicy.policy.set",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:1",
+    "title": "pubsub.snapshots.create (pubsub.topics.attachSubscription)",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.snapshots.create"
+    ],
+    "optional_perms": [
+      "pubsub.topics.attachSubscription"
+    ],
+    "requires_actas": false,
+    "primary_perm": "pubsub.snapshots.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:2",
+    "title": "pubsub.snapshots.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 21,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.snapshots.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.snapshots.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:3",
+    "title": "pubsub.subscriptions.create",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 25,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:4",
+    "title": "pubsub.subscriptions.update",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 29,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:5",
+    "title": "pubsub.subscriptions.consume",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 33,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.consume"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.consume",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-pubsub-privesc:6",
+    "title": "pubsub.subscriptions.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "PubSub",
+    "file": "gcp-pubsub-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-pubsub-privesc.md",
+    "line": 44,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-resourcemanager-privesc:1",
+    "title": "resourcemanager.organizations.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "resourcemanager",
+    "file_service": "resourcemanager",
+    "section": "resourcemanager",
+    "file": "gcp-resourcemanager-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-resourcemanager-privesc.md",
+    "line": 7,
+    "heading_level": 3,
+    "required_perms": [
+      "resourcemanager.organizations.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "resourcemanager.organizations.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-resourcemanager-privesc:2",
+    "title": "resourcemanager.folders.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "resourcemanager",
+    "file_service": "resourcemanager",
+    "section": "resourcemanager",
+    "file": "gcp-resourcemanager-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-resourcemanager-privesc.md",
+    "line": 11,
+    "heading_level": 3,
+    "required_perms": [
+      "resourcemanager.folders.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "resourcemanager.folders.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-resourcemanager-privesc:3",
+    "title": "resourcemanager.projects.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "resourcemanager",
+    "file_service": "resourcemanager",
+    "section": "resourcemanager",
+    "file": "gcp-resourcemanager-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-resourcemanager-privesc.md",
+    "line": 15,
+    "heading_level": 3,
+    "required_perms": [
+      "resourcemanager.projects.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "resourcemanager.projects.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:1",
+    "title": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "run.services.create",
+      "iam.serviceAccounts.actAs",
+      "run.routes.invoke"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "run.services.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:2",
+    "title": "run.services.update , iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 21,
+    "heading_level": 3,
+    "required_perms": [
+      "run.services.update",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "run.services.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:3",
+    "title": "run.services.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 41,
+    "heading_level": 3,
+    "required_perms": [
+      "run.services.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "run.services.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:4",
+    "title": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 63,
+    "heading_level": 3,
+    "required_perms": [
+      "run.jobs.create",
+      "run.jobs.run",
+      "iam.serviceaccounts.actAs"
+    ],
+    "optional_perms": [
+      "run.jobs.get"
+    ],
+    "requires_actas": true,
+    "primary_perm": "run.jobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:5",
+    "title": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 77,
+    "heading_level": 3,
+    "required_perms": [
+      "run.jobs.update",
+      "run.jobs.run",
+      "iam.serviceaccounts.actAs"
+    ],
+    "optional_perms": [
+      "run.jobs.get"
+    ],
+    "requires_actas": true,
+    "primary_perm": "run.jobs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:6",
+    "title": "run.jobs.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 91,
+    "heading_level": 3,
+    "required_perms": [
+      "run.jobs.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "run.jobs.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-run-privesc:7",
+    "title": "run.jobs.run, run.jobs.runWithOverrides, (run.jobs.get)",
+    "tactic": "privilege-escalation",
+    "service": "run",
+    "file_service": "run",
+    "section": "Cloud Run",
+    "file": "gcp-run-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-run-privesc.md",
+    "line": 112,
+    "heading_level": 3,
+    "required_perms": [
+      "run.jobs.run",
+      "run.jobs.runWithOverrides"
+    ],
+    "optional_perms": [
+      "run.jobs.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "run.jobs.run",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-secretmanager-privesc:1",
+    "title": "secretmanager.versions.access",
+    "tactic": "privilege-escalation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "secretmanager",
+    "file": "gcp-secretmanager-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-secretmanager-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.versions.access"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.versions.access",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-secretmanager-privesc:2",
+    "title": "secretmanager.secrets.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "secretmanager",
+    "file": "gcp-secretmanager-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-secretmanager-privesc.md",
+    "line": 32,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.secrets.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.secrets.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-serviceusage-privesc:1",
+    "title": "serviceusage.apiKeys.create",
+    "tactic": "privilege-escalation",
+    "service": "serviceusage",
+    "file_service": "serviceusage",
+    "section": "serviceusage",
+    "file": "gcp-serviceusage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-serviceusage-privesc.md",
+    "line": 17,
+    "heading_level": 3,
+    "required_perms": [
+      "serviceusage.apiKeys.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.apiKeys.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-serviceusage-privesc:2",
+    "title": "serviceusage.apiKeys.list",
+    "tactic": "privilege-escalation",
+    "service": "serviceusage",
+    "file_service": "serviceusage",
+    "section": "serviceusage",
+    "file": "gcp-serviceusage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-serviceusage-privesc.md",
+    "line": 29,
+    "heading_level": 3,
+    "required_perms": [
+      "serviceusage.apiKeys.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.apiKeys.list",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-serviceusage-privesc:3",
+    "title": "serviceusage.services.enable , serviceusage.services.use",
+    "tactic": "privilege-escalation",
+    "service": "serviceusage",
+    "file_service": "serviceusage",
+    "section": "serviceusage",
+    "file": "gcp-serviceusage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-serviceusage-privesc.md",
+    "line": 41,
+    "heading_level": 3,
+    "required_perms": [
+      "serviceusage.services.enable",
+      "serviceusage.services.use"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.services.enable",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-sourcerepos-privesc:1",
+    "title": "source.repos.get",
+    "tactic": "privilege-escalation",
+    "service": "source",
+    "file_service": "sourcerepos",
+    "section": "Source Repositories",
+    "file": "gcp-sourcerepos-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-sourcerepos-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "source.repos.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "source.repos.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-sourcerepos-privesc:2",
+    "title": "source.repos.update",
+    "tactic": "privilege-escalation",
+    "service": "source",
+    "file_service": "sourcerepos",
+    "section": "Source Repositories",
+    "file": "gcp-sourcerepos-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-sourcerepos-privesc.md",
+    "line": 25,
+    "heading_level": 3,
+    "required_perms": [
+      "source.repos.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "source.repos.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-sourcerepos-privesc:3",
+    "title": "source.repos.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "source",
+    "file_service": "sourcerepos",
+    "section": "Source Repositories",
+    "file": "gcp-sourcerepos-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-sourcerepos-privesc.md",
+    "line": 36,
+    "heading_level": 3,
+    "required_perms": [
+      "source.repos.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "source.repos.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-sourcerepos-privesc:4",
+    "title": "source.repos.updateProjectConfig",
+    "tactic": "privilege-escalation",
+    "service": "source",
+    "file_service": "sourcerepos",
+    "section": "Source Repositories",
+    "file": "gcp-sourcerepos-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-sourcerepos-privesc.md",
+    "line": 80,
+    "heading_level": 3,
+    "required_perms": [
+      "source.repos.updateProjectConfig"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "source.repos.updateProjectConfig",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-storage-privesc:1",
+    "title": "storage.objects.get",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "Storage",
+    "file": "gcp-storage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-storage-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.get",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-storage-privesc:2",
+    "title": "storage.objects.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "Storage",
+    "file": "gcp-storage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-storage-privesc.md",
+    "line": 20,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.objects.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-storage-privesc:3",
+    "title": "storage.buckets.setIamPolicy",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "Storage",
+    "file": "gcp-storage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-storage-privesc.md",
+    "line": 54,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-storage-privesc:4",
+    "title": "storage.hmacKeys.create",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "Storage",
+    "file": "gcp-storage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-storage-privesc.md",
+    "line": 92,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.hmacKeys.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.hmacKeys.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-storage-privesc:5",
+    "title": "storage.objects.create, storage.objects.delete = Storage Write permissions",
+    "tactic": "privilege-escalation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "If you have TROUBLES creating the HMAC key this was you can also do it contacting the API directly:",
+    "file": "gcp-storage-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-storage-privesc.md",
+    "line": 128,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.objects.create",
+      "storage.objects.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:1",
+    "title": "aiplatform.customJobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 19,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.customJobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "aiplatform.customJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:2",
+    "title": "aiplatform.models.upload, aiplatform.models.get",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 79,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.models.upload",
+      "aiplatform.models.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "aiplatform.models.upload",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:3",
+    "title": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )",
+    "tactic": "privilege-escalation",
+    "service": "iam",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 163,
+    "heading_level": 4,
+    "required_perms": [
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [
+      "aiplatform.endpoints.create",
+      "aiplatform.endpoints.deploy",
+      "aiplatform.endpoints.get",
+      "aiplatform.endpoints.setIamPolicy"
+    ],
+    "requires_actas": true,
+    "primary_perm": "iam.serviceAccounts.actAs",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:4",
+    "title": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 190,
+    "heading_level": 4,
+    "required_perms": [
+      "aiplatform.batchPredictionJobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "aiplatform.batchPredictionJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:5",
+    "title": "aiplatform.models.export",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 257,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.models.export"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "aiplatform.models.export",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:6",
+    "title": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 293,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.pipelineJobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "aiplatform.pipelineJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:7",
+    "title": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 409,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.hyperparameterTuningJobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "aiplatform.hyperparameterTuningJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:8",
+    "title": "aiplatform.datasets.export",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 460,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.datasets.export"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "aiplatform.datasets.export",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:9",
+    "title": "aiplatform.datasets.import",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 519,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.datasets.import"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "aiplatform.datasets.import",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-vertex-ai-privesc:10",
+    "title": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs",
+    "tactic": "privilege-escalation",
+    "service": "aiplatform",
+    "file_service": "vertexai",
+    "section": "Vertex AI",
+    "file": "gcp-vertex-ai-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-vertex-ai-privesc.md",
+    "line": 679,
+    "heading_level": 3,
+    "required_perms": [
+      "aiplatform.notebookExecutionJobs.create",
+      "iam.serviceAccounts.actAs"
+    ],
+    "optional_perms": [],
+    "requires_actas": true,
+    "primary_perm": "aiplatform.notebookExecutionJobs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "privilege-escalation:gcp-workflows-privesc:1",
+    "title": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)",
+    "tactic": "privilege-escalation",
+    "service": "workflows",
+    "file_service": "workflows",
+    "section": "Workflows",
+    "file": "gcp-workflows-privesc.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-privilege-escalation/gcp-workflows-privesc.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "workflows.workflows.create",
+      "iam.serviceAccounts.ActAs",
+      "workflows.executions.create"
+    ],
+    "optional_perms": [
+      "workflows.workflows.get",
+      "workflows.operations.get"
+    ],
+    "requires_actas": true,
+    "primary_perm": "workflows.workflows.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "persistence:gcp-logging-persistence:1",
+    "title": "logging.sinks.create",
+    "tactic": "persistence",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Logging",
+    "file": "gcp-logging-persistence.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-persistence/gcp-logging-persistence.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.sinks.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.sinks.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "persistence:gcp-storage-persistence:1",
+    "title": "storage.hmacKeys.create",
+    "tactic": "persistence",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "Storage",
+    "file": "gcp-storage-persistence.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-persistence/gcp-storage-persistence.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.hmacKeys.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.hmacKeys.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-app-engine-post-exploitation:1",
+    "title": "appengine.memcache.addKey",
+    "tactic": "post-exploitation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-app-engine-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-app-engine-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.memcache.addKey"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.memcache.addKey",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-app-engine-post-exploitation:2",
+    "title": "appengine.memcache.list",
+    "tactic": "post-exploitation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-app-engine-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-app-engine-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.memcache.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.memcache.list",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-app-engine-post-exploitation:3",
+    "title": "appengine.memcache.getKey",
+    "tactic": "post-exploitation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-app-engine-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-app-engine-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.memcache.getKey"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.memcache.getKey",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-app-engine-post-exploitation:4",
+    "title": "appengine.memcache.flush",
+    "tactic": "post-exploitation",
+    "service": "appengine",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-app-engine-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-app-engine-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "appengine.memcache.flush"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "appengine.memcache.flush",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-app-engine-post-exploitation:5",
+    "title": "logging.views.access",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "appengine",
+    "section": "App Engine",
+    "file": "gcp-app-engine-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-app-engine-post-exploitation.md",
+    "line": 27,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.views.access"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.views.access",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-build-post-exploitation:1",
+    "title": "cloudbuild.builds.approve",
+    "tactic": "post-exploitation",
+    "service": "cloudbuild",
+    "file_service": "cloudbuild",
+    "section": "Cloud Build",
+    "file": "gcp-cloud-build-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-build-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudbuild.builds.approve"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudbuild.builds.approve",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-functions-post-exploitation:1",
+    "title": "cloudfunctions.functions.sourceCodeGet",
+    "tactic": "post-exploitation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "Cloud Functions",
+    "file": "gcp-cloud-functions-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-functions-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.sourceCodeGet"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudfunctions.functions.sourceCodeGet",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-functions-post-exploitation:2",
+    "title": "cloudfunctions.functions.delete",
+    "tactic": "post-exploitation",
+    "service": "cloudfunctions",
+    "file_service": "cloudfunctions",
+    "section": "Cloud Functions",
+    "file": "gcp-cloud-functions-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-functions-post-exploitation.md",
+    "line": 24,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudfunctions.functions.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudfunctions.functions.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:1",
+    "title": "cloudsql.instances.update, ( cloudsql.instances.get)",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.instances.update"
+    ],
+    "optional_perms": [
+      "cloudsql.instances.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.instances.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:2",
+    "title": "cloudsql.users.list",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 40,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.users.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.users.list",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:3",
+    "title": "cloudsql.users.create",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 54,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.users.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.users.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:4",
+    "title": "cloudsql.users.update",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 68,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.users.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.users.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:5",
+    "title": "cloudsql.instances.restoreBackup, cloudsql.backupRuns.get",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 82,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.instances.restoreBackup",
+      "cloudsql.backupRuns.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.instances.restoreBackup",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:6",
+    "title": "cloudsql.backupRuns.delete",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 99,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.backupRuns.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.backupRuns.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:7",
+    "title": "cloudsql.instances.export, storage.objects.create",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 113,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.instances.export",
+      "storage.objects.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.instances.export",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:8",
+    "title": "cloudsql.instances.import, storage.objects.get",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 128,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.instances.import",
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.instances.import",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-cloud-sql-post-exploitation:9",
+    "title": "cloudsql.databases.delete",
+    "tactic": "post-exploitation",
+    "service": "cloudsql",
+    "file_service": "cloudsql",
+    "section": "Cloud SQL",
+    "file": "gcp-cloud-sql-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-cloud-sql-post-exploitation.md",
+    "line": 143,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudsql.databases.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudsql.databases.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-iam-post-exploitation:1",
+    "title": "iam.serviceAccountKeys.disable",
+    "tactic": "post-exploitation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-iam-post-exploitation.md",
+    "line": 37,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccountKeys.disable"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccountKeys.disable",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-iam-post-exploitation:2",
+    "title": "iam.serviceAccounts.disable",
+    "tactic": "post-exploitation",
+    "service": "iam",
+    "file_service": "iam",
+    "section": "IAM",
+    "file": "gcp-iam-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-iam-post-exploitation.md",
+    "line": 37,
+    "heading_level": 3,
+    "required_perms": [
+      "iam.serviceAccounts.disable"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.disable",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:1",
+    "title": "cloudkms.cryptoKeyVersions.destroy",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.destroy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.destroy",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:2",
+    "title": "cloudkms.cryptoKeyVersions.useToEncrypt",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 181,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToEncrypt"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToEncrypt",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:3",
+    "title": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 181,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToEncryptViaDelegation",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:4",
+    "title": "cloudkms.cryptoKeyVersions.useToSign",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 224,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToSign"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToSign",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:5",
+    "title": "cloudkms.cryptoKeyVersions.useToVerify",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 266,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.useToVerify"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.useToVerify",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:6",
+    "title": "cloudkms.cryptoKeyVersions.restore",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 299,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.restore"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.restore",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-kms-post-exploitation:7",
+    "title": "cloudkms.cryptoKeyVersions.update",
+    "tactic": "post-exploitation",
+    "service": "cloudkms",
+    "file_service": "kms",
+    "section": "KMS",
+    "file": "gcp-kms-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-kms-post-exploitation.md",
+    "line": 310,
+    "heading_level": 3,
+    "required_perms": [
+      "cloudkms.cryptoKeyVersions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudkms.cryptoKeyVersions.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:1",
+    "title": "Read logs - logging.logEntries.list",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 27,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.logEntries.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.logEntries.list",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:2",
+    "title": "logging.logs.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 45,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.logs.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.logs.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:3",
+    "title": "Write logs - logging.logEntries.create",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 58,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.logEntries.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.logEntries.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:4",
+    "title": "logging.buckets.update",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 71,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.buckets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.buckets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:5",
+    "title": "logging.buckets.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 85,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.buckets.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.buckets.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:6",
+    "title": "logging.links.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 98,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.links.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.links.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:7",
+    "title": "logging.views.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 111,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.views.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.views.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:8",
+    "title": "logging.views.update",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 124,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.views.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.views.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:9",
+    "title": "logging.logMetrics.update",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 137,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.logMetrics.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.logMetrics.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:10",
+    "title": "logging.logMetrics.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 150,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.logMetrics.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.logMetrics.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:11",
+    "title": "logging.sinks.delete",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 163,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.sinks.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.sinks.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:12",
+    "title": "logging.sinks.update",
+    "tactic": "post-exploitation",
+    "service": "logging",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 176,
+    "heading_level": 3,
+    "required_perms": [
+      "logging.sinks.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "logging.sinks.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-logging-post-exploitation:13",
+    "title": "Cloud Logging sink bucket-name hijack - storage.buckets.delete",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "logging",
+    "section": "Basic Information",
+    "file": "gcp-logging-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-logging-post-exploitation.md",
+    "line": 205,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:1",
+    "title": "monitoring.alertPolicies.delete",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 19,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.alertPolicies.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.alertPolicies.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:2",
+    "title": "monitoring.alertPolicies.update",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 33,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.alertPolicies.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.alertPolicies.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:3",
+    "title": "monitoring.dashboards.update",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 58,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.dashboards.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.dashboards.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:4",
+    "title": "monitoring.dashboards.delete",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 80,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.dashboards.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.dashboards.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:5",
+    "title": "monitoring.snoozes.create",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 95,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.snoozes.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.snoozes.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:6",
+    "title": "monitoring.snoozes.update",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 113,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.snoozes.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.snoozes.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:7",
+    "title": "monitoring.notificationChannels.delete",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 131,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.notificationChannels.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.notificationChannels.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-monitoring-post-exploitation:8",
+    "title": "monitoring.notificationChannels.update",
+    "tactic": "post-exploitation",
+    "service": "monitoring",
+    "file_service": "monitoring",
+    "section": "Monitoring",
+    "file": "gcp-monitoring-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-monitoring-post-exploitation.md",
+    "line": 146,
+    "heading_level": 3,
+    "required_perms": [
+      "monitoring.notificationChannels.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "monitoring.notificationChannels.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:1",
+    "title": "pubsub.topics.publish",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.topics.publish"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.topics.publish",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:2",
+    "title": "pubsub.topics.detachSubscription",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 28,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.topics.detachSubscription"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.topics.detachSubscription",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:3",
+    "title": "pubsub.topics.delete",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 42,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.topics.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.topics.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:4",
+    "title": "pubsub.topics.update",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 57,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.topics.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.topics.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:5",
+    "title": "pubsub.topics.setIamPolicy",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 61,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.topics.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.topics.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:6",
+    "title": "pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume)",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "Pub/Sub",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 93,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.create",
+      "pubsub.topics.attachSubscription"
+    ],
+    "optional_perms": [
+      "pubsub.subscriptions.consume"
+    ],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:7",
+    "title": "pubsub.subscriptions.delete",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 125,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:8",
+    "title": "pubsub.subscriptions.update",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 139,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:9",
+    "title": "Cloud Storage subscription bucket-name hijack - storage.buckets.delete",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 153,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:10",
+    "title": "pubsub.subscriptions.setIamPolicy",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 188,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.subscriptions.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.subscriptions.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:11",
+    "title": "pubsub.schemas.attach, pubsub.topics.update,(pubsub.schemas.create)",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 192,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.schemas.attach",
+      "pubsub.topics.update"
+    ],
+    "optional_perms": [
+      "pubsub.schemas.create"
+    ],
+    "requires_actas": false,
+    "primary_perm": "pubsub.schemas.attach",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:12",
+    "title": "pubsub.schemas.delete",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 228,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.schemas.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.schemas.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:13",
+    "title": "pubsub.schemas.setIamPolicy",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 242,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.schemas.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.schemas.setIamPolicy",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-pub-sub-post-exploitation:14",
+    "title": "pubsub.snapshots.create, pubsub.snapshots.seek",
+    "tactic": "post-exploitation",
+    "service": "pubsub",
+    "file_service": "pubsub",
+    "section": "This command will wait for a message to be posted",
+    "file": "gcp-pub-sub-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-pub-sub-post-exploitation.md",
+    "line": 246,
+    "heading_level": 3,
+    "required_perms": [
+      "pubsub.snapshots.create",
+      "pubsub.snapshots.seek"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "pubsub.snapshots.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-secretmanager-post-exploitation:1",
+    "title": "secretmanager.versions.access",
+    "tactic": "post-exploitation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "Secretmanager",
+    "file": "gcp-secretmanager-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-secretmanager-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.versions.access"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.versions.access",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-secretmanager-post-exploitation:2",
+    "title": "secretmanager.versions.destroy",
+    "tactic": "post-exploitation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "Secretmanager",
+    "file": "gcp-secretmanager-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-secretmanager-post-exploitation.md",
+    "line": 28,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.versions.destroy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.versions.destroy",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-secretmanager-post-exploitation:3",
+    "title": "secretmanager.versions.disable",
+    "tactic": "post-exploitation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "Secretmanager",
+    "file": "gcp-secretmanager-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-secretmanager-post-exploitation.md",
+    "line": 35,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.versions.disable"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.versions.disable",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-secretmanager-post-exploitation:4",
+    "title": "secretmanager.secrets.delete",
+    "tactic": "post-exploitation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "Secretmanager",
+    "file": "gcp-secretmanager-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-secretmanager-post-exploitation.md",
+    "line": 42,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.secrets.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.secrets.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-secretmanager-post-exploitation:5",
+    "title": "secretmanager.secrets.update",
+    "tactic": "post-exploitation",
+    "service": "secretmanager",
+    "file_service": "secretmanager",
+    "section": "Secretmanager",
+    "file": "gcp-secretmanager-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-secretmanager-post-exploitation.md",
+    "line": 49,
+    "heading_level": 3,
+    "required_perms": [
+      "secretmanager.secrets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "secretmanager.secrets.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-security-post-exploitation:1",
+    "title": "securitycenter.muteconfigs.create",
+    "tactic": "post-exploitation",
+    "service": "securitycenter",
+    "file_service": "security",
+    "section": "Security",
+    "file": "gcp-security-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-security-post-exploitation.md",
+    "line": 13,
+    "heading_level": 3,
+    "required_perms": [
+      "securitycenter.muteconfigs.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "securitycenter.muteconfigs.create",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-security-post-exploitation:2",
+    "title": "securitycenter.muteconfigs.update",
+    "tactic": "post-exploitation",
+    "service": "securitycenter",
+    "file_service": "security",
+    "section": "Security",
+    "file": "gcp-security-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-security-post-exploitation.md",
+    "line": 28,
+    "heading_level": 3,
+    "required_perms": [
+      "securitycenter.muteconfigs.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "securitycenter.muteconfigs.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-security-post-exploitation:3",
+    "title": "securitycenter.findings.bulkMuteUpdate",
+    "tactic": "post-exploitation",
+    "service": "securitycenter",
+    "file_service": "security",
+    "section": "Security",
+    "file": "gcp-security-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-security-post-exploitation.md",
+    "line": 43,
+    "heading_level": 3,
+    "required_perms": [
+      "securitycenter.findings.bulkMuteUpdate"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "securitycenter.findings.bulkMuteUpdate",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-security-post-exploitation:4",
+    "title": "securitycenter.findings.setMute",
+    "tactic": "post-exploitation",
+    "service": "securitycenter",
+    "file_service": "security",
+    "section": "Security",
+    "file": "gcp-security-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-security-post-exploitation.md",
+    "line": 60,
+    "heading_level": 3,
+    "required_perms": [
+      "securitycenter.findings.setMute"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "securitycenter.findings.setMute",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-security-post-exploitation:5",
+    "title": "securitycenter.findings.update",
+    "tactic": "post-exploitation",
+    "service": "securitycenter",
+    "file_service": "security",
+    "section": "Security",
+    "file": "gcp-security-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-security-post-exploitation.md",
+    "line": 74,
+    "heading_level": 3,
+    "required_perms": [
+      "securitycenter.findings.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "securitycenter.findings.update",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-storage-post-exploitation:1",
+    "title": "storage.objects.delete (storage.objects.get)",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "I don't think you can make specific objects public just with IAM",
+    "file": "gcp-storage-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-storage-post-exploitation.md",
+    "line": 34,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.objects.delete"
+    ],
+    "optional_perms": [
+      "storage.objects.get"
+    ],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-storage-post-exploitation:2",
+    "title": "storage.buckets.delete, storage.objects.delete & storage.objects.list",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "I don't think you can make specific objects public just with IAM",
+    "file": "gcp-storage-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-storage-post-exploitation.md",
+    "line": 41,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.delete",
+      "storage.objects.delete",
+      "storage.objects.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.delete",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-storage-post-exploitation:3",
+    "title": "storage.buckets.setIpFilter & storage.buckets.update",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "I don't think you can make specific objects public just with IAM",
+    "file": "gcp-storage-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-storage-post-exploitation.md",
+    "line": 97,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.setIpFilter",
+      "storage.buckets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.setIpFilter",
+    "extraction": "heading"
+  },
+  {
+    "id": "post-exploitation:gcp-storage-post-exploitation:4",
+    "title": "storage.buckets.restore",
+    "tactic": "post-exploitation",
+    "service": "storage",
+    "file_service": "storage",
+    "section": "I don't think you can make specific objects public just with IAM",
+    "file": "gcp-storage-post-exploitation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-post-exploitation/gcp-storage-post-exploitation.md",
+    "line": 126,
+    "heading_level": 3,
+    "required_perms": [
+      "storage.buckets.restore"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.restore",
+    "extraction": "heading"
+  },
+  {
+    "id": "discovery:gcp-compute-instances-enum:1",
+    "title": "compute.instances.getSerialPortOutput",
+    "tactic": "discovery",
+    "service": "compute",
+    "file_service": "computeinstancesenum",
+    "section": "Serial Console Logs",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-compute-instances-enum/README.md",
+    "line": 124,
+    "heading_level": null,
+    "required_perms": [
+      "compute.instances.getSerialPortOutput"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.instances.getSerialPortOutput",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-vpc-and-networking:1",
+    "title": "compute.networks.addPeering",
+    "tactic": "discovery",
+    "service": "compute",
+    "file_service": "vpcandnetworking",
+    "section": "VPC Network Peering",
+    "file": "gcp-vpc-and-networking.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-compute-instances-enum/gcp-vpc-and-networking.md",
+    "line": 73,
+    "heading_level": null,
+    "required_perms": [
+      "compute.networks.addPeering"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.networks.addPeering",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-vpc-and-networking:2",
+    "title": "compute.networks.updatePeering",
+    "tactic": "discovery",
+    "service": "compute",
+    "file_service": "vpcandnetworking",
+    "section": "VPC Network Peering",
+    "file": "gcp-vpc-and-networking.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-compute-instances-enum/gcp-vpc-and-networking.md",
+    "line": 74,
+    "heading_level": null,
+    "required_perms": [
+      "compute.networks.updatePeering"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.networks.updatePeering",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-vpc-and-networking:3",
+    "title": "compute.networks.removePeering",
+    "tactic": "discovery",
+    "service": "compute",
+    "file_service": "vpcandnetworking",
+    "section": "VPC Network Peering",
+    "file": "gcp-vpc-and-networking.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-compute-instances-enum/gcp-vpc-and-networking.md",
+    "line": 75,
+    "heading_level": null,
+    "required_perms": [
+      "compute.networks.removePeering"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.networks.removePeering",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-vpc-and-networking:4",
+    "title": "compute.networks.listPeeringRoutes",
+    "tactic": "discovery",
+    "service": "compute",
+    "file_service": "vpcandnetworking",
+    "section": "VPC Network Peering",
+    "file": "gcp-vpc-and-networking.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-compute-instances-enum/gcp-vpc-and-networking.md",
+    "line": 76,
+    "heading_level": null,
+    "required_perms": [
+      "compute.networks.listPeeringRoutes"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "compute.networks.listPeeringRoutes",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-containers-gke-and-composer-enum:1",
+    "title": "container.clusters.get",
+    "tactic": "discovery",
+    "service": "container",
+    "file_service": "containersgkeandcomposerenum",
+    "section": "Kubernetes",
+    "file": "gcp-containers-gke-and-composer-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-containers-gke-and-composer-enum.md",
+    "line": 79,
+    "heading_level": null,
+    "required_perms": [
+      "container.clusters.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "container.clusters.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-containers-gke-and-composer-enum:2",
+    "title": "serviceusage.services.use",
+    "tactic": "discovery",
+    "service": "serviceusage",
+    "file_service": "containersgkeandcomposerenum",
+    "section": "Kubernetes",
+    "file": "gcp-containers-gke-and-composer-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-containers-gke-and-composer-enum.md",
+    "line": 91,
+    "heading_level": null,
+    "required_perms": [
+      "serviceusage.services.use"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.services.use",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:1",
+    "title": "serviceusage.services.enable",
+    "tactic": "discovery",
+    "service": "serviceusage",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Users & Groups",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 31,
+    "heading_level": null,
+    "required_perms": [
+      "serviceusage.services.enable"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.services.enable",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:2",
+    "title": "serviceusage.services.use",
+    "tactic": "discovery",
+    "service": "serviceusage",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Users & Groups",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 31,
+    "heading_level": null,
+    "required_perms": [
+      "serviceusage.services.use"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.services.use",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:3",
+    "title": "billing.accounts.create",
+    "tactic": "discovery",
+    "service": "billing",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "IAM",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 81,
+    "heading_level": null,
+    "required_perms": [
+      "billing.accounts.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "billing.accounts.create",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:4",
+    "title": "resourcemanager.organizations.get",
+    "tactic": "discovery",
+    "service": "resourcemanager",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "IAM",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 81,
+    "heading_level": null,
+    "required_perms": [
+      "resourcemanager.organizations.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "resourcemanager.organizations.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:5",
+    "title": "resourcemanager.projects.create",
+    "tactic": "discovery",
+    "service": "resourcemanager",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "IAM",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 82,
+    "heading_level": null,
+    "required_perms": [
+      "resourcemanager.projects.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "resourcemanager.projects.create",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:6",
+    "title": "cloudasset.assets.searchAllIamPolicies",
+    "tactic": "discovery",
+    "service": "cloudasset",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Grantable roles to a resource",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 121,
+    "heading_level": null,
+    "required_perms": [
+      "cloudasset.assets.searchAllIamPolicies"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudasset.assets.searchAllIamPolicies",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:7",
+    "title": "cloudasset.assets.analyzeIamPolicy",
+    "tactic": "discovery",
+    "service": "cloudasset",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Grantable roles to a resource",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 130,
+    "heading_level": null,
+    "required_perms": [
+      "cloudasset.assets.analyzeIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudasset.assets.analyzeIamPolicy",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:8",
+    "title": "cloudasset.assets.searchAllResources",
+    "tactic": "discovery",
+    "service": "cloudasset",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Grantable roles to a resource",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 142,
+    "heading_level": null,
+    "required_perms": [
+      "cloudasset.assets.searchAllResources"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudasset.assets.searchAllResources",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:9",
+    "title": "cloudasset.assets.analyzeMove",
+    "tactic": "discovery",
+    "service": "cloudasset",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Grantable roles to a resource",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 150,
+    "heading_level": null,
+    "required_perms": [
+      "cloudasset.assets.analyzeMove"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudasset.assets.analyzeMove",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-iam-and-org-policies-enum:10",
+    "title": "cloudasset.assets.queryIamPolicy",
+    "tactic": "discovery",
+    "service": "cloudasset",
+    "file_service": "iamandorgpoliciesenum",
+    "section": "Grantable roles to a resource",
+    "file": "gcp-iam-and-org-policies-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-iam-and-org-policies-enum.md",
+    "line": 157,
+    "heading_level": null,
+    "required_perms": [
+      "cloudasset.assets.queryIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "cloudasset.assets.queryIamPolicy",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-kms-enum:1",
+    "title": "storage.objects.get",
+    "tactic": "discovery",
+    "service": "storage",
+    "file_service": "kmsenum",
+    "section": "KMS",
+    "file": "gcp-kms-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-kms-enum.md",
+    "line": 45,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-storage-enum:1",
+    "title": "storage.objects.list",
+    "tactic": "discovery",
+    "service": "storage",
+    "file_service": "storageenum",
+    "section": "Useful because \"CLOUDSDKAUTHACCESSTOKEN\" and \"gcloud config set auth/accesstokenfile\" doesn't work with gsutil",
+    "file": "gcp-storage-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-storage-enum.md",
+    "line": 105,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.list",
+    "extraction": "inline"
+  },
+  {
+    "id": "discovery:gcp-storage-enum:2",
+    "title": "storage.objects.get",
+    "tactic": "discovery",
+    "service": "storage",
+    "file_service": "storageenum",
+    "section": "Useful because \"CLOUDSDKAUTHACCESSTOKEN\" and \"gcloud config set auth/accesstokenfile\" doesn't work with gsutil",
+    "file": "gcp-storage-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-services/gcp-storage-enum.md",
+    "line": 105,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "workspace-pivoting:gcp-to-workspace-pivoting:1",
+    "title": "iam.serviceAccounts.create",
+    "tactic": "workspace-pivoting",
+    "service": "iam",
+    "file_service": "toworkspacepivoting",
+    "section": "From GCP to GWS",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-to-workspace-pivoting/README.md",
+    "line": 90,
+    "heading_level": null,
+    "required_perms": [
+      "iam.serviceAccounts.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccounts.create",
+    "extraction": "inline"
+  },
+  {
+    "id": "workspace-pivoting:gcp-to-workspace-pivoting:2",
+    "title": "iam.serviceAccountKeys.create",
+    "tactic": "workspace-pivoting",
+    "service": "iam",
+    "file_service": "toworkspacepivoting",
+    "section": "From GCP to GWS",
+    "file": "README.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-to-workspace-pivoting/README.md",
+    "line": 90,
+    "heading_level": null,
+    "required_perms": [
+      "iam.serviceAccountKeys.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "iam.serviceAccountKeys.create",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-api-keys-unauthenticated-enum:1",
+    "title": "apikeys.keys.lookup",
+    "tactic": "unauthenticated-access",
+    "service": "apikeys",
+    "file_service": "apikeysunauthenticatedenum",
+    "section": "API Keys",
+    "file": "gcp-api-keys-unauthenticated-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-api-keys-unauthenticated-enum.md",
+    "line": 53,
+    "heading_level": null,
+    "required_perms": [
+      "apikeys.keys.lookup"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "apikeys.keys.lookup",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-api-keys-unauthenticated-enum:2",
+    "title": "serviceusage.apiKeys.getProjectForKey",
+    "tactic": "unauthenticated-access",
+    "service": "serviceusage",
+    "file_service": "apikeysunauthenticatedenum",
+    "section": "API Keys",
+    "file": "gcp-api-keys-unauthenticated-enum.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-api-keys-unauthenticated-enum.md",
+    "line": 67,
+    "heading_level": null,
+    "required_perms": [
+      "serviceusage.apiKeys.getProjectForKey"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "serviceusage.apiKeys.getProjectForKey",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:1",
+    "title": "storage.buckets.setIamPolicy",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 7,
+    "heading_level": null,
+    "required_perms": [
+      "storage.buckets.setIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.setIamPolicy",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:2",
+    "title": "storage.buckets.getIamPolicy",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 13,
+    "heading_level": null,
+    "required_perms": [
+      "storage.buckets.getIamPolicy"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.getIamPolicy",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:3",
+    "title": "storage.buckets.delete",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.buckets.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.delete",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:4",
+    "title": "storage.buckets.get",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.buckets.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:5",
+    "title": "storage.buckets.update",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.buckets.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.buckets.update",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:6",
+    "title": "storage.objects.create",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.create"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.create",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:7",
+    "title": "storage.objects.delete",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.delete"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.delete",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:8",
+    "title": "storage.objects.get",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.get"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.get",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:9",
+    "title": "storage.objects.list",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.list"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.list",
+    "extraction": "inline"
+  },
+  {
+    "id": "unauthenticated-access:gcp-public-buckets-privilege-escalation:10",
+    "title": "storage.objects.update",
+    "tactic": "unauthenticated-access",
+    "service": "storage",
+    "file_service": "publicbucketsprivilegeescalation",
+    "section": "Buckets Privilege Escalation",
+    "file": "gcp-public-buckets-privilege-escalation.md",
+    "rel_path": "/Users/nil/BachelorArbeit/Bachelorarbeit/draft/implementation/techniques/hacktricks-cloud/src/pentesting-cloud/gcp-security/gcp-unauthenticated-enum-and-access/gcp-storage-unauthenticated-enum/gcp-public-buckets-privilege-escalation.md",
+    "line": 15,
+    "heading_level": null,
+    "required_perms": [
+      "storage.objects.update"
+    ],
+    "optional_perms": [],
+    "requires_actas": false,
+    "primary_perm": "storage.objects.update",
+    "extraction": "inline"
+  }
+]
