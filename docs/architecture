@@ -1,0 +1,186 @@
+# IAMouflage — Architecture
+
+IAMouflage models **GCP attack techniques** (with their IAM preconditions) against a
+**signature-detection corpus** as a **Neo4j** graph, and then finds — *by graph query alone,
+with no ML model* — the attack scenarios the detections cannot catch. It is the knowledge
+substrate (the manual **𝒦**) for the detection-priced planner: it establishes precisely
+**what per-event signatures miss**, which is the gap the planner is meant to reason about.
+
+---
+
+## 1. The one idea: detections and techniques meet on operations
+
+A detection catches a technique **only if the exact API operation the technique performs is
+the same operation some rule is watching for in the audit log.** So detections and techniques
+are **never joined by a direct edge**. They meet on a shared **`ApiMethod`** node — one GCP
+operation, written in one canonical notation.
+
+```mermaid
+flowchart LR
+  T["Technique<br/>«I act here»"] -->|INVOKES| M["ApiMethod<br/>service.resource.verb"]
+  R["DetectionRule<br/>«my rule watches here»"] -->|COVERS| M
+  T -.->|"DETECTED_BY (derived) —<br/>only if COVERS + logged-by-default"| R
+```
+
+- A technique declares the IAM permissions it needs; a rule declares the audit `methodName`
+  (or Workspace `eventName`) it matches. These are three incompatible notations, so **both
+  sides are normalised** to one canonical operation signature `service.resource.verb`
+  (`core/normalize.py`) — that string *is* the `ApiMethod` key.
+- Normalisation is deliberately **conservative**: when unsure it emits a *different*
+  signature, so ambiguous cases fail to match rather than matching falsely. Every blind-spot
+  count is therefore a **lower bound**.
+- The correlation surface is intentionally tiny — only a handful of `ApiMethod` nodes are both
+  *invoked by a technique* and *covered by a rule*. **That smallness is the finding.**
+
+---
+
+## 2. When is a technique actually *detected*?
+
+Matching an operation is not enough — the operation also has to be **written to a log that is
+on by default**. GCP Cloud Audit Logs split into two tiers (`detection/logtype.py`):
+
+| Log tier | What lands here | Default |
+|---|---|---|
+| **Admin Activity** | config / IAM / metadata **writes** | **always on** — a rule can see it |
+| **Data Access** | reads, token minting, KMS decrypt, object/secret payloads | **off by default** — a rule never receives the event |
+
+So every technique falls into exactly one bucket:
+
+| `blind_class` | Meaning | Remedy |
+|---|---|---|
+| `DETECTED` | a matched operation is logged by default | — |
+| `RULE_GAP` (A) | operation **is** logged, but **no rule** matches it | write a signature — the evidence is already in the logs |
+| `TELEMETRY_GAP` (B) | operation is Data Access, **off by default** | *no signature can ever fire* until logging is reconfigured |
+
+The load-bearing distinction: **`logged` ≠ `detected`.** A `DETECTED_BY` edge is derived only
+when a covered operation is *also* logged-by-default — the honest definition of "a signature
+would actually fire in a stock project."
+
+---
+
+## 3. The chaining layer: capabilities
+
+Per-event signatures never reason about **chains**. To express multi-step attacks purely in
+the graph — again, no model — each technique is annotated with the **capabilities** it grants,
+and capabilities unlock further techniques (`library/capabilities.py`). All rules are
+deterministic and auditable.
+
+- **GRANTS** — e.g. `*.setIamPolicy` on a project → `PROJECT_ADMIN`; `getAccessToken` /
+  `serviceAccountKeys.create` → `IMPERSONATE_SA`; `secretmanager.versions.access` →
+  `READ_SECRET`.
+- **IMPLIES** — capability implications, e.g. `CODE_EXEC_AS_SA ⟹ IMPERSONATE_SA`,
+  `CUSTOM_ROLE ⟹ PROJECT_ADMIN`, `ORG_ADMIN ⟹ PROJECT_ADMIN`.
+- **UNLOCKS** — `IMPERSONATE_SA` satisfies the `iam.serviceAccounts.actAs` precondition of the
+  deploy-as-SA techniques, so `(A)-[:ENABLES]->(B)` is materialised whenever A's capabilities
+  unlock B.
+
+Crown jewels: `PROJECT_ADMIN`, `ORG_ADMIN`, `SA_KEY_PERSIST`, `READ_SECRET`, `DECRYPT_KMS`.
+The `ENABLES` subgraph lets a query walk "foothold → … → project owner" with no rule reasoning
+across any hop — the class of scenario a per-event engine is structurally blind to.
+
+---
+
+## 4. Graph schema
+
+```mermaid
+flowchart LR
+  T[Technique] -->|REQUIRES optional?| P[Permission]
+  T -->|INVOKES| M[ApiMethod]
+  P -->|MAPS_TO| M
+  R[DetectionRule] -->|COVERS| M
+  T -->|DETECTED_BY| R
+  T -->|GRANTS| C[Capability]
+  C -->|IMPLIES| C
+  C -->|UNLOCKS| T
+  T -->|ENABLES| T
+  T -->|IN_TACTIC| TA[Tactic]
+  T -->|FOR_SERVICE| S[Service]
+```
+
+- **`ApiMethod`** carries `log_type` (`ADMIN_ACTIVITY` / `DATA_ACCESS`), `logged_by_default`
+  and `has_technique` (is any technique invoking it).
+- **`DETECTED_BY`** and **`ENABLES`** are *derived* at build time; everything else is extracted
+  from the corpora.
+- **Workspace rules** key on admin/login `eventName`s (a different telemetry stream) and by
+  construction cover **0** GCP-API operations — they exist as nodes but contribute no coverage.
+
+---
+
+## 5. Code architecture
+
+The pipeline is four packages under `code/`, cleanly split so that **detection** knowledge and
+**library** (technique) knowledge never bleed into each other; they only meet in `graph/`.
+
+| Package | Role | Modules |
+|---|---|---|
+| `core/` | the shared substrate | `normalize.py` — perm/`methodName` → `service.resource.verb` (the join key + `op_matches`) |
+| `detection/` | the **detection** side | `parse_sigma.py` (rules → `data/detections.json`) · `logtype.py` (Admin-Activity vs Data-Access classifier) |
+| `library/` | the **library** side | `parse_techniques.py` (techniques → `data/techniques.json`) · `capabilities.py` (GRANTS/IMPLIES/UNLOCKS) |
+| `graph/` | assembly + analysis | `build_graph.py` (load Neo4j, derive `DETECTED_BY` + `ENABLES`) · `run_queries.py` (`queries/*.cypher` → `out/findings.*`) |
+
+```mermaid
+flowchart LR
+  subgraph DET["detection/"]
+    SR["Sigma GCP rules"] --> PS["parse_sigma"] --> DJ["data/detections.json"]
+  end
+  subgraph LIB["library/"]
+    HT["hacktricks techniques"] --> PT["parse_techniques"] --> TJ["data/techniques.json"]
+  end
+  DJ --> BG["graph/build_graph"]
+  TJ --> BG
+  BG --> DB[("Neo4j")]
+  DB --> RQ["graph/run_queries"] --> OUT["out/findings.{md,json}"]
+  NORM["core/normalize"] -. join key .-> PS
+  NORM -. join key .-> PT
+  NORM -. join key .-> BG
+  LT["detection/logtype"] -. log tier .-> BG
+  CAP["library/capabilities"] -. chaining .-> BG
+```
+
+Each stage runs as a module (`python -m detection.parse_sigma`, `-m graph.build_graph`, …);
+`run.sh` orchestrates the whole chain.
+
+---
+
+## 6. Two extraction fidelities
+
+Techniques come from two kinds of source page, tagged on every node as `extraction`:
+
+- **heading** — privesc / persistence / post-exploitation pages write the required permissions
+  literally in the `###` heading. High fidelity: the heading *is* the precondition.
+- **inline** — discovery / unauthenticated-access / workspace-pivoting pages have no permission
+  headings, so permissions are mined from prose and `gcloud` examples, then filtered to real
+  GCP IAM service prefixes. Lower fidelity — filterable with `WHERE t.extraction = 'heading'`.
+
+---
+
+## 7. How coverage is computed (the methodology in one place)
+
+1. **Normalise both corpora** to `service.resource.verb` (`core/normalize.py`).
+2. For each technique, take its **required** (non-optional) permissions as the operations it
+   must perform.
+3. A technique is `DETECTED` iff **any** required operation is (a) `COVERS`-ed by a rule **and**
+   (b) `logged_by_default` (`detection/logtype.py`). Any-op-covered biases *toward* the
+   defender, so coverage is friendly to the detections and the blind-spot set is a lower bound.
+4. Otherwise it is a blind spot, split into `RULE_GAP` (logged, no rule) vs `TELEMETRY_GAP`
+   (Data Access, off by default) by the same classifier.
+5. The capability layer (`library/capabilities.py`) then materialises `ENABLES` so multi-step
+   scenarios are reachable by traversal.
+
+The ten gap-analysis questions live in `code/queries/*.cypher`; their results are written to
+`code/out/findings.md` (human) and `findings.json` (machine). See those for the actual numbers.
+
+---
+
+## 8. Assumptions (so the results can be defended)
+
+- **Detectability is structural, not empirical** — we do not replay rules against real logs.
+  `DETECTED` means "this rule *could* fire on this technique," which is the right question for a
+  coverage analysis.
+- **Data Access is treated as off by default, uniformly** (true for almost every service;
+  BigQuery is the exception and is still counted as off — conservative).
+- **The capability layer models attacker reasoning in principle**, not a concrete environment:
+  it does not know which service account holds which permission, so `ENABLES`/`IMPLIES` express
+  *what is possible*, not *what a specific project allows*.
+- **Only the Sigma corpus is modelled today.** Adding Elastic / GoogleSecOps / Panther parsers
+  that emit the same `covered_ops` shape would raise coverage — the natural extension.
