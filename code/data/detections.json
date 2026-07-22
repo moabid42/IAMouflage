@@ -2545,7 +2545,21 @@
    "language": "kuery"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "storage.setIamPermissions",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""
@@ -2555,7 +2569,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "elastic:c58c3081-2e1d-4497-8491-e73a45d1a6d6",
@@ -4402,7 +4418,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098.003"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4434,7 +4452,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4464,7 +4484,6 @@
        "compute.snapshots.setIamPolicy",
        "deploymentmanager.deployments.setIamPolicy",
        "iam.serviceAccounts.setIamPolicy",
-       "iam.serviceaccounts.setiampolicy",
        "iap.tunnelServices.setIamPolicy",
        "iap.web.setIamPolicy",
        "iap.webServiceVersions.setIamPolicy",
@@ -4486,7 +4505,7 @@
       ],
       "kind": "grpc_method",
       "confidence": "generic",
-      "provenance": "rpc_methods.json[google.iam.v1.IAMPolicy.SetIamPolicy] <- https://docs.cloud.google.com/iam/docs/audit-logging -> 38 permission(s)",
+      "provenance": "rpc_methods.json[google.iam.v1.IAMPolicy.SetIamPolicy] <- https://docs.cloud.google.com/iam/docs/audit-logging -> 37 permission(s)",
       "pattern": "\\.setIamPolicy$",
       "note": "Emitted by many services; the concrete permission is resource-dependent and follows <service>.<resource>.setIamPolicy. Modelled as a pattern so it expands only to permissions techniques actually use."
      }
@@ -4521,7 +4540,6 @@
    "compute.snapshots.setIamPolicy",
    "deploymentmanager.deployments.setIamPolicy",
    "iam.serviceAccounts.setIamPolicy",
-   "iam.serviceaccounts.setiampolicy",
    "iap.tunnelServices.setIamPolicy",
    "iap.web.setIamPolicy",
    "iap.webServiceVersions.setIamPolicy",
@@ -4556,7 +4574,9 @@
   "mitre_tactics": [
    "exfiltration"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1567"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4604,7 +4624,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562.008"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4636,7 +4658,9 @@
   "mitre_tactics": [
    "discovery"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1580"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4670,7 +4694,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562.008"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4702,7 +4728,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4750,7 +4778,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1136.003"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4782,7 +4812,9 @@
   "mitre_tactics": [
    "exfiltration"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1537"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4831,7 +4863,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -4896,7 +4930,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078"
+  ],
   "logsource": {
    "data_source": "Security Command Center Threat",
    "platform": "GCP"
@@ -4930,7 +4966,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078.004"
+  ],
   "logsource": {
    "data_source": "Cloud Audit Logs",
    "platform": "GCP"
@@ -4962,7 +5000,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1531"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5012,7 +5052,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1485"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5046,7 +5088,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1485"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5110,7 +5154,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1489"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5160,7 +5206,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5206,7 +5254,9 @@
   "mitre_tactics": [
    "credential_access"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1552.004"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5240,7 +5290,9 @@
   "mitre_tactics": [
    "credential_access"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1555"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5290,7 +5342,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5300,12 +5354,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -5314,13 +5370,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "gsecops:mr_5912e2be-4366-4f34-a770-0ac8358f2cb9",
@@ -5336,7 +5392,9 @@
   "mitre_tactics": [
    "execution"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1204"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5405,7 +5463,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078.004"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -5467,7 +5527,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098.001"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "Google Cloud"
@@ -6033,9 +6095,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.create",
       "permissions": [
@@ -6046,9 +6106,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.setMetadata",
       "permissions": [
@@ -6059,9 +6117,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.setServiceAccount",
       "permissions": [
@@ -6072,9 +6128,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.subnetworks.use",
       "permissions": [
@@ -6085,9 +6139,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.subnetworks.useExternalIp",
       "permissions": [
@@ -6098,9 +6150,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.insert",
       "permissions": [
@@ -6125,7 +6175,7 @@
     ]
    ],
    "excluded": [],
-   "confidence": "flat",
+   "confidence": "exact",
    "note": ""
   },
   "event_names": [],
@@ -6506,12 +6556,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -6520,13 +6572,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "panther:GCP.GCS.ObjectExfiltration",
@@ -6676,12 +6728,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -6690,13 +6744,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "panther:GCP.GCS.Ransom.Note.Upload",

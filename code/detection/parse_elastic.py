@@ -41,7 +41,10 @@ PARADIGM_BY_TYPE = {
 }
 
 # An op token inside a query: dotted, may carry * wildcards and a version segment.
-_OP_TOKEN = re.compile(r'[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z0-9_*]+){2,}')
+# Scoped to event.action / method_name values, so 2-segment legacy names like
+# `storage.setIamPermissions` are valid here and must be captured (>=1 dot), not only
+# the usual 3-segment service.resource.verb.
+_OP_TOKEN = re.compile(r'[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z0-9_*]+){1,}')
 
 # `event.action` / `gcp.audit.method_name` clause, KQL `field:(...)` or `field:value`,
 # and ES|QL `field == "value"`.

@@ -516,9 +516,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.create",
       "permissions": [
@@ -529,9 +527,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.setMetadata",
       "permissions": [
@@ -542,9 +538,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.setServiceAccount",
       "permissions": [
@@ -555,9 +549,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.subnetworks.use",
       "permissions": [
@@ -568,9 +560,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.subnetworks.useExternalIp",
       "permissions": [
@@ -581,9 +571,7 @@
       "provenance": "permissions.json",
       "pattern": null,
       "note": ""
-     }
-    ],
-    [
+     },
      {
       "token": "compute.instances.insert",
       "permissions": [
@@ -608,7 +596,7 @@
     ]
    ],
    "excluded": [],
-   "confidence": "flat",
+   "confidence": "exact",
    "note": ""
   },
   "event_names": [],
@@ -989,12 +977,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -1003,13 +993,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "panther:GCP.GCS.ObjectExfiltration",
@@ -1159,12 +1149,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -1173,13 +1165,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "panther:GCP.GCS.Ransom.Note.Upload",

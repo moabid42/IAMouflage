@@ -784,7 +784,21 @@
    "language": "kuery"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "storage.setIamPermissions",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""
@@ -794,7 +808,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "elastic:c58c3081-2e1d-4497-8491-e73a45d1a6d6",

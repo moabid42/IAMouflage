@@ -14,7 +14,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098.003"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -46,7 +48,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -90,7 +94,9 @@
   "mitre_tactics": [
    "exfiltration"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1567"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -138,7 +144,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562.008"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -170,7 +178,9 @@
   "mitre_tactics": [
    "discovery"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1580"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -204,7 +214,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562.008"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -236,7 +248,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -284,7 +298,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1136.003"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -316,7 +332,9 @@
   "mitre_tactics": [
    "exfiltration"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1537"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -365,7 +383,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -430,7 +450,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078"
+  ],
   "logsource": {
    "data_source": "Security Command Center Threat",
    "platform": "GCP"
@@ -464,7 +486,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078.004"
+  ],
   "logsource": {
    "data_source": "Cloud Audit Logs",
    "platform": "GCP"
@@ -496,7 +520,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1531"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -546,7 +572,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1485"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -580,7 +608,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1485"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -644,7 +674,9 @@
   "mitre_tactics": [
    "impact"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1489"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -694,7 +726,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -740,7 +774,9 @@
   "mitre_tactics": [
    "credential_access"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1552.004"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -774,7 +810,9 @@
   "mitre_tactics": [
    "credential_access"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1555"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -824,7 +862,9 @@
   "mitre_tactics": [
    "defense_evasion"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1562"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -834,12 +874,14 @@
     [
      {
       "token": "storage.setIamPermissions",
-      "permissions": [],
-      "kind": "unresolved",
-      "confidence": "none",
-      "provenance": "no rung matched",
+      "permissions": [
+       "storage.buckets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias storage.setIamPermissions -> storage.buckets.setIamPolicy (retired service name)",
       "pattern": null,
-      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+      "note": ""
      }
     ]
    ],
@@ -848,13 +890,13 @@
    "note": ""
   },
   "event_names": [],
-  "unresolved_tokens": [
-   "storage.setIamPermissions"
-  ],
+  "unresolved_tokens": [],
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "storage.buckets.setIamPolicy"
+  ]
  },
  {
   "id": "gsecops:mr_5912e2be-4366-4f34-a770-0ac8358f2cb9",
@@ -870,7 +912,9 @@
   "mitre_tactics": [
    "execution"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1204"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -939,7 +983,9 @@
    "persistence",
    "privilege_escalation"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1078.004"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "GCP"
@@ -1001,7 +1047,9 @@
   "mitre_tactics": [
    "persistence"
   ],
-  "mitre_techniques": [],
+  "mitre_techniques": [
+   "T1098.001"
+  ],
   "logsource": {
    "data_source": "GCP Cloud Audit",
    "platform": "Google Cloud"

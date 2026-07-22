@@ -100,11 +100,44 @@ class OpLiteralVisitor(ast.NodeVisitor):
             self.tokens.append(node.value)
 
 
-def extract_py_tokens(src: str, canon: Canonicaliser) -> list[str]:
+def _is_conjunctive(tree: ast.Module) -> bool:
+    """True if rule() requires ALL of a permission list (an AND), not any-of (an OR).
+
+    The dominant conjunctive idiom is a module-level list consumed by::
+
+        for permission in REQUIRED_PERMISSIONS:
+            if not granted.get(permission):
+                return False
+
+    i.e. every listed permission must be granted or the rule bails. When present, the
+    rule's op literals are ANDed together (one group), not ORed (separate groups).
+    `any(... in LIST)` / membership tests remain disjunctions and do NOT trip this.
+    """
+    list_names = set()
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and isinstance(node.value, (ast.List, ast.Tuple)):
+            elts = node.value.elts
+            if elts and all(isinstance(e, ast.Constant) and isinstance(e.value, str)
+                            and _looks_like_op(e.value) for e in elts):
+                for tgt in node.targets:
+                    if isinstance(tgt, ast.Name):
+                        list_names.add(tgt.id)
+    for node in ast.walk(tree):
+        if (isinstance(node, ast.For) and isinstance(node.iter, ast.Name)
+                and node.iter.id in list_names):
+            # a `return False` inside the loop body means "all must hold"
+            if any(isinstance(n, ast.Return)
+                   and isinstance(n.value, ast.Constant) and n.value.value is False
+                   for n in ast.walk(node)):
+                return True
+    return False
+
+
+def extract_py_tokens(src: str, canon: Canonicaliser) -> tuple[list[str], bool]:
     try:
         tree = ast.parse(src)
     except SyntaxError:
-        return []
+        return [], False
 
     tokens: list[str] = []
 
@@ -126,7 +159,7 @@ def extract_py_tokens(src: str, canon: Canonicaliser) -> list[str]:
     # keep CamelCase suffix fragments only when the reference resolves them
     tokens = [t for t in tokens if _keep_camel(t, canon)]
     # de-dup preserving order
-    return list(dict.fromkeys(tokens))
+    return list(dict.fromkeys(tokens)), _is_conjunctive(tree)
 
 
 def mitre_from_reports(reports: dict) -> tuple[list[str], list[str]]:
@@ -153,15 +186,20 @@ def parse_event_rule(py_path: Path, canon: Canonicaliser) -> DetectionRecord | N
     if not meta:
         return None
 
-    tokens = extract_py_tokens(py_path.read_text(), canon)
-    token_groups = [[t] for t in tokens]  # OR of literals -> separate groups
+    tokens, conjunctive = extract_py_tokens(py_path.read_text(), canon)
+    if conjunctive:
+        # all listed ops must occur together -> one AND-group
+        token_groups = [list(tokens)]
+    else:
+        token_groups = [[t] for t in tokens]  # OR of literals -> separate groups
 
     threshold = meta.get("Threshold")
     threshold = int(threshold) if threshold not in (None, "", 1, "1") else None
     paradigm = CORRELATION if threshold and threshold > 1 else EVENT
 
     tactics, techniques = mitre_from_reports(meta.get("Reports"))
-    req, unresolved = resolve_token_groups(token_groups, canon, confidence="flat")
+    req, unresolved = resolve_token_groups(
+        token_groups, canon, confidence="exact" if conjunctive else "flat")
 
     rid = meta.get("RuleID", py_path.stem)
     domain = "k8s" if "k8s" in str(py_path) else (

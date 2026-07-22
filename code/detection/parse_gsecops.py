@@ -50,15 +50,27 @@ def _meta_dict(block: str) -> dict:
     return dict(_META.findall(m.group(1))) if m else {}
 
 
-def mitre_from_meta(meta: dict) -> tuple[list[str], list[str]]:
+def mitre_from_meta(meta: dict, text: str = "") -> tuple[list[str], list[str]]:
     tactics, techniques = set(), set()
     for t in re.split(r'[;,]', meta.get("mitre_attack_tactic", "")):
         t = t.strip().lower().replace(" ", "_")
         if t:
             tactics.add(t)
-    tid = meta.get("mitre_attack_technique_id", "")
-    for m in re.findall(r'T\d{4}(?:\.\d{3})?', tid):
+    # Technique IDs live either in meta (mitre_attack_technique_id / _url) or, in many
+    # YARA-L rules, only in the outcome block as `$mitre_attack_technique_id = "..."`.
+    # Scan the meta id, the ATT&CK url (techniques/T1098/003 -> T1098.003), and the whole
+    # rule text so none are missed.
+    for m in re.findall(r'T\d{4}(?:\.\d{3})?', meta.get("mitre_attack_technique_id", "")):
         techniques.add(m.upper())
+    for base, sub in re.findall(r'attack\.mitre\.org/techniques/T(\d{4})(?:/(\d{3}))?',
+                                meta.get("mitre_attack_url", "") + " " + text):
+        techniques.add(f"T{base}.{sub}" if sub else f"T{base}")
+    # The outcome block may wrap the id, e.g. `= array_distinct("T1078.004")`, so scan the
+    # whole `mitre_attack_technique_id ...` statement for T-patterns rather than a strict
+    # `= "..."` match.
+    for stmt in re.findall(r'mitre_attack_technique_id[^\n]*', text):
+        for tid in re.findall(r'T\d{4}(?:\.\d{3})?', stmt):
+            techniques.add(tid.upper())
     return sorted(tactics), sorted(techniques)
 
 
@@ -105,7 +117,7 @@ def parse_rule(text: str, path: Path, canon: Canonicaliser) -> DetectionRecord |
             th = _THRESHOLD.search(cond_m.group(1))
             threshold = int(th.group(1)) if th else None
 
-    tactics, techniques = mitre_from_meta(meta)
+    tactics, techniques = mitre_from_meta(meta, text)
     req, unresolved = resolve_token_groups(token_groups, canon, confidence="exact")
 
     rid = meta.get("rule_id", name)

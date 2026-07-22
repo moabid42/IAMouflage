@@ -62,12 +62,17 @@ CURATED = Path(__file__).resolve().parents[1] / "reference"
 _VERSION_RE = re.compile(r"^v\d+[a-z0-9]*$|^v\*$|^\*$|^beta$|^alpha$", re.IGNORECASE)
 
 # Permission-level renames: a handful of corpora reference an operation by a service
-# name Google has since retired. The permission *vocabulary* only carries the current
-# name, so these would otherwise be honest-but-avoidable misses. Each is verified
-# against the current permission list.
+# name Google has since retired, or by a legacy short audit methodName that has too few
+# segments to resolve structurally. The permission *vocabulary* only carries the current
+# name, so these would otherwise be honest-but-avoidable misses. Each maps to a permission
+# verified present in the current vocabulary.
 _PERMISSION_ALIASES = {
     "serviceusage.apiKeys.create": "apikeys.keys.create",
     "serviceusage.apiKeys.list": "apikeys.keys.list",
+    # legacy 2-segment audit methodName for bucket IAM changes (storage.setIamPermissions
+    # / storage.setIamPolicy). Used by Elastic/GSecOps/Panther bucket-permission rules.
+    "storage.setIamPermissions": "storage.buckets.setIamPolicy",
+    "storage.setIamPolicy": "storage.buckets.setIamPolicy",
 }
 
 # GKE audit methodNames use k8s HTTP verbs; GCP IAM collapses some of them. Notably
