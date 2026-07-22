@@ -1,0 +1,173 @@
+{
+ "_README": {
+  "what": "gRPC audit-log methodName -> required IAM permission(s), transcribed from Google's official per-service audit-logging documentation.",
+  "why": "The machine-readable method->permission dataset (data/reference/method_permissions.json) is derived from the REST Discovery surface and contains no gRPC method names. Detection corpora reference gRPC names heavily, so this table closes that gap.",
+  "how": "Each entry cites the Google doc page it was read from. confidence=official means the row was seen in a Google table; inferred means it followed the documented naming convention; unresolved/generic/not_gcp_api mean no permission can be honestly cited.",
+  "note": "Version segments are folded when matching, so a corpus token written google.pubsub.v*.Publisher.CreateTopic matches the v1 key below.",
+  "audit_log_rule": "ADMIN_WRITE -> Admin Activity (always on). ADMIN_READ / DATA_READ / DATA_WRITE -> Data Access (OFF by default for every service except BigQuery)."
+ },
+
+ "google.iam.admin.v1.CreateRole": {
+  "permissions": ["iam.roles.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.UpdateRole": {
+  "permissions": ["iam.roles.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.DeleteRole": {
+  "permissions": ["iam.roles.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.CreateServiceAccountKey": {
+  "permissions": ["iam.serviceAccountKeys.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.UploadServiceAccountKey": {
+  "permissions": ["iam.serviceAccountKeys.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging",
+  "note": "Shares iam.serviceAccountKeys.create with CreateServiceAccountKey per the official table."
+ },
+ "google.iam.admin.v1.WorkforcePools.CreateWorkforcePool": {
+  "permissions": ["iam.workforcePools.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.WorkforcePools.UpdateWorkforcePool": {
+  "permissions": ["iam.workforcePools.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.v1.WorkloadIdentityPools.CreateWorkloadIdentityPoolProvider": {
+  "permissions": ["iam.workloadIdentityPoolProviders.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPoolProvider": {
+  "permissions": ["iam.workloadIdentityPoolProviders.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPool": {
+  "permissions": ["iam.workloadIdentityPools.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.v1.WorkloadIdentityPools.DeleteWorkloadIdentityPool": {
+  "permissions": ["iam.workloadIdentityPools.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+
+ "google.iam.v1.IAMPolicy.SetIamPolicy": {
+  "permissions": [], "pattern": "\\.setIamPolicy$", "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "generic",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging",
+  "note": "Emitted by many services; the concrete permission is resource-dependent and follows <service>.<resource>.setIamPolicy. Modelled as a pattern so it expands only to permissions techniques actually use."
+ },
+ "google.cloud.iap.v1.IdentityAwareProxyAdminService.SetIamPolicy": {
+  "permissions": ["iap.tunnelServices.setIamPolicy", "iap.web.setIamPolicy",
+                  "iap.webServiceVersions.setIamPolicy", "iap.webServices.setIamPolicy",
+                  "iap.webTypes.setIamPolicy"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iap/docs/audit-log-howto",
+  "note": "One method maps to five resource-type-specific setIamPolicy permissions; which applies depends on the IAP resource. Canonical page is /iap/docs/audit-log-howto (/iap/docs/audit-logging 404s)."
+ },
+
+ "google.pubsub.v1.Publisher.CreateTopic": {
+  "permissions": ["pubsub.topics.create"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/pubsub/docs/audit-logging"
+ },
+ "google.pubsub.v1.Publisher.DeleteTopic": {
+  "permissions": ["pubsub.topics.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/pubsub/docs/audit-logging"
+ },
+ "google.pubsub.v1.Subscriber.CreateSubscription": {
+  "permissions": ["pubsub.subscriptions.create", "pubsub.topics.attachSubscription"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/pubsub/docs/audit-logging",
+  "note": "The doc table lists both permissions for this one method: subscriptions.create on the subscription and topics.attachSubscription on the target topic."
+ },
+ "google.pubsub.v1.Subscriber.DeleteSubscription": {
+  "permissions": ["pubsub.subscriptions.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/pubsub/docs/audit-logging"
+ },
+
+ "google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret": {
+  "permissions": ["secretmanager.secrets.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/secret-manager/docs/audit-logging"
+ },
+ "google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion": {
+  "permissions": ["secretmanager.versions.destroy"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/secret-manager/docs/audit-logging"
+ },
+
+ "google.cloud.orgpolicy.v2.OrgPolicy.UpdatePolicy": {
+  "permissions": ["orgpolicy.policies.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/audit-logging",
+  "note": "Table lives on the organization-policy page, not resource-manager/docs/audit-logging."
+ },
+ "google.cloud.orgpolicy.v2.OrgPolicy.DeletePolicy": {
+  "permissions": ["orgpolicy.policies.delete"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/audit-logging"
+ },
+
+ "google.api.serviceusage.v1.ServiceUsage.DisableService": {
+  "permissions": ["serviceusage.services.disable"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/service-usage/docs/audit-logging"
+ },
+
+ "google.api.apikeys.v2.ApiKeys.GetKeyString": {
+  "permissions": ["apikeys.keys.getKeyString"], "permission_type": "ADMIN_READ",
+  "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/api-keys/docs/audit-logging",
+  "note": "Officially ADMIN_READ, which still routes to Data Access logs. Data Access logging is OFF by default for every service except BigQuery, so this operation is NOT visible by default -- a telemetry gap, not coverage."
+ },
+
+ "google.appengine.v1.Firewall.CreateIngressRule": {
+  "permissions": ["appengine.applications.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging",
+  "note": "Canonical page is /appengine/docs/admin-api/audit-logging (/appengine/docs/audit-logging 404s)."
+ },
+ "google.appengine.v1.Firewall.UpdateIngressRule": {
+  "permissions": ["appengine.applications.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging"
+ },
+ "google.appengine.v1.Firewall.DeleteIngressRule": {
+  "permissions": ["appengine.applications.update"], "permission_type": "ADMIN_WRITE",
+  "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging"
+ },
+
+ "google.cloud.securitycenter.settings.v1beta1.Settings.Update": {
+  "permissions": [], "permission_type": null, "audit_log": null, "confidence": "unresolved",
+  "source": "https://docs.cloud.google.com/security-command-center/docs/audit-logging",
+  "note": "No v1beta1 Settings service and no bare 'Update' method appear in any official table. The documented service is v1beta2 with specific methods (UpdateEventThreatDetectionSettings etc.). No permission can be honestly cited, so this rule contributes no coverage."
+ },
+
+ "google.admin.AdminService.inboundSsoProfileCreated": {
+  "permissions": [], "permission_type": null, "audit_log": null, "confidence": "not_gcp_api",
+  "source": null,
+  "note": "Google Workspace Admin console activity event, not a GCP Cloud Audit Logs API method. Different telemetry stream; no GCP IAM permission exists."
+ },
+ "google.admin.AdminService.inboundSsoProfileUpdated": {
+  "permissions": [], "permission_type": null, "audit_log": null, "confidence": "not_gcp_api",
+  "source": null,
+  "note": "Google Workspace Admin console activity event, not a GCP Cloud Audit Logs API method. Different telemetry stream; no GCP IAM permission exists."
+ }
+}
