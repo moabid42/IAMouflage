@@ -23,6 +23,10 @@ The fourth table, rpc_methods.json (gRPC method -> permission), is *not* fetched
 it is hand-curated from Google's own per-service audit-logging pages and lives in
 version control with a source URL per entry. See reference/rpc_methods.json.
 
+Source: a local clone of iam-dataset (draft/iam-dataset) is used when present and at
+the pinned commit -- the build is then fully offline. Otherwise the pinned raw files
+are fetched from GitHub. Either way the data is byte-identical at a given SHA.
+
 Reproducibility: the upstream commit is pinned below. Re-running with the same SHA
 reproduces the same tables byte-for-byte. Bump DATASET_SHA deliberately, never
 silently -- the coverage numbers in the thesis depend on it.
@@ -32,6 +36,7 @@ Usage:  python -m reference.fetch_reference [--sha SHA] [--check]
 
 import argparse
 import json
+import subprocess
 import sys
 import urllib.request
 from pathlib import Path
@@ -43,10 +48,36 @@ DATASET_SHA = "1e4bdde1ef15ee01534ac4ed23221436e8796ab1"
 DATASET_DATE = "2026-07-21T15:20:29Z"
 RAW = "https://raw.githubusercontent.com/iann0036/iam-dataset/{sha}/gcp/{name}"
 
+# A local clone of iam-dataset checked out beside the corpora. Preferred over the
+# network when present AND at the pinned commit -- makes the build offline and
+# reproducible without hitting GitHub. Byte-identical to the raw fetch at the same SHA.
+_REPO = Path(__file__).resolve().parents[2]  # .../code/IAMouflage
+LOCAL_CLONE = _REPO.parents[1] / "draft" / "iam-dataset"
+
 OUT = Path(__file__).resolve().parents[1] / "data" / "reference"
 
 
-def fetch_json(sha: str, name: str):
+def local_source(sha: str) -> Path | None:
+    """Return the local clone's gcp/ dir iff it exists and is at the pinned commit."""
+    gcp = LOCAL_CLONE / "gcp"
+    if not gcp.is_dir():
+        return None
+    try:
+        head = subprocess.run(["git", "-C", str(LOCAL_CLONE), "rev-parse", "HEAD"],
+                              capture_output=True, text=True, check=True).stdout.strip()
+    except Exception:
+        return None
+    if head != sha:
+        print(f"  local clone at {head[:10]} != pinned {sha[:10]}; using network",
+              file=sys.stderr)
+        return None
+    print(f"  using local clone {LOCAL_CLONE} @ {head[:10]}", file=sys.stderr)
+    return gcp
+
+
+def load_source(sha: str, name: str, local: Path | None):
+    if local is not None:
+        return json.loads((local / name).read_text())
     url = RAW.format(sha=sha, name=name)
     print(f"  GET {url}", file=sys.stderr)
     with urllib.request.urlopen(url, timeout=120) as r:
@@ -71,14 +102,20 @@ def build_method_permissions(raw_map: dict) -> dict:
     return dict(sorted(out.items()))
 
 
-def build_permission_vocab(raw_perms: dict) -> list:
-    """The canonical IAM permission vocabulary (names only).
+def build_permission_vocab(raw_perms: dict, raw_role_perms: dict | None = None) -> list:
+    """The IAM permission vocabulary (names only) used to recognise valid permissions.
 
-    Upstream maps permission -> predefined roles; we only need the key set, to
-    answer "is this token already a valid IAM permission?". Dropping the role
-    lists takes the file from ~8.5 MB to ~300 KB.
+    `permissions.json` (permission -> predefined roles) is the base list. We also union
+    the keys of `role_permissions.json`, which is permission-keyed and carries ~3.6k
+    MORE permissions (including newer / undocumented-in-a-role ones like
+    storage.buckets.setIpFilter). A larger vocabulary can only make more tokens resolve
+    as real permissions, never fewer, so it strictly reduces honest-but-avoidable misses.
+    We keep only names, dropping the role lists (~8.5 MB -> ~350 KB).
     """
-    return sorted(raw_perms.keys())
+    vocab = set(raw_perms.keys())
+    if raw_role_perms:
+        vocab |= set(raw_role_perms.keys())
+    return sorted(vocab)
 
 
 PROVENANCE = """# Provenance of the GCP naming reference tables
@@ -92,8 +129,13 @@ operations as API *methods*) and the technique corpus (which names them as IAM
 | File | Source | Kind | Pinned at |
 |---|---|---|---|
 | `method_permissions.json` | [iann0036/iam-dataset](https://github.com/iann0036/iam-dataset) `gcp/map.json` | community, machine-readable | `{sha}` ({date}) |
-| `permissions.json` | same repo, `gcp/permissions.json` (keys only) | community, machine-readable | `{sha}` ({date}) |
+| `permissions.json` | same repo, `gcp/permissions.json` + `gcp/role_permissions.json` keys (union) | community, machine-readable | `{sha}` ({date}) |
 | `../../reference/rpc_methods.json` | Google Cloud per-service audit-logging docs | **official**, hand-transcribed | see per-entry `source` |
+
+The permission vocabulary unions `permissions.json` with the (permission-keyed)
+`role_permissions.json`, giving ~3.6k more permissions than `permissions.json` alone.
+Read from the local clone `draft/iam-dataset` when it is checked out at the pinned SHA
+(offline build), else fetched from GitHub -- identical either way.
 
 ## Counts
 
@@ -149,14 +191,16 @@ def main():
 
     OUT.mkdir(parents=True, exist_ok=True)
     print(f"pinning iam-dataset @ {args.sha}", file=sys.stderr)
+    local = local_source(args.sha)
 
-    raw_map = fetch_json(args.sha, "map.json")
+    raw_map = load_source(args.sha, "map.json", local)
     method_perms = build_method_permissions(raw_map)
     (OUT / "method_permissions.json").write_text(
         json.dumps(method_perms, indent=1, sort_keys=True))
 
-    raw_perms = fetch_json(args.sha, "permissions.json")
-    vocab = build_permission_vocab(raw_perms)
+    raw_perms = load_source(args.sha, "permissions.json", local)
+    raw_role_perms = load_source(args.sha, "role_permissions.json", local)
+    vocab = build_permission_vocab(raw_perms, raw_role_perms)
     (OUT / "permissions.json").write_text(json.dumps(vocab, indent=1))
 
     (OUT / "PROVENANCE.md").write_text(PROVENANCE.format(

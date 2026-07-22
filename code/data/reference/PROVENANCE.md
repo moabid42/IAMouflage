@@ -9,13 +9,18 @@ operations as API *methods*) and the technique corpus (which names them as IAM
 | File | Source | Kind | Pinned at |
 |---|---|---|---|
 | `method_permissions.json` | [iann0036/iam-dataset](https://github.com/iann0036/iam-dataset) `gcp/map.json` | community, machine-readable | `1e4bdde1ef15ee01534ac4ed23221436e8796ab1` (2026-07-21T15:20:29Z) |
-| `permissions.json` | same repo, `gcp/permissions.json` (keys only) | community, machine-readable | `1e4bdde1ef15ee01534ac4ed23221436e8796ab1` (2026-07-21T15:20:29Z) |
+| `permissions.json` | same repo, `gcp/permissions.json` + `gcp/role_permissions.json` keys (union) | community, machine-readable | `1e4bdde1ef15ee01534ac4ed23221436e8796ab1` (2026-07-21T15:20:29Z) |
 | `../../reference/rpc_methods.json` | Google Cloud per-service audit-logging docs | **official**, hand-transcribed | see per-entry `source` |
+
+The permission vocabulary unions `permissions.json` with the (permission-keyed)
+`role_permissions.json`, giving ~3.6k more permissions than `permissions.json` alone.
+Read from the local clone `draft/iam-dataset` when it is checked out at the pinned SHA
+(offline build), else fetched from GitHub -- identical either way.
 
 ## Counts
 
 - REST methods with >=1 permission: **6072**
-- Canonical IAM permissions: **10129**
+- Canonical IAM permissions: **13760**
 
 ## Why a community dataset
 
