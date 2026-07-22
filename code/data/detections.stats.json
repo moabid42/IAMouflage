@@ -1,0 +1,25 @@
+{
+  "total_rules": 163,
+  "by_source": {
+    "sigma": 26,
+    "elastic": 44,
+    "gsecops": 24,
+    "panther": 69
+  },
+  "by_paradigm": {
+    "event": 135,
+    "correlation": 21,
+    "ueba": 7
+  },
+  "by_domain": {
+    "gcp": 121,
+    "k8s": 30,
+    "workspace": 10,
+    "gcp_lb": 2
+  },
+  "patterns_expanded": 3,
+  "distinct_permissions": 155,
+  "rules_with_ops": 112,
+  "event_only_rules": 135,
+  "universe_size": 357
+}

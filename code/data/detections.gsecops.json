@@ -1,0 +1,1053 @@
+[
+ {
+  "id": "gsecops:mr_9ffebc73-6d73-40bd-8973-2d53a810272f",
+  "source": "gsecops",
+  "native_id": "mr_9ffebc73-6d73-40bd-8973-2d53a810272f",
+  "title": "GCP Admin Privileged Roles Added To Service Accounts",
+  "file": "gcp_admin_privileged_roles_added_to_service_accounts.yaral",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_6d331411-347b-432e-ba52-ff78e4c66a3f",
+  "source": "gsecops",
+  "native_id": "mr_6d331411-347b-432e-ba52-ff78e4c66a3f",
+  "title": "GCP BigQuery Datasets Opened To Public",
+  "file": "gcp_bigquery_datasets_opened_to_public.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.v1.IAMPolicy.SetIamPolicy",
+      "permissions": [],
+      "kind": "grpc_method",
+      "confidence": "generic",
+      "provenance": "rpc_methods.json[google.iam.v1.IAMPolicy.SetIamPolicy] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": "\\.setIamPolicy$",
+      "note": "Emitted by many services; the concrete permission is resource-dependent and follows <service>.<resource>.setIamPolicy. Modelled as a pattern so it expands only to permissions techniques actually use."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_dc6b1f68-734d-4b4b-91c2-1675f2422c11",
+  "source": "gsecops",
+  "native_id": "mr_dc6b1f68-734d-4b4b-91c2-1675f2422c11",
+  "title": "GCP BigQuery Results Downloaded From Multiple Tables",
+  "file": "gcp_bigquery_results_downloaded_from_multiple_tables.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "exfiltration"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "jobservice.getqueryresults",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "jobservice.getqueryresults"
+  ],
+  "threshold": null,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= None events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_6ffed437-4666-433f-8ba8-b6043daef4c5",
+  "source": "gsecops",
+  "native_id": "mr_6ffed437-4666-433f-8ba8-b6043daef4c5",
+  "title": "GCP Cloud Audit Logging Removed From All Services",
+  "file": "gcp_cloud_audit_logging_removed_from_all_services.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_2edbd86a-703a-41a3-b2b2-596dd9dbed8d",
+  "source": "gsecops",
+  "native_id": "mr_2edbd86a-703a-41a3-b2b2-596dd9dbed8d",
+  "title": "GCP Excessive Permission Denied Events",
+  "file": "gcp_excessive_permission_denied_events.yaral",
+  "paradigm": "correlation",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "discovery"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 5,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= 5 events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_6ebf472c-bf50-468c-a0b1-e0f53dd91a61",
+  "source": "gsecops",
+  "native_id": "mr_6ebf472c-bf50-468c-a0b1-e0f53dd91a61",
+  "title": "GCP Exempt Principals From Audit Log",
+  "file": "gcp_exempt_principals_from_audit_log.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_340c7a66-56ea-498a-bf00-270e9e61fed0",
+  "source": "gsecops",
+  "native_id": "mr_340c7a66-56ea-498a-bf00-270e9e61fed0",
+  "title": "GCP Firewall Rule Opened To The World",
+  "file": "gcp_firewall_rule_opened_to_world.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.firewalls.insert",
+      "permissions": [
+       "compute.firewalls.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.firewalls.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.firewalls.create"
+  ]
+ },
+ {
+  "id": "gsecops:mr_eec293b2-75d6-48f1-871d-182d67345a9c",
+  "source": "gsecops",
+  "native_id": "mr_eec293b2-75d6-48f1-871d-182d67345a9c",
+  "title": "GCP Free Gmail Domains Added To IAM Policy",
+  "file": "gcp_free_gmail_domains_added_to_iam_policy.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "persistence"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_4a1525be-9e17-41d6-ba67-a11058ee4d3c",
+  "source": "gsecops",
+  "native_id": "mr_4a1525be-9e17-41d6-ba67-a11058ee4d3c",
+  "title": "GCP GCE Image Open To Public",
+  "file": "gcp_gce_image_open_to_public.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "exfiltration"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "beta.compute.images.setIamPolicy",
+      "permissions": [
+       "compute.images.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded beta.compute.images.setIamPolicy -> compute.images.setIamPolicy)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.images.setIamPolicy"
+  ]
+ },
+ {
+  "id": "gsecops:mr_327c1753-1cd5-424a-8a9f-1648278e2831",
+  "source": "gsecops",
+  "native_id": "mr_327c1753-1cd5-424a-8a9f-1648278e2831",
+  "title": "GCP IAM Organization Policy Updated Or Deleted",
+  "file": "gcp_iam_organization_policy_updated_or_deleted.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.cloud.orgpolicy.v2.OrgPolicy.UpdatePolicy",
+      "permissions": [
+       "orgpolicy.policies.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.orgpolicy.v2.OrgPolicy.UpdatePolicy] <- https://docs.cloud.google.com/resource-manager/docs/organization-policy/audit-logging",
+      "pattern": null,
+      "note": "Table lives on the organization-policy page, not resource-manager/docs/audit-logging."
+     }
+    ],
+    [
+     {
+      "token": "google.cloud.orgpolicy.v2.OrgPolicy.DeletePolicy",
+      "permissions": [
+       "orgpolicy.policies.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.orgpolicy.v2.OrgPolicy.DeletePolicy] <- https://docs.cloud.google.com/resource-manager/docs/organization-policy/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "orgpolicy.policies.delete",
+   "orgpolicy.policies.update"
+  ]
+ },
+ {
+  "id": "gsecops:mr_fafc6c00-aedb-4664-ae1a-5a48f3a7534d",
+  "source": "gsecops",
+  "native_id": "mr_fafc6c00-aedb-4664-ae1a-5a48f3a7534d",
+  "title": "Google Cloud identity low and medium alert escalation",
+  "file": "gcp_identity_low_and_medium_severity_alert_escalation.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion",
+   "initial_access",
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "Security Command Center Threat",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "24h",
+  "notes": [
+   "correlation over 24h, needs >= None events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_90cd5b0d-60a7-4028-bc41-dce0947fbafd",
+  "source": "gsecops",
+  "native_id": "mr_90cd5b0d-60a7-4028-bc41-dce0947fbafd",
+  "title": "Unauthorized KMS Decryption",
+  "file": "gcp_kms_decryption_by_unexpected_service_account.yaral",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "persistence"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "Cloud Audit Logs",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_75b441f1-edde-4a33-bc12-06a92ccb9ba8",
+  "source": "gsecops",
+  "native_id": "mr_75b441f1-edde-4a33-bc12-06a92ccb9ba8",
+  "title": "GCP Multiple HMAC Keys Deleted",
+  "file": "gcp_multiple_hmac_keys_deleted.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.hmacKeys.delete",
+      "permissions": [
+       "storage.hmacKeys.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 2,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= 2 events"
+  ],
+  "covered_permissions": [
+   "storage.hmacKeys.delete"
+  ]
+ },
+ {
+  "id": "gsecops:mr_1457dcf4-b20b-4ec0-a295-d04074889991",
+  "source": "gsecops",
+  "native_id": "mr_1457dcf4-b20b-4ec0-a295-d04074889991",
+  "title": "GCP Multiple KMS Keys Disabled Or Destroyed",
+  "file": "gcp_multiple_kms_keys_disabled_or_destroyed.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 10,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= 10 events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_c91c9fe8-6569-4764-a8d8-9b88dd3b7f77",
+  "source": "gsecops",
+  "native_id": "mr_c91c9fe8-6569-4764-a8d8-9b88dd3b7f77",
+  "title": "GCP Multiple Secrets Deleted",
+  "file": "gcp_multiple_secrets_deleted.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion",
+      "permissions": [
+       "secretmanager.versions.destroy"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion] <- https://docs.cloud.google.com/secret-manager/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret",
+      "permissions": [
+       "secretmanager.secrets.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret] <- https://docs.cloud.google.com/secret-manager/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 10,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= 10 events"
+  ],
+  "covered_permissions": [
+   "secretmanager.secrets.delete",
+   "secretmanager.versions.destroy"
+  ]
+ },
+ {
+  "id": "gsecops:mr_5a4ce357-e4da-4a4b-8cc2-ed5515f1043d",
+  "source": "gsecops",
+  "native_id": "mr_5a4ce357-e4da-4a4b-8cc2-ed5515f1043d",
+  "title": "GCP Multiple Service APIs Disabled",
+  "file": "gcp_multiple_service_apis_disabled.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.api.serviceusage.v1.ServiceUsage.DisableService",
+      "permissions": [
+       "serviceusage.services.disable"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.api.serviceusage.v1.ServiceUsage.DisableService] <- https://docs.cloud.google.com/service-usage/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= None events"
+  ],
+  "covered_permissions": [
+   "serviceusage.services.disable"
+  ]
+ },
+ {
+  "id": "gsecops:mr_0d065dd8-4489-434a-bb6e-066537318484",
+  "source": "gsecops",
+  "native_id": "mr_0d065dd8-4489-434a-bb6e-066537318484",
+  "title": "GCP Security Command Center Service Disabled",
+  "file": "gcp_security_command_center_service_disabled.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.cloud.securitycenter.settings*.Settings.Update",
+      "permissions": [],
+      "kind": "grpc_method",
+      "confidence": "unresolved",
+      "provenance": "rpc_methods.json[google.cloud.securitycenter.settings.v1beta1.Settings.Update] <- https://docs.cloud.google.com/security-command-center/docs/audit-logging",
+      "pattern": null,
+      "note": "No v1beta1 Settings service and no bare 'Update' method appear in any official table. The documented service is v1beta2 with specific methods (UpdateEventThreatDetectionSettings etc.). No permission can be honestly cited, so this rule contributes no coverage."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "google.cloud.securitycenter.settings*.Settings.Update"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_dbc9cf09-7c2d-4c9e-b9d4-60df60f360a1",
+  "source": "gsecops",
+  "native_id": "mr_dbc9cf09-7c2d-4c9e-b9d4-60df60f360a1",
+  "title": "GCP Service Account Key Used From Multiple Countries",
+  "file": "gcp_service_account_key_used_from_multiple_countries.yaral",
+  "paradigm": "correlation",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "credential_access"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= None events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_ee63778e-20ac-482c-84ef-abf5ceacd36e",
+  "source": "gsecops",
+  "native_id": "mr_ee63778e-20ac-482c-84ef-abf5ceacd36e",
+  "title": "GCP Service API Key Retrieved",
+  "file": "gcp_service_api_key_retrieved.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "credential_access"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.api.apikeys.v2.ApiKeys.GetKeyString",
+      "permissions": [
+       "apikeys.keys.getKeyString"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.api.apikeys.v2.ApiKeys.GetKeyString] <- https://docs.cloud.google.com/api-keys/docs/audit-logging",
+      "pattern": null,
+      "note": "Officially ADMIN_READ, which still routes to Data Access logs. Data Access logging is OFF by default for every service except BigQuery, so this operation is NOT visible by default -- a telemetry gap, not coverage."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "1h",
+  "notes": [
+   "correlation over 1h, needs >= None events"
+  ],
+  "covered_permissions": [
+   "apikeys.keys.getKeyString"
+  ]
+ },
+ {
+  "id": "gsecops:mr_b776abb0-9e7b-444d-ae0f-8a88b5654ded",
+  "source": "gsecops",
+  "native_id": "mr_b776abb0-9e7b-444d-ae0f-8a88b5654ded",
+  "title": "GCP Storage Bucket Opened To Public",
+  "file": "gcp_storage_bucket_opened_to_public.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.setIamPermissions",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "storage.setIamPermissions"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_5912e2be-4366-4f34-a770-0ac8358f2cb9",
+  "source": "gsecops",
+  "native_id": "mr_5912e2be-4366-4f34-a770-0ac8358f2cb9",
+  "title": "GCP Successful API Call From Tor Exit Node",
+  "file": "gcp_successful_api_from_tor_exit_node.yaral",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "execution"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "5m",
+  "notes": [
+   "correlation over 5m, needs >= None events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_c9a0cb63-0e35-45eb-8b43-ae48385985dc",
+  "source": "gsecops",
+  "native_id": "mr_c9a0cb63-0e35-45eb-8b43-ae48385985dc",
+  "title": "GCP_Uunauthorized_GKE_Pod_Token_Endpoint_Usage",
+  "file": "gcp_unauthorized_gke_pod_token_endpoint_usage.yaral",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "Cloud Audit Logs",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "24h",
+  "notes": [
+   "correlation over 24h, needs >= None events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "gsecops:mr_265fbe68-80c6-48b0-a211-dca6bcef0fd2",
+  "source": "gsecops",
+  "native_id": "mr_265fbe68-80c6-48b0-a211-dca6bcef0fd2",
+  "title": "GCP Workload Identity Pool Disabled Or Deleted",
+  "file": "gcp_workload_identity_pool_disabled_or_deleted.yaral",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "defense_evasion",
+   "initial_access",
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "GCP"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.v1.WorkloadIdentityPools.DeleteWorkloadIdentityPool",
+      "permissions": [
+       "iam.workloadIdentityPools.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.v1.WorkloadIdentityPools.DeleteWorkloadIdentityPool] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPool",
+      "permissions": [
+       "iam.workloadIdentityPools.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPool] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.workloadIdentityPools.delete",
+   "iam.workloadIdentityPools.update"
+  ]
+ },
+ {
+  "id": "gsecops:mr_751d64b3-2aef-4c5b-bf39-abc6577f6ce8",
+  "source": "gsecops",
+  "native_id": "mr_751d64b3-2aef-4c5b-bf39-abc6577f6ce8",
+  "title": "Google Cloud Service Account Key Created or Uploaded",
+  "file": "google_cloud_service_account_key_created_or_uploaded.yaral",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "yaral",
+  "mitre_tactics": [
+   "persistence"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "data_source": "GCP Cloud Audit",
+   "platform": "Google Cloud"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v1.CreateServiceAccountKey",
+      "permissions": [
+       "iam.serviceAccountKeys.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.CreateServiceAccountKey] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.admin.v1.UploadServiceAccountKey",
+      "permissions": [
+       "iam.serviceAccountKeys.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.UploadServiceAccountKey] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": "Shares iam.serviceAccountKeys.create with CreateServiceAccountKey per the official table."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "30m",
+  "notes": [
+   "correlation over 30m, needs >= None events"
+  ],
+  "covered_permissions": [
+   "iam.serviceAccountKeys.create"
+  ]
+ }
+]

@@ -1,0 +1,2629 @@
+[
+ {
+  "id": "elastic:d62b64a8-a7c9-43e5-aee3-15a725a794e7",
+  "source": "elastic",
+  "native_id": "d62b64a8-a7c9-43e5-aee3-15a725a794e7",
+  "title": "GCP Pub/Sub Subscription Creation",
+  "file": "collection_gcp_pub_sub_subscription_creation.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "collection"
+  ],
+  "mitre_techniques": [
+   "T1119",
+   "T1530"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.pubsub.v*.Subscriber.CreateSubscription",
+      "permissions": [
+       "pubsub.subscriptions.create",
+       "pubsub.topics.attachSubscription"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.pubsub.v1.Subscriber.CreateSubscription] <- https://docs.cloud.google.com/pubsub/docs/audit-logging",
+      "pattern": null,
+      "note": "The doc table lists both permissions for this one method: subscriptions.create on the subscription and topics.attachSubscription on the target topic."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "pubsub.subscriptions.create",
+   "pubsub.topics.attachSubscription"
+  ]
+ },
+ {
+  "id": "elastic:a10d3d9d-0f65-48f1-8b25-af175e2594f5",
+  "source": "elastic",
+  "native_id": "a10d3d9d-0f65-48f1-8b25-af175e2594f5",
+  "title": "GCP Pub/Sub Topic Creation",
+  "file": "collection_gcp_pub_sub_topic_creation.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "collection",
+   "execution"
+  ],
+  "mitre_techniques": [
+   "T1530",
+   "T1651"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.pubsub.v*.Publisher.CreateTopic",
+      "permissions": [
+       "pubsub.topics.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.pubsub.v1.Publisher.CreateTopic] <- https://docs.cloud.google.com/pubsub/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "pubsub.topics.create"
+  ]
+ },
+ {
+  "id": "elastic:4780a3d6-e6a7-490c-9afb-9c5fbb220b9a",
+  "source": "elastic",
+  "native_id": "4780a3d6-e6a7-490c-9afb-9c5fbb220b9a",
+  "title": "GKE Rapid Secret GET Activity Against Multiple Objects",
+  "file": "credential_access_gcp_gke_rapid_secret_get_activity_against_multiple_objects.toml",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "esql",
+  "mitre_tactics": [
+   "credential_access"
+  ],
+  "mitre_techniques": [
+   "T1552",
+   "T1552.007"
+  ],
+  "logsource": {
+   "index": null,
+   "language": "esql"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.secrets.get",
+      "permissions": [
+       "container.secrets.get"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.secrets.get -> container.secrets.get)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.secrets.get"
+  ]
+ },
+ {
+  "id": "elastic:0c04d82f-6def-4659-aa62-ed6355a51f39",
+  "source": "elastic",
+  "native_id": "0c04d82f-6def-4659-aa62-ed6355a51f39",
+  "title": "GKE Secret get or list with Suspicious User Agent",
+  "file": "credential_access_gcp_gke_secret_access_suspicious_user_agent.toml",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "credential_access"
+  ],
+  "mitre_techniques": [
+   "T1552",
+   "T1552.007"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.secrets.list",
+      "permissions": [
+       "container.secrets.list"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.secrets.list -> container.secrets.list)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.secrets.get",
+      "permissions": [
+       "container.secrets.get"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.secrets.get -> container.secrets.get)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.secrets.get",
+   "container.secrets.list"
+  ]
+ },
+ {
+  "id": "elastic:4df2e3ae-3553-4194-b22e-3e5a6f71466e",
+  "source": "elastic",
+  "native_id": "4df2e3ae-3553-4194-b22e-3e5a6f71466e",
+  "title": "GKE Secrets List from Unusual Source AS Organization",
+  "file": "credential_access_gcp_gke_secrets_list_unusual_source_asn.toml",
+  "paradigm": "ueba",
+  "level": "high",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "new_terms",
+  "mitre_tactics": [
+   "credential_access",
+   "discovery"
+  ],
+  "mitre_techniques": [
+   "T1552",
+   "T1552.007",
+   "T1613"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.secrets.list",
+      "permissions": [
+       "container.secrets.list"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.secrets.list -> container.secrets.list)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.secrets.list"
+  ]
+ },
+ {
+  "id": "elastic:30562697-9859-4ae0-a8c5-dab45d664170",
+  "source": "elastic",
+  "native_id": "30562697-9859-4ae0-a8c5-dab45d664170",
+  "title": "GCP Firewall Rule Creation",
+  "file": "defense_evasion_gcp_firewall_rule_created.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.007"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.firewalls.insert",
+      "permissions": [
+       "compute.firewalls.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.firewalls.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.appengine.*.Firewall.Create*Rule",
+      "permissions": [
+       "appengine.applications.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.appengine.v1.Firewall.CreateIngressRule] <- https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging",
+      "pattern": null,
+      "note": "Canonical page is /appengine/docs/admin-api/audit-logging (/appengine/docs/audit-logging 404s)."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "appengine.applications.update",
+   "compute.firewalls.create"
+  ]
+ },
+ {
+  "id": "elastic:ff9b571e-61d6-4f6c-9561-eb4cca3bafe1",
+  "source": "elastic",
+  "native_id": "ff9b571e-61d6-4f6c-9561-eb4cca3bafe1",
+  "title": "GCP Firewall Rule Deletion",
+  "file": "defense_evasion_gcp_firewall_rule_deleted.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.007"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.firewalls.delete",
+      "permissions": [
+       "compute.firewalls.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.appengine.*.Firewall.Delete*Rule",
+      "permissions": [
+       "appengine.applications.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.appengine.v1.Firewall.DeleteIngressRule] <- https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "appengine.applications.update",
+   "compute.firewalls.delete"
+  ]
+ },
+ {
+  "id": "elastic:2783d84f-5091-4d7d-9319-9fceda8fa71b",
+  "source": "elastic",
+  "native_id": "2783d84f-5091-4d7d-9319-9fceda8fa71b",
+  "title": "GCP Firewall Rule Modification",
+  "file": "defense_evasion_gcp_firewall_rule_modified.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.007"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.firewalls.patch",
+      "permissions": [
+       "compute.firewalls.get",
+       "compute.firewalls.update",
+       "compute.networks.updatePolicy"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.firewalls.patch]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.appengine.*.Firewall.Update*Rule",
+      "permissions": [
+       "appengine.applications.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.appengine.v1.Firewall.UpdateIngressRule] <- https://docs.cloud.google.com/appengine/docs/admin-api/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "appengine.applications.update",
+   "compute.firewalls.get",
+   "compute.firewalls.update",
+   "compute.networks.updatePolicy"
+  ]
+ },
+ {
+  "id": "elastic:5663b693-0dea-4f2e-8275-f1ae5ff2de8e",
+  "source": "elastic",
+  "native_id": "5663b693-0dea-4f2e-8275-f1ae5ff2de8e",
+  "title": "GCP Logging Bucket Deletion",
+  "file": "defense_evasion_gcp_logging_bucket_deletion.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.008"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.logging.v*.ConfigServiceV*.DeleteBucket",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteBucket' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteBucket$/",
+      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteBucket$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:51859fa0-d86b-4214-bf48-ebb30ed91305",
+  "source": "elastic",
+  "native_id": "51859fa0-d86b-4214-bf48-ebb30ed91305",
+  "title": "GCP Logging Sink Deletion",
+  "file": "defense_evasion_gcp_logging_sink_deletion.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.008"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.logging.v*.ConfigServiceV*.DeleteSink",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteSink' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteSink$/",
+      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteSink$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:cc89312d-6f47-48e4-a87c-4977bd4633c3",
+  "source": "elastic",
+  "native_id": "cc89312d-6f47-48e4-a87c-4977bd4633c3",
+  "title": "GCP Pub/Sub Subscription Deletion",
+  "file": "defense_evasion_gcp_pub_sub_subscription_deletion.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1489",
+   "T1562"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.pubsub.v*.Subscriber.DeleteSubscription",
+      "permissions": [
+       "pubsub.subscriptions.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.pubsub.v1.Subscriber.DeleteSubscription] <- https://docs.cloud.google.com/pubsub/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "pubsub.subscriptions.delete"
+  ]
+ },
+ {
+  "id": "elastic:3202e172-01b1-4738-a932-d024c514ba72",
+  "source": "elastic",
+  "native_id": "3202e172-01b1-4738-a932-d024c514ba72",
+  "title": "GCP Pub/Sub Topic Deletion",
+  "file": "defense_evasion_gcp_pub_sub_topic_deletion.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1489",
+   "T1562"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.pubsub.v*.Publisher.DeleteTopic",
+      "permissions": [
+       "pubsub.topics.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.pubsub.v1.Publisher.DeleteTopic] <- https://docs.cloud.google.com/pubsub/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "pubsub.topics.delete"
+  ]
+ },
+ {
+  "id": "elastic:97359fd8-757d-4b1d-9af1-ef29e4a8680e",
+  "source": "elastic",
+  "native_id": "97359fd8-757d-4b1d-9af1-ef29e4a8680e",
+  "title": "GCP Storage Bucket Configuration Modification",
+  "file": "defense_evasion_gcp_storage_bucket_configuration_modified.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1578",
+   "T1578.005"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.buckets.update",
+      "permissions": [
+       "storage.buckets.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.buckets.update"
+  ]
+ },
+ {
+  "id": "elastic:2326d1b2-9acf-4dee-bd21-867ea7378b4d",
+  "source": "elastic",
+  "native_id": "2326d1b2-9acf-4dee-bd21-867ea7378b4d",
+  "title": "GCP Storage Bucket Permissions Modification",
+  "file": "defense_evasion_gcp_storage_bucket_permissions_modified.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1098",
+   "T1098.003",
+   "T1222"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:c58c3081-2e1d-4497-8491-e73a45d1a6d6",
+  "source": "elastic",
+  "native_id": "c58c3081-2e1d-4497-8491-e73a45d1a6d6",
+  "title": "GCP Virtual Private Cloud Network Deletion",
+  "file": "defense_evasion_gcp_virtual_private_cloud_network_deleted.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1485",
+   "T1562",
+   "T1562.007"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.networks.delete",
+      "permissions": [
+       "compute.networks.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.networks.delete"
+  ]
+ },
+ {
+  "id": "elastic:9180ffdf-f3d0-4db3-bf66-7a14bcff71b8",
+  "source": "elastic",
+  "native_id": "9180ffdf-f3d0-4db3-bf66-7a14bcff71b8",
+  "title": "GCP Virtual Private Cloud Route Creation",
+  "file": "defense_evasion_gcp_virtual_private_cloud_route_created.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.007",
+   "T1578",
+   "T1578.005"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.routes.insert",
+      "permissions": [
+       "compute.networks.updatePolicy",
+       "compute.routes.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.routes.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "beta.compute.routes.insert",
+      "permissions": [
+       "compute.networks.updatePolicy",
+       "compute.routes.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.routes.insert] (folded from beta.compute.routes.insert)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.networks.updatePolicy",
+   "compute.routes.create"
+  ]
+ },
+ {
+  "id": "elastic:a17bcc91-297b-459b-b5ce-bc7460d8f82a",
+  "source": "elastic",
+  "native_id": "a17bcc91-297b-459b-b5ce-bc7460d8f82a",
+  "title": "GCP Virtual Private Cloud Route Deletion",
+  "file": "defense_evasion_gcp_virtual_private_cloud_route_deleted.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion"
+  ],
+  "mitre_techniques": [
+   "T1562",
+   "T1562.007",
+   "T1578",
+   "T1578.005"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.routes.delete",
+      "permissions": [
+       "compute.routes.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.routes.delete"
+  ]
+ },
+ {
+  "id": "elastic:94556bc7-e057-4759-9e49-fa79ee366101",
+  "source": "elastic",
+  "native_id": "94556bc7-e057-4759-9e49-fa79ee366101",
+  "title": "GKE API Request Failure Burst by User",
+  "file": "discovery_gcp_gke_api_request_failure_burst.toml",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "esql",
+  "mitre_tactics": [
+   "discovery"
+  ],
+  "mitre_techniques": [
+   "T1613"
+  ],
+  "logsource": {
+   "index": null,
+   "language": "esql"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:2302fb59-5201-46ec-b433-6044adb37b0b",
+  "source": "elastic",
+  "native_id": "2302fb59-5201-46ec-b433-6044adb37b0b",
+  "title": "GKE Suspicious Self-Subject Review via Service Account",
+  "file": "discovery_gcp_gke_suspicious_self_subject_review.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "discovery"
+  ],
+  "mitre_techniques": [
+   "T1069",
+   "T1069.003",
+   "T1613"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.authorization.v1.selfsubjectaccessreviews.create",
+      "permissions": [
+       "container.selfSubjectAccessReviews.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.v1.selfsubjectaccessreviews.create -> container.selfSubjectAccessReviews.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.v1.selfsubjectrulesreviews.create",
+      "permissions": [
+       "container.selfSubjectRulesReviews.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.v1.selfsubjectrulesreviews.create -> container.selfSubjectRulesReviews.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.selfSubjectAccessReviews.create",
+   "container.selfSubjectRulesReviews.create"
+  ]
+ },
+ {
+  "id": "elastic:c040c962-1c60-4259-8ea3-601a40d4ab9f",
+  "source": "elastic",
+  "native_id": "c040c962-1c60-4259-8ea3-601a40d4ab9f",
+  "title": "GKE User Exec into Pod",
+  "file": "execution_gcp_gke_user_exec_into_pod.toml",
+  "paradigm": "ueba",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "new_terms",
+  "mitre_tactics": [
+   "execution"
+  ],
+  "mitre_techniques": [
+   "T1609"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.exec.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.exec.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.exec.get",
+      "permissions": [
+       "container.pods.get"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.exec.get -> container.pods.get)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.get"
+  ]
+ },
+ {
+  "id": "elastic:184dfe52-2999-42d9-b9d1-d1ca54495a61",
+  "source": "elastic",
+  "native_id": "184dfe52-2999-42d9-b9d1-d1ca54495a61",
+  "title": "GCP Logging Sink Modification",
+  "file": "exfiltration_gcp_logging_sink_modification.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "exfiltration"
+  ],
+  "mitre_techniques": [
+   "T1537",
+   "T1562",
+   "T1562.008"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.logging.v*.ConfigServiceV*.UpdateSink",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.UpdateSink' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.UpdateSink$/",
+      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.UpdateSink$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:80528e81-949f-4d38-b0c7-aef4b160212e",
+  "source": "elastic",
+  "native_id": "80528e81-949f-4d38-b0c7-aef4b160212e",
+  "title": "GKE CoreDNS or Kube-DNS Configuration Modified",
+  "file": "impact_gcp_gke_coredns_or_kube_dns_configuration_modified.toml",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1565",
+   "T1565.001"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.configmaps.update",
+      "permissions": [
+       "container.configMaps.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.configmaps.update -> container.configMaps.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.configmaps.patch",
+      "permissions": [
+       "container.configMaps.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.configmaps.patch -> container.configMaps.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.configmaps.delete",
+      "permissions": [
+       "container.configMaps.delete"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.configmaps.delete -> container.configMaps.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.configMaps.delete",
+   "container.configMaps.update"
+  ]
+ },
+ {
+  "id": "elastic:e2fb5b18-e33c-4270-851e-c3d675c9afcd",
+  "source": "elastic",
+  "native_id": "e2fb5b18-e33c-4270-851e-c3d675c9afcd",
+  "title": "GCP IAM Role Deletion",
+  "file": "impact_gcp_iam_role_deletion.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1531"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.DeleteRole",
+      "permissions": [
+       "iam.roles.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.DeleteRole] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.roles.delete"
+  ]
+ },
+ {
+  "id": "elastic:8fb75dda-c47a-4e34-8ecd-34facf7aad13",
+  "source": "elastic",
+  "native_id": "8fb75dda-c47a-4e34-8ecd-34facf7aad13",
+  "title": "GCP Service Account Deletion",
+  "file": "impact_gcp_service_account_deleted.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1531"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.DeleteServiceAccount",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccount' -> /^google\\.iam\\.admin\\.DeleteServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.DeleteServiceAccount$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:bca7d28e-4a48-47b1-adb7-5074310e9a61",
+  "source": "elastic",
+  "native_id": "bca7d28e-4a48-47b1-adb7-5074310e9a61",
+  "title": "GCP Service Account Disabled",
+  "file": "impact_gcp_service_account_disabled.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1531"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.DisableServiceAccount",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DisableServiceAccount' -> /^google\\.iam\\.admin\\.DisableServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.DisableServiceAccount$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:bc0f2d83-32b8-4ae2-b0e6-6a45772e9331",
+  "source": "elastic",
+  "native_id": "bc0f2d83-32b8-4ae2-b0e6-6a45772e9331",
+  "title": "GCP Storage Bucket Deletion",
+  "file": "impact_gcp_storage_bucket_deleted.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1485"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.buckets.delete",
+      "permissions": [
+       "storage.buckets.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.buckets.delete"
+  ]
+ },
+ {
+  "id": "elastic:aa8007f0-d1df-49ef-8520-407857594827",
+  "source": "elastic",
+  "native_id": "aa8007f0-d1df-49ef-8520-407857594827",
+  "title": "GCP IAM Custom Role Creation",
+  "file": "initial_access_gcp_iam_custom_role_creation.toml",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "initial_access",
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1078",
+   "T1098",
+   "T1098.003"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.CreateRole",
+      "permissions": [
+       "iam.roles.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.CreateRole] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.roles.create"
+  ]
+ },
+ {
+  "id": "elastic:a4b740e4-be17-4048-9aa4-1e6f42b455b1",
+  "source": "elastic",
+  "native_id": "a4b740e4-be17-4048-9aa4-1e6f42b455b1",
+  "title": "Spike in GCP Audit Failed Messages",
+  "file": "ml_gcp_error_message_spike.toml",
+  "paradigm": "ueba",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "machine_learning",
+  "mitre_tactics": [
+   "discovery",
+   "lateral_movement",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1526",
+   "T1580"
+  ],
+  "logsource": {
+   "index": null,
+   "language": null
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [
+   "ML/behavioural rule (machine_learning); baselines activity, names no specific operation"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:5378a829-30c2-435a-a0f2-e3d794bd6f80",
+  "source": "elastic",
+  "native_id": "5378a829-30c2-435a-a0f2-e3d794bd6f80",
+  "title": "Rare GCP Audit Failure Event Code",
+  "file": "ml_gcp_rare_error_code.toml",
+  "paradigm": "ueba",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "machine_learning",
+  "mitre_tactics": [
+   "collection",
+   "defense_evasion",
+   "discovery",
+   "lateral_movement",
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1526",
+   "T1580"
+  ],
+  "logsource": {
+   "index": null,
+   "language": null
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [
+   "ML/behavioural rule (machine_learning); baselines activity, names no specific operation"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:f20d1782-e783-4ed0-a0c4-946899a98a7c",
+  "source": "elastic",
+  "native_id": "f20d1782-e783-4ed0-a0c4-946899a98a7c",
+  "title": "Unusual City For a GCP Event",
+  "file": "ml_gcp_rare_method_by_city.toml",
+  "paradigm": "ueba",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "machine_learning",
+  "mitre_tactics": [
+   "defense_evasion",
+   "initial_access"
+  ],
+  "mitre_techniques": [
+   "T1078",
+   "T1078.004"
+  ],
+  "logsource": {
+   "index": null,
+   "language": null
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [
+   "ML/behavioural rule (machine_learning); baselines activity, names no specific operation"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:dcbd07f8-bd6e-4bb4-ac5d-cec1927ea88f",
+  "source": "elastic",
+  "native_id": "dcbd07f8-bd6e-4bb4-ac5d-cec1927ea88f",
+  "title": "Unusual Country For a GCP Event",
+  "file": "ml_gcp_rare_method_by_country.toml",
+  "paradigm": "ueba",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "machine_learning",
+  "mitre_tactics": [
+   "defense_evasion",
+   "initial_access",
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1078",
+   "T1078.004"
+  ],
+  "logsource": {
+   "index": null,
+   "language": null
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [
+   "ML/behavioural rule (machine_learning); baselines activity, names no specific operation"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:2e08f34c-691c-497e-87de-5d794a1b2a53",
+  "source": "elastic",
+  "native_id": "2e08f34c-691c-497e-87de-5d794a1b2a53",
+  "title": "Unusual GCP Event for a User",
+  "file": "ml_gcp_rare_method_by_user.toml",
+  "paradigm": "ueba",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "machine_learning",
+  "mitre_tactics": [
+   "defense_evasion",
+   "exfiltration",
+   "initial_access",
+   "lateral_movement",
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1021",
+   "T1021.007",
+   "T1041",
+   "T1078",
+   "T1078.004"
+  ],
+  "logsource": {
+   "index": null,
+   "language": null
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [
+   "ML/behavioural rule (machine_learning); baselines activity, names no specific operation"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:4886ce11-fca5-433f-bbb9-e33e410ef9ae",
+  "source": "elastic",
+  "native_id": "4886ce11-fca5-433f-bbb9-e33e410ef9ae",
+  "title": "GKE Admission Webhook Created or Modified",
+  "file": "persistence_gcp_gke_admission_webhook_created_or_modified.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "defense_evasion",
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1546",
+   "T1562"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.create",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.create -> container.mutatingWebhookConfigurations.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.update",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.update -> container.mutatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.patch",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.patch -> container.mutatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.create",
+      "permissions": [
+       "container.validatingWebhookConfigurations.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.create -> container.validatingWebhookConfigurations.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.update",
+      "permissions": [
+       "container.validatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.update -> container.validatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.patch",
+      "permissions": [
+       "container.validatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.patch -> container.validatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.mutatingWebhookConfigurations.create",
+   "container.mutatingWebhookConfigurations.update",
+   "container.validatingWebhookConfigurations.create",
+   "container.validatingWebhookConfigurations.update"
+  ]
+ },
+ {
+  "id": "elastic:16708afb-4904-4d3c-af78-63640a075cb0",
+  "source": "elastic",
+  "native_id": "16708afb-4904-4d3c-af78-63640a075cb0",
+  "title": "GKE Cluster-Admin Role Binding Created or Modified",
+  "file": "persistence_gcp_gke_cluster_admin_role_binding.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "persistence",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1098",
+   "T1098.006"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.clusterrolebindings.create",
+      "permissions": [
+       "container.clusterRoleBindings.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.clusterrolebindings.create -> container.clusterRoleBindings.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.clusterrolebindings.patch",
+      "permissions": [
+       "container.clusterRoleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.clusterrolebindings.patch -> container.clusterRoleBindings.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.clusterrolebindings.update",
+      "permissions": [
+       "container.clusterRoleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.clusterrolebindings.update -> container.clusterRoleBindings.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.clusterRoleBindings.create",
+   "container.clusterRoleBindings.update"
+  ]
+ },
+ {
+  "id": "elastic:9890ee61-d061-403d-9bf6-64934c51f638",
+  "source": "elastic",
+  "native_id": "9890ee61-d061-403d-9bf6-64934c51f638",
+  "title": "GCP IAM Service Account Key Deletion",
+  "file": "persistence_gcp_iam_service_account_key_deletion.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "impact",
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1098",
+   "T1531"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.DeleteServiceAccountKey",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccountKey' -> /^google\\.iam\\.admin\\.DeleteServiceAccountKey$/",
+      "pattern": "^google\\.iam\\.admin\\.DeleteServiceAccountKey$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:0e5acaae-6a64-4bbc-adb8-27649c03f7e1",
+  "source": "elastic",
+  "native_id": "0e5acaae-6a64-4bbc-adb8-27649c03f7e1",
+  "title": "GCP Service Account Key Creation",
+  "file": "persistence_gcp_key_created_for_service_account.toml",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1098",
+   "T1098.001"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.CreateServiceAccountKey",
+      "permissions": [
+       "iam.serviceAccountKeys.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.CreateServiceAccountKey] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.serviceAccountKeys.create"
+  ]
+ },
+ {
+  "id": "elastic:7ceb2216-47dd-4e64-9433-cddc99727623",
+  "source": "elastic",
+  "native_id": "7ceb2216-47dd-4e64-9433-cddc99727623",
+  "title": "GCP Service Account Creation",
+  "file": "persistence_gcp_service_account_created.toml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "production",
+  "domain": "gcp",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "persistence"
+  ],
+  "mitre_techniques": [
+   "T1136",
+   "T1136.003"
+  ],
+  "logsource": {
+   "index": [
+    "filebeat-*",
+    "logs-gcp*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v*.CreateServiceAccount",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.CreateServiceAccount' -> /^google\\.iam\\.admin\\.CreateServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.CreateServiceAccount$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "elastic:a8a48752-58f3-43a9-beb5-14b9e9f6a8b0",
+  "source": "elastic",
+  "native_id": "a8a48752-58f3-43a9-beb5-14b9e9f6a8b0",
+  "title": "GKE Container Created with Excessive Linux Capabilities",
+  "file": "privilege_escalation_gcp_gke_excessive_linux_capabilities.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create"
+  ]
+ },
+ {
+  "id": "elastic:fde4efad-9cd0-4fa4-84c8-0e3b6fc957b4",
+  "source": "elastic",
+  "native_id": "fde4efad-9cd0-4fa4-84c8-0e3b6fc957b4",
+  "title": "GKE Pod Created With HostIPC",
+  "file": "privilege_escalation_gcp_gke_pod_host_ipc.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "elastic:0030f681-0142-4231-b728-49bb9fc12066",
+  "source": "elastic",
+  "native_id": "0030f681-0142-4231-b728-49bb9fc12066",
+  "title": "GKE Pod Created With HostNetwork",
+  "file": "privilege_escalation_gcp_gke_pod_host_network.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "elastic:f2108687-553d-45ac-b8f0-d0efeac5d45f",
+  "source": "elastic",
+  "native_id": "f2108687-553d-45ac-b8f0-d0efeac5d45f",
+  "title": "GKE Pod Created With HostPID",
+  "file": "privilege_escalation_gcp_gke_pod_host_pid.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "elastic:a7b984e4-16ff-405b-80be-31a94a03e929",
+  "source": "elastic",
+  "native_id": "a7b984e4-16ff-405b-80be-31a94a03e929",
+  "title": "GKE Privileged Pod Created",
+  "file": "privilege_escalation_gcp_gke_privileged_pod_created.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create"
+  ]
+ },
+ {
+  "id": "elastic:563a38e9-9790-4a6a-8889-24d26055b832",
+  "source": "elastic",
+  "native_id": "563a38e9-9790-4a6a-8889-24d26055b832",
+  "title": "GKE RBAC Wildcard Elevation on Existing Role",
+  "file": "privilege_escalation_gcp_gke_rbac_wildcard_elevation_on_existing_role.toml",
+  "paradigm": "event",
+  "level": "high",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1098",
+   "T1098.006"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.roles.update",
+      "permissions": [
+       "container.roles.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.roles.update -> container.roles.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.roles.patch",
+      "permissions": [
+       "container.roles.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.roles.patch -> container.roles.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.clusterroles.update",
+      "permissions": [
+       "container.clusterRoles.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.clusterroles.update -> container.clusterRoles.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v1.clusterroles.patch",
+      "permissions": [
+       "container.clusterRoles.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v1.clusterroles.patch -> container.clusterRoles.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.clusterRoles.update",
+   "container.roles.update"
+  ]
+ },
+ {
+  "id": "elastic:647ae821-a80d-4f07-bb12-d40dd433f6b4",
+  "source": "elastic",
+  "native_id": "647ae821-a80d-4f07-bb12-d40dd433f6b4",
+  "title": "GKE Pod Created with a Sensitive hostPath Volume",
+  "file": "privilege_escalation_gcp_gke_sensitive_hostpath_volume.toml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "production",
+  "domain": "k8s",
+  "rule_type": "query",
+  "mitre_tactics": [
+   "execution",
+   "privilege_escalation"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "index": [
+    "logs-gcp.audit-*"
+   ],
+   "language": "kuery"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ }
+]

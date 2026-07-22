@@ -1,0 +1,1755 @@
+[
+ {
+  "id": "sigma:32438676-1dba-4ac7-bf69-b86cba995e05",
+  "source": "sigma",
+  "native_id": "32438676-1dba-4ac7-bf69-b86cba995e05",
+  "title": "GCP Access Policy Deleted",
+  "file": "gcp_access_policy_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "persistence",
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [
+   "T1098"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "accesscontextmanager.accessPolicies.delete",
+      "permissions": [
+       "accesscontextmanager.accessPolicies.delete",
+       "accesscontextmanager.policies.delete"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[accesscontextmanager.accessPolicies.delete]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "accesscontextmanager.accessPolicies.accessLevels.delete",
+      "permissions": [
+       "accesscontextmanager.accessLevels.delete"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[accesscontextmanager.accessPolicies.accessLevels.delete]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "accesscontextmanager.accessPolicies.accessZones.delete",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ],
+    [
+     {
+      "token": "accesscontextmanager.accessPolicies.authorizedOrgsDescs.delete",
+      "permissions": [
+       "accesscontextmanager.authorizedOrgsDescs.delete"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[accesscontextmanager.accessPolicies.authorizedOrgsDescs.delete]",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "accesscontextmanager.accessPolicies.accessZones.delete"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "accesscontextmanager.accessLevels.delete",
+   "accesscontextmanager.accessPolicies.delete",
+   "accesscontextmanager.authorizedOrgsDescs.delete",
+   "accesscontextmanager.policies.delete"
+  ]
+ },
+ {
+  "id": "sigma:76737c19-66ee-4c07-b65a-a03301d1573d",
+  "source": "sigma",
+  "native_id": "76737c19-66ee-4c07-b65a-a03301d1573d",
+  "title": "GCP Break-glass Container Workload Deployed",
+  "file": "gcp_breakglass_container_workload_deployed.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "k8s",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create"
+  ]
+ },
+ {
+  "id": "sigma:e2feb918-4e77-4608-9697-990a1aaf74c3",
+  "source": "sigma",
+  "native_id": "e2feb918-4e77-4608-9697-990a1aaf74c3",
+  "title": "Google Cloud Storage Buckets Enumeration",
+  "file": "gcp_bucket_enumeration.yml",
+  "paradigm": "event",
+  "level": "low",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "discovery"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.buckets.list",
+      "permissions": [
+       "storage.buckets.list"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.buckets.listChannels",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "storage.buckets.listChannels"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.buckets.list"
+  ]
+ },
+ {
+  "id": "sigma:4d9f2ee2-c903-48ab-b9c1-8c0f474913d0",
+  "source": "sigma",
+  "native_id": "4d9f2ee2-c903-48ab-b9c1-8c0f474913d0",
+  "title": "Google Cloud Storage Buckets Modified or Deleted",
+  "file": "gcp_bucket_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.buckets.delete",
+      "permissions": [
+       "storage.buckets.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.buckets.insert",
+      "permissions": [
+       "storage.buckets.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[storage.buckets.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.buckets.update",
+      "permissions": [
+       "storage.buckets.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.buckets.patch",
+      "permissions": [
+       "storage.buckets.getIamPolicy",
+       "storage.buckets.setIamPolicy",
+       "storage.buckets.update"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[storage.buckets.patch]",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.buckets.create",
+   "storage.buckets.delete",
+   "storage.buckets.getIamPolicy",
+   "storage.buckets.setIamPolicy",
+   "storage.buckets.update"
+  ]
+ },
+ {
+  "id": "sigma:234f9f48-904b-4736-a34c-55d23919e4b7",
+  "source": "sigma",
+  "native_id": "234f9f48-904b-4736-a34c-55d23919e4b7",
+  "title": "Google Cloud Re-identifies Sensitive Information",
+  "file": "gcp_dlp_re_identifies_sensitive_information.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1565"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "projects.content.reidentify",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "projects.content.reidentify"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:28268a8f-191f-4c17-85b2-f5aa4fa829c3",
+  "source": "sigma",
+  "native_id": "28268a8f-191f-4c17-85b2-f5aa4fa829c3",
+  "title": "Google Cloud DNS Zone Modified or Deleted",
+  "file": "gcp_dns_zone_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "Dns.ManagedZones.Delete",
+      "permissions": [
+       "dns.managedZones.delete"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded Dns.ManagedZones.Delete -> dns.managedZones.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "Dns.ManagedZones.Update",
+      "permissions": [
+       "dns.managedZones.update"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded Dns.ManagedZones.Update -> dns.managedZones.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "Dns.ManagedZones.Patch",
+      "permissions": [
+       "dns.managedZones.get",
+       "dns.managedZones.update"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[dns.managedZones.patch] (folded from Dns.ManagedZones.Patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "dns.managedZones.delete",
+   "dns.managedZones.get",
+   "dns.managedZones.update"
+  ]
+ },
+ {
+  "id": "sigma:fe513c69-734c-4d4a-8548-ac5f609be82b",
+  "source": "sigma",
+  "native_id": "fe513c69-734c-4d4a-8548-ac5f609be82b",
+  "title": "Google Cloud Firewall Modified or Deleted",
+  "file": "gcp_firewall_rule_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "defense-impairment"
+  ],
+  "mitre_techniques": [
+   "T1685"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "v*.Compute.Firewalls.Delete",
+      "permissions": [
+       "compute.firewalls.delete"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v*.Compute.Firewalls.Delete -> compute.firewalls.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.Firewalls.Patch",
+      "permissions": [
+       "compute.firewalls.get",
+       "compute.firewalls.update",
+       "compute.networks.updatePolicy"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.firewalls.patch] (folded from v*.Compute.Firewalls.Patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.Firewalls.Update",
+      "permissions": [
+       "compute.firewalls.update"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v*.Compute.Firewalls.Update -> compute.firewalls.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.Firewalls.Insert",
+      "permissions": [
+       "compute.firewalls.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.firewalls.insert] (folded from v*.Compute.Firewalls.Insert)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.firewalls.create",
+   "compute.firewalls.delete",
+   "compute.firewalls.get",
+   "compute.firewalls.update",
+   "compute.networks.updatePolicy"
+  ]
+ },
+ {
+  "id": "sigma:980a7598-1e7f-4962-9372-2d754c930d0e",
+  "source": "sigma",
+  "native_id": "980a7598-1e7f-4962-9372-2d754c930d0e",
+  "title": "Google Full Network Traffic Packet Capture",
+  "file": "gcp_full_network_traffic_packet_capture.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "collection"
+  ],
+  "mitre_techniques": [
+   "T1074"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.Get",
+      "permissions": [
+       "compute.packetMirrorings.get"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v*.Compute.PacketMirrorings.Get -> compute.packetMirrorings.get)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.Delete",
+      "permissions": [
+       "compute.packetMirrorings.delete"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v*.Compute.PacketMirrorings.Delete -> compute.packetMirrorings.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.Insert",
+      "permissions": [
+       "compute.packetMirrorings.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.packetMirrorings.insert] (folded from v*.Compute.PacketMirrorings.Insert)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.Patch",
+      "permissions": [
+       "compute.packetMirrorings.get",
+       "compute.packetMirrorings.update"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.packetMirrorings.patch] (folded from v*.Compute.PacketMirrorings.Patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.List",
+      "permissions": [
+       "compute.packetMirrorings.list"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v*.Compute.PacketMirrorings.List -> compute.packetMirrorings.list)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v*.Compute.PacketMirrorings.aggregatedList",
+      "permissions": [
+       "compute.packetMirrorings.list"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.packetMirrorings.aggregatedList] (folded from v*.Compute.PacketMirrorings.aggregatedList)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.packetMirrorings.create",
+   "compute.packetMirrorings.delete",
+   "compute.packetMirrorings.get",
+   "compute.packetMirrorings.list",
+   "compute.packetMirrorings.update"
+  ]
+ },
+ {
+  "id": "sigma:6ad91e31-53df-4826-bd27-0166171c8040",
+  "source": "sigma",
+  "native_id": "6ad91e31-53df-4826-bd27-0166171c8040",
+  "title": "Google Cloud Kubernetes Admission Controller",
+  "file": "gcp_kubernetes_admission_controller.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "k8s",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "credential-access",
+   "initial-access",
+   "persistence",
+   "privilege-escalation",
+   "stealth"
+  ],
+  "mitre_techniques": [
+   "T1078",
+   "T1552",
+   "T1552.007"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.create",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.create -> container.mutatingWebhookConfigurations.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.patch",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.patch -> container.mutatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.replace",
+      "permissions": [
+       "container.mutatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.mutatingwebhookconfigurations.replace -> container.mutatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb replace->update (no container.*.replace permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.create",
+      "permissions": [
+       "container.validatingWebhookConfigurations.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.create -> container.validatingWebhookConfigurations.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.patch",
+      "permissions": [
+       "container.validatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.patch -> container.validatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.admissionregistration.v1.validatingwebhookconfigurations.replace",
+      "permissions": [
+       "container.validatingWebhookConfigurations.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.admissionregistration.v1.validatingwebhookconfigurations.replace -> container.validatingWebhookConfigurations.update)",
+      "pattern": null,
+      "note": "k8s verb replace->update (no container.*.replace permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.mutatingWebhookConfigurations.create",
+   "container.mutatingWebhookConfigurations.update",
+   "container.validatingWebhookConfigurations.create",
+   "container.validatingWebhookConfigurations.update"
+  ]
+ },
+ {
+  "id": "sigma:cd3a808c-c7b7-4c50-a2f3-f4cfcd436435",
+  "source": "sigma",
+  "native_id": "cd3a808c-c7b7-4c50-a2f3-f4cfcd436435",
+  "title": "Google Cloud Kubernetes CronJob",
+  "file": "gcp_kubernetes_cronjob.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "k8s",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "execution",
+   "persistence",
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.batch.v1.jobs.create",
+      "permissions": [
+       "container.jobs.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.jobs.create -> container.jobs.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.batch.v1.cronjobs.create",
+      "permissions": [
+       "container.cronJobs.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.create -> container.cronJobs.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.batch.v1.jobs.update",
+      "permissions": [
+       "container.jobs.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.jobs.update -> container.jobs.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.batch.v1.cronjobs.update",
+      "permissions": [
+       "container.cronJobs.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.update -> container.cronJobs.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.cronJobs.create",
+   "container.cronJobs.update",
+   "container.jobs.create",
+   "container.jobs.update"
+  ]
+ },
+ {
+  "id": "sigma:0322d9f2-289a-47c2-b5e1-b63c90901a3e",
+  "source": "sigma",
+  "native_id": "0322d9f2-289a-47c2-b5e1-b63c90901a3e",
+  "title": "Google Cloud Kubernetes RoleBinding",
+  "file": "gcp_kubernetes_rolebinding.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "k8s",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "credential-access"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.clusterrolebindings.create",
+      "permissions": [
+       "container.clusterRoleBindings.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.clusterrolebindings.create -> container.clusterRoleBindings.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.rolebindings.create",
+      "permissions": [
+       "container.roleBindings.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.rolebindings.create -> container.roleBindings.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.clusterrolebindings.patch",
+      "permissions": [
+       "container.clusterRoleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.clusterrolebindings.patch -> container.clusterRoleBindings.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.rolebindings.patch",
+      "permissions": [
+       "container.roleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.rolebindings.patch -> container.roleBindings.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.clusterrolebindings.update",
+      "permissions": [
+       "container.clusterRoleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.clusterrolebindings.update -> container.clusterRoleBindings.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.rolebindings.update",
+      "permissions": [
+       "container.roleBindings.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.rolebindings.update -> container.roleBindings.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.clusterrolebindings.delete",
+      "permissions": [
+       "container.clusterRoleBindings.delete"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.clusterrolebindings.delete -> container.clusterRoleBindings.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.authorization.rbac.v*.rolebindings.delete",
+      "permissions": [
+       "container.roleBindings.delete"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.authorization.rbac.v*.rolebindings.delete -> container.roleBindings.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.clusterRoleBindings.create",
+   "container.clusterRoleBindings.delete",
+   "container.clusterRoleBindings.update",
+   "container.roleBindings.create",
+   "container.roleBindings.delete",
+   "container.roleBindings.update"
+  ]
+ },
+ {
+  "id": "sigma:2f0bae2d-bf20-4465-be86-1311addebaa3",
+  "source": "sigma",
+  "native_id": "2f0bae2d-bf20-4465-be86-1311addebaa3",
+  "title": "Google Cloud Kubernetes Secrets Modified or Deleted",
+  "file": "gcp_kubernetes_secrets_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "k8s",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "credential-access"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v*.secrets.create",
+      "permissions": [
+       "container.secrets.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v*.secrets.create -> container.secrets.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v*.secrets.update",
+      "permissions": [
+       "container.secrets.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v*.secrets.update -> container.secrets.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v*.secrets.patch",
+      "permissions": [
+       "container.secrets.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v*.secrets.patch -> container.secrets.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v*.secrets.delete",
+      "permissions": [
+       "container.secrets.delete"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v*.secrets.delete -> container.secrets.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.secrets.create",
+   "container.secrets.delete",
+   "container.secrets.update"
+  ]
+ },
+ {
+  "id": "sigma:13f81a90-a69c-4fab-8f07-b5bb55416a9f",
+  "source": "sigma",
+  "native_id": "13f81a90-a69c-4fab-8f07-b5bb55416a9f",
+  "title": "Google Cloud Service Account Disabled or Deleted",
+  "file": "gcp_service_account_disabled_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [
+   "T1531"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": ".serviceAccounts.disable",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.disable' -> /.*serviceAccounts\\.disable$/",
+      "pattern": ".*serviceAccounts\\.disable$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".serviceAccounts.delete",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.delete' -> /.*serviceAccounts\\.delete$/",
+      "pattern": ".*serviceAccounts\\.delete$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:6b67c12e-5e40-47c6-b3b0-1e6b571184cc",
+  "source": "sigma",
+  "native_id": "6b67c12e-5e40-47c6-b3b0-1e6b571184cc",
+  "title": "Google Cloud Service Account Modified",
+  "file": "gcp_service_account_modified.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": ".serviceAccounts.patch",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.patch' -> /.*serviceAccounts\\.patch$/",
+      "pattern": ".*serviceAccounts\\.patch$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".serviceAccounts.create",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.create' -> /.*serviceAccounts\\.create$/",
+      "pattern": ".*serviceAccounts\\.create$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".serviceAccounts.update",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.update' -> /.*serviceAccounts\\.update$/",
+      "pattern": ".*serviceAccounts\\.update$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".serviceAccounts.enable",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.enable' -> /.*serviceAccounts\\.enable$/",
+      "pattern": ".*serviceAccounts\\.enable$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".serviceAccounts.undelete",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher '.serviceAccounts.undelete' -> /.*serviceAccounts\\.undelete$/",
+      "pattern": ".*serviceAccounts\\.undelete$",
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:f346bbd5-2c4e-4789-a221-72de7685090d",
+  "source": "sigma",
+  "native_id": "f346bbd5-2c4e-4789-a221-72de7685090d",
+  "title": "Google Cloud SQL Database Modified or Deleted",
+  "file": "gcp_sql_database_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "cloudsql.instances.create",
+      "permissions": [
+       "cloudsql.instances.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "cloudsql.instances.delete",
+      "permissions": [
+       "cloudsql.instances.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "cloudsql.users.update",
+      "permissions": [
+       "cloudsql.users.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "cloudsql.users.delete",
+      "permissions": [
+       "cloudsql.users.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "cloudsql.instances.create",
+   "cloudsql.instances.delete",
+   "cloudsql.users.delete",
+   "cloudsql.users.update"
+  ]
+ },
+ {
+  "id": "sigma:99980a85-3a61-43d3-ac0f-b68d6b4797b1",
+  "source": "sigma",
+  "native_id": "99980a85-3a61-43d3-ac0f-b68d6b4797b1",
+  "title": "Google Cloud VPN Tunnel Modified or Deleted",
+  "file": "gcp_vpn_tunnel_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "gcp",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "gcp.audit"
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.vpnTunnels.insert",
+      "permissions": [
+       "compute.vpnTunnels.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.vpnTunnels.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.vpnTunnels.delete",
+      "permissions": [
+       "compute.vpnTunnels.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.vpnTunnels.create",
+   "compute.vpnTunnels.delete"
+  ]
+ },
+ {
+  "id": "sigma:22f2fb54-5312-435d-852f-7c74f81684ca",
+  "source": "sigma",
+  "native_id": "22f2fb54-5312-435d-852f-7c74f81684ca",
+  "title": "Google Workspace Application Access Level Modified",
+  "file": "gcp_gworkspace_application_access_levels_modified.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "persistence",
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [
+   "T1098.003"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "CHANGE_APPLICATION_SETTING"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:ee2803f0-71c8-4831-b48b-a1fc57601ee4",
+  "source": "sigma",
+  "native_id": "ee2803f0-71c8-4831-b48b-a1fc57601ee4",
+  "title": "Google Workspace Application Removed",
+  "file": "gcp_gworkspace_application_removed.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "REMOVE_APPLICATION",
+   "REMOVE_APPLICATION_FROM_WHITELIST"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:04e2a23a-9b29-4a5c-be3a-3542e3f982ba",
+  "source": "sigma",
+  "native_id": "04e2a23a-9b29-4a5c-be3a-3542e3f982ba",
+  "title": "Google Workspace Granted Domain API Access",
+  "file": "gcp_gworkspace_granted_domain_api_access.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "persistence",
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [
+   "T1098"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "AUTHORIZE_API_CLIENT_ACCESS"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:780601d1-6376-4f2a-884e-b8d45599f78c",
+  "source": "sigma",
+  "native_id": "780601d1-6376-4f2a-884e-b8d45599f78c",
+  "title": "Google Workspace MFA Disabled",
+  "file": "gcp_gworkspace_mfa_disabled.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "ALLOW_STRONG_AUTHENTICATION",
+   "ENFORCE_STRONG_AUTHENTICATION"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:6aef64e3-60c6-4782-8db3-8448759c714e",
+  "source": "sigma",
+  "native_id": "6aef64e3-60c6-4782-8db3-8448759c714e",
+  "title": "Google Workspace Role Modified or Deleted",
+  "file": "gcp_gworkspace_role_modified_or_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "DELETE_ROLE",
+   "RENAME_ROLE",
+   "UPDATE_ROLE"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:bf638ef7-4d2d-44bb-a1dc-a238252e6267",
+  "source": "sigma",
+  "native_id": "bf638ef7-4d2d-44bb-a1dc-a238252e6267",
+  "title": "Google Workspace Role Privilege Deleted",
+  "file": "gcp_gworkspace_role_privilege_deleted.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact"
+  ],
+  "mitre_techniques": [],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "REMOVE_PRIVILEGE"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:2d1b83e4-17c6-4896-a37b-29140b40a788",
+  "source": "sigma",
+  "native_id": "2d1b83e4-17c6-4896-a37b-29140b40a788",
+  "title": "Google Workspace User Granted Admin Privileges",
+  "file": "gcp_gworkspace_user_granted_admin_privileges.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "test",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "persistence",
+   "privilege-escalation"
+  ],
+  "mitre_techniques": [
+   "T1098"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.admin"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "GRANT_ADMIN_PRIVILEGE",
+   "GRANT_DELEGATED_ADMIN_PRIVILEGES"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:eafe6f2b-cfec-4612-aec2-49563c33a087",
+  "source": "sigma",
+  "native_id": "eafe6f2b-cfec-4612-aec2-49563c33a087",
+  "title": "Google Workspace Government Attack Warning",
+  "file": "gcp_gworkspace_govattack.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "experimental",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "impact",
+   "initial-access",
+   "persistence",
+   "privilege-escalation",
+   "stealth"
+  ],
+  "mitre_techniques": [
+   "T1078"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.login"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "gov_attack_warning"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:2a0bb2dd-eb5f-4517-8cb9-404f8ba764a5",
+  "source": "sigma",
+  "native_id": "2a0bb2dd-eb5f-4517-8cb9-404f8ba764a5",
+  "title": "Google Workspace Out Of Domain Email Forwarding",
+  "file": "gcp_gworkspace_out_of_domain_email_forwarding.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "experimental",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "collection"
+  ],
+  "mitre_techniques": [
+   "T1114.003"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.login"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "email_forwarding_out_of_domain"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "sigma:38360161-76c4-4283-842e-efcf997dafc8",
+  "source": "sigma",
+  "native_id": "38360161-76c4-4283-842e-efcf997dafc8",
+  "title": "Suspicious Login Activity Classified By Google",
+  "file": "gcp_gworkspace_suspicious_login.yml",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "experimental",
+  "domain": "workspace",
+  "rule_type": "sigma",
+  "mitre_tactics": [
+   "initial-access",
+   "persistence",
+   "privilege-escalation",
+   "stealth"
+  ],
+  "mitre_techniques": [
+   "T1078.004"
+  ],
+  "logsource": {
+   "product": "gcp",
+   "service": "google_workspace.login"
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [
+   "suspicious_login",
+   "suspicious_login_less_secure_app",
+   "suspicious_programmatic_login"
+  ],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ }
+]

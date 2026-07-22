@@ -1,0 +1,3560 @@
+[
+ {
+  "id": "panther:GCP.Access.Attempts.Violating.VPC.Service.Controls",
+  "source": "panther",
+  "native_id": "GCP.Access.Attempts.Violating.VPC.Service.Controls",
+  "title": "GCP Access Attempts Violating VPC Service Controls",
+  "file": "gcp_access_attempts_violating_vpc_service_controls.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.BigQuery.Large.Scan",
+  "source": "panther",
+  "native_id": "GCP.BigQuery.Large.Scan",
+  "title": "GCP BigQuery Large Scan",
+  "file": "gcp_bigquery_large_scan.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Cloud.Run.Service.Created",
+  "source": "panther",
+  "native_id": "GCP.Cloud.Run.Service.Created",
+  "title": "GCP Cloud Run Service Created",
+  "file": "gcp_cloud_run_service_created.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "run.services.create",
+      "permissions": [
+       "run.services.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "run.services.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Cloud.Run.Set.IAM.Policy",
+  "source": "panther",
+  "native_id": "GCP.Cloud.Run.Set.IAM.Policy",
+  "title": "GCP Cloud Run Set IAM Policy",
+  "file": "gcp_cloud_run_set_iam_policy.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "run.services.setIamPolicy",
+      "permissions": [
+       "run.services.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "run.services.setIamPolicy"
+  ]
+ },
+ {
+  "id": "panther:GCP.Cloud.Storage.Buckets.Modified.Or.Deleted",
+  "source": "panther",
+  "native_id": "GCP.Cloud.Storage.Buckets.Modified.Or.Deleted",
+  "title": "GCP Cloud Storage Buckets Modified Or Deleted",
+  "file": "gcp_cloud_storage_buckets_modified_or_deleted.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0005",
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486",
+   "T1562"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.buckets.delete",
+      "permissions": [
+       "storage.buckets.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.buckets.update",
+      "permissions": [
+       "storage.buckets.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.buckets.delete",
+   "storage.buckets.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.CloudBuild.Potential.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.CloudBuild.Potential.Privilege.Escalation",
+  "title": "GCP CloudBuild Potential Privilege Escalation",
+  "file": "gcp_cloudbuild_potential_privilege_escalation.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "cloudbuild.builds.create",
+      "permissions": [
+       "cloudbuild.builds.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "cloudbuild.builds.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Cloudfunctions.Functions.Create",
+  "source": "panther",
+  "native_id": "GCP.Cloudfunctions.Functions.Create",
+  "title": "GCP cloudfunctions functions create",
+  "file": "gcp_cloudfunctions_functions_create.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "cloudfunctions.functions.create",
+      "permissions": [
+       "cloudfunctions.functions.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "cloudfunctions.functions.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Cloudfunctions.Functions.Update",
+  "source": "panther",
+  "native_id": "GCP.Cloudfunctions.Functions.Update",
+  "title": "GCP cloudfunctions functions update",
+  "file": "gcp_cloudfunctions_functions_update.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "cloudfunctions.functions.update",
+      "permissions": [
+       "cloudfunctions.functions.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "cloudfunctions.functions.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.Compute.IAM.Policy.Update",
+  "source": "panther",
+  "native_id": "GCP.Compute.IAM.Policy.Update",
+  "title": "GCP Compute IAM Policy Update Detection",
+  "file": "gcp_compute_set_iam_policy.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "v1.compute.disks.setIamPolicy",
+      "permissions": [
+       "compute.disks.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v1.compute.disks.setIamPolicy -> compute.disks.setIamPolicy)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v1.compute.images.setIamPolicy",
+      "permissions": [
+       "compute.images.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v1.compute.images.setIamPolicy -> compute.images.setIamPolicy)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "v1.compute.snapshots.setIamPolicy",
+      "permissions": [
+       "compute.snapshots.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded v1.compute.snapshots.setIamPolicy -> compute.snapshots.setIamPolicy)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.disks.setIamPolicy",
+   "compute.images.setIamPolicy",
+   "compute.snapshots.setIamPolicy"
+  ]
+ },
+ {
+  "id": "panther:GCP.Compute.SSHConnection",
+  "source": "panther",
+  "native_id": "GCP.Compute.SSHConnection",
+  "title": "GCP Compute SSH Connection",
+  "file": "gcp_compute_ssh_connection.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.compute.instances.create.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.compute.instances.create.Privilege.Escalation",
+  "title": "GCP compute.instances.create Privilege Escalation",
+  "file": "gcp_computeinstances_create_privilege_escalation.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "compute.disks.create",
+      "permissions": [
+       "compute.disks.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.instances.create",
+      "permissions": [
+       "compute.instances.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.instances.setMetadata",
+      "permissions": [
+       "compute.instances.setMetadata"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.instances.setServiceAccount",
+      "permissions": [
+       "compute.instances.setServiceAccount"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.subnetworks.use",
+      "permissions": [
+       "compute.subnetworks.use"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.subnetworks.useExternalIp",
+      "permissions": [
+       "compute.subnetworks.useExternalIp"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "compute.instances.insert",
+      "permissions": [
+       "compute.disks.create",
+       "compute.instanceTemplates.useReadOnly",
+       "compute.instances.create",
+       "compute.instances.pscInterfaceCreate",
+       "compute.instances.setMetadata",
+       "compute.instances.setServiceAccount",
+       "compute.machineImages.useReadOnly",
+       "compute.networks.use",
+       "compute.subnetworks.use",
+       "compute.subnetworks.useExternalIp",
+       "iam.serviceAccounts.actAs"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[compute.instances.insert]",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.disks.create",
+   "compute.instanceTemplates.useReadOnly",
+   "compute.instances.create",
+   "compute.instances.pscInterfaceCreate",
+   "compute.instances.setMetadata",
+   "compute.instances.setServiceAccount",
+   "compute.machineImages.useReadOnly",
+   "compute.networks.use",
+   "compute.subnetworks.use",
+   "compute.subnetworks.useExternalIp",
+   "iam.serviceAccounts.actAs"
+  ]
+ },
+ {
+  "id": "panther:GCP.Destructive.Queries",
+  "source": "panther",
+  "native_id": "GCP.Destructive.Queries",
+  "title": "GCP Destructive Queries",
+  "file": "gcp_destructive_queries.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.DNS.Zone.Modified.or.Deleted",
+  "source": "panther",
+  "native_id": "GCP.DNS.Zone.Modified.or.Deleted",
+  "title": "GCP DNS Zone Modified or Deleted",
+  "file": "gcp_dns_zone_modified_or_deleted.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "dns.changes.create",
+      "permissions": [
+       "dns.changes.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "dns.managedZones.delete",
+      "permissions": [
+       "dns.managedZones.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "dns.managedZones.patch",
+      "permissions": [
+       "dns.managedZones.get",
+       "dns.managedZones.update"
+      ],
+      "kind": "rest_method",
+      "confidence": "exact",
+      "provenance": "method_permissions.json[dns.managedZones.patch]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "dns.managedZones.update",
+      "permissions": [
+       "dns.managedZones.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "dns.changes.create",
+   "dns.managedZones.delete",
+   "dns.managedZones.get",
+   "dns.managedZones.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.Firewall.Rule.Created",
+  "source": "panther",
+  "native_id": "GCP.Firewall.Rule.Created",
+  "title": "GCP Firewall Rule Created",
+  "file": "gcp_firewall_rule_created.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": ".compute.firewalls.insert",
+      "permissions": [
+       "compute.firewalls.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.firewalls.insert] (folded from .compute.firewalls.insert)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.firewalls.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Firewall.Rule.Deleted",
+  "source": "panther",
+  "native_id": "GCP.Firewall.Rule.Deleted",
+  "title": "GCP Firewall Rule Deleted",
+  "file": "gcp_firewall_rule_deleted.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": ".compute.firewalls.delete",
+      "permissions": [
+       "compute.firewalls.delete"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded .compute.firewalls.delete -> compute.firewalls.delete)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.firewalls.delete"
+  ]
+ },
+ {
+  "id": "panther:GCP.Firewall.Rule.Modified",
+  "source": "panther",
+  "native_id": "GCP.Firewall.Rule.Modified",
+  "title": "GCP Firewall Rule Modified",
+  "file": "gcp_firewall_rule_modified.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": ".compute.firewalls.patch",
+      "permissions": [
+       "compute.firewalls.get",
+       "compute.firewalls.update",
+       "compute.networks.updatePolicy"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.firewalls.patch] (folded from .compute.firewalls.patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".compute.firewalls.update",
+      "permissions": [
+       "compute.firewalls.update"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded .compute.firewalls.update -> compute.firewalls.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.firewalls.get",
+   "compute.firewalls.update",
+   "compute.networks.updatePolicy"
+  ]
+ },
+ {
+  "id": "panther:GCP.GCS.BulkDeletion",
+  "source": "panther",
+  "native_id": "GCP.GCS.BulkDeletion",
+  "title": "GCP GCS Bulk Object Deletion",
+  "file": "gcp_gcs_bulk_deletion.py",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1485"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.objects.delete",
+      "permissions": [
+       "storage.objects.delete"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 10,
+  "window": null,
+  "notes": [
+   "count rule: fires after >= 10 events"
+  ],
+  "covered_permissions": [
+   "storage.objects.delete"
+  ]
+ },
+ {
+  "id": "panther:GCP.GCS.IAMChanges",
+  "source": "panther",
+  "native_id": "GCP.GCS.IAMChanges",
+  "title": "GCP GCS IAM Permission Changes",
+  "file": "gcp_gcs_iam_changes.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0009"
+  ],
+  "mitre_techniques": [
+   "T1530"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.setIamPermissions",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "storage.setIamPermissions"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.GCS.ObjectExfiltration",
+  "source": "panther",
+  "native_id": "GCP.GCS.ObjectExfiltration",
+  "title": "GCP GCS Object Copied to Different Bucket",
+  "file": "gcp_gcs_object_exfiltration.py",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0010"
+  ],
+  "mitre_techniques": [
+   "T1537"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.objects.get",
+      "permissions": [
+       "storage.objects.get"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 50,
+  "window": null,
+  "notes": [
+   "count rule: fires after >= 50 events"
+  ],
+  "covered_permissions": [
+   "storage.objects.get"
+  ]
+ },
+ {
+  "id": "panther:GCP.GCS.BulkObjectRewrite",
+  "source": "panther",
+  "native_id": "GCP.GCS.BulkObjectRewrite",
+  "title": "GCP GCS Bulk Object Rewrite Operation",
+  "file": "gcp_gcs_object_rewrite.py",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0009",
+   "TA0010",
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486",
+   "T1530",
+   "T1537"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "gsutil.*rewrite",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'gsutil.*rewrite' -> /^gsutil\\.[^.]*rewrite$/",
+      "pattern": "^gsutil\\.[^.]*rewrite$",
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.objects.create",
+      "permissions": [
+       "storage.objects.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 10,
+  "window": null,
+  "notes": [
+   "count rule: fires after >= 10 events"
+  ],
+  "covered_permissions": [
+   "storage.objects.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.GCS.Public",
+  "source": "panther",
+  "native_id": "GCP.GCS.Public",
+  "title": "GCS Bucket Made Public",
+  "file": "gcp_gcs_public.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0009"
+  ],
+  "mitre_techniques": [
+   "T1530"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.setIamPermissions",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "storage.setIamPermissions"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.GCS.Ransom.Note.Upload",
+  "source": "panther",
+  "native_id": "GCP.GCS.Ransom.Note.Upload",
+  "title": "GCP GCS Ransom Note Upload",
+  "file": "gcp_gcs_ransom_note_upload.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.objects.create",
+      "permissions": [
+       "storage.objects.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.objects.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.CorporateEmail",
+  "source": "panther",
+  "native_id": "GCP.IAM.CorporateEmail",
+  "title": "GCP Corporate Email Not Used",
+  "file": "gcp_iam_corp_email.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003"
+  ],
+  "mitre_techniques": [
+   "T1136"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.IAM.CustomRoleChanges",
+  "source": "panther",
+  "native_id": "GCP.IAM.CustomRoleChanges",
+  "title": "GCP IAM Role Has Changed",
+  "file": "gcp_iam_custom_role_changes.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1078"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v1.CreateRole",
+      "permissions": [
+       "iam.roles.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.CreateRole] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.admin.v1.DeleteRole",
+      "permissions": [
+       "iam.roles.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.DeleteRole] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.admin.v1.UpdateRole",
+      "permissions": [
+       "iam.roles.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.UpdateRole] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.roles.create",
+   "iam.roles.delete",
+   "iam.roles.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.OrgFolderIAMChanges",
+  "source": "panther",
+  "native_id": "GCP.IAM.OrgFolderIAMChanges",
+  "title": "GCP Org or Folder Policy Was Changed Manually",
+  "file": "gcp_iam_org_folder_changes.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003"
+  ],
+  "mitre_techniques": [
+   "T1556.009"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.iam.roles.update.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.iam.roles.update.Privilege.Escalation",
+  "title": "GCP iam.roles.update Privilege Escalation",
+  "file": "gcp_iam_roles_update_privilege_escalation.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.roles.update",
+      "permissions": [
+       "iam.roles.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.roles.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.iam.serviceAccountKeys.create",
+  "source": "panther",
+  "native_id": "GCP.iam.serviceAccountKeys.create",
+  "title": "GCP.Iam.ServiceAccountKeys.Create",
+  "file": "gcp_iam_service_account_key_create.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccountKeys.create",
+      "permissions": [
+       "iam.serviceAccountKeys.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.serviceAccountKeys.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.serviceAccounts.getAccessToken.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.IAM.serviceAccounts.getAccessToken.Privilege.Escalation",
+  "title": "GCP IAM serviceAccounts getAccessToken Privilege Escalation",
+  "file": "gcp_iam_service_accounts_get_access_token_privilege_escalation.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccounts.getAccessToken",
+      "permissions": [
+       "iam.serviceAccounts.getAccessToken"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.serviceAccounts.getAccessToken"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.serviceAccounts.signBlob",
+  "source": "panther",
+  "native_id": "GCP.IAM.serviceAccounts.signBlob",
+  "title": "GCP IAM serviceAccounts signBlob",
+  "file": "gcp_iam_service_accounts_sign_blob.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccounts.signBlob",
+      "permissions": [
+       "iam.serviceAccounts.signBlob"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.serviceAccounts.signBlob"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.serviceAccounts.signJwt.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.IAM.serviceAccounts.signJwt.Privilege.Escalation",
+  "title": "GCP IAM serviceAccounts.signJwt Privilege Escalation",
+  "file": "gcp_iam_serviceaccounts_signjwt.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccounts.signJwt",
+      "permissions": [
+       "iam.serviceAccounts.signJwt"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.serviceAccounts.signJwt"
+  ]
+ },
+ {
+  "id": "panther:GCP.IAM.Tag.Enumeration",
+  "source": "panther",
+  "native_id": "GCP.IAM.Tag.Enumeration",
+  "title": "GCP IAM and Tag Enumeration",
+  "file": "gcp_iam_tag_enumeration.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Inbound.SSO.Profile.Created",
+  "source": "panther",
+  "native_id": "GCP.Inbound.SSO.Profile.Created",
+  "title": "GCP Inbound SSO Profile Created",
+  "file": "gcp_inbound_sso_profile_created_or_updated.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003",
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1098.003",
+   "T1136.003"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.admin.AdminService.inboundSsoProfileCreated",
+      "permissions": [],
+      "kind": "grpc_method",
+      "confidence": "not_gcp_api",
+      "provenance": "rpc_methods.json[google.admin.AdminService.inboundSsoProfileCreated] <- curated",
+      "pattern": null,
+      "note": "Google Workspace Admin console activity event, not a GCP Cloud Audit Logs API method. Different telemetry stream; no GCP IAM permission exists."
+     }
+    ],
+    [
+     {
+      "token": "google.admin.AdminService.inboundSsoProfileUpdated",
+      "permissions": [],
+      "kind": "grpc_method",
+      "confidence": "not_gcp_api",
+      "provenance": "rpc_methods.json[google.admin.AdminService.inboundSsoProfileUpdated] <- curated",
+      "pattern": null,
+      "note": "Google Workspace Admin console activity event, not a GCP Cloud Audit Logs API method. Different telemetry stream; no GCP IAM permission exists."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "google.admin.AdminService.inboundSsoProfileCreated",
+   "google.admin.AdminService.inboundSsoProfileUpdated"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Project.ExternalUserOwnershipInvite",
+  "source": "panther",
+  "native_id": "GCP.Project.ExternalUserOwnershipInvite",
+  "title": "GCP External User Ownership Invite",
+  "file": "gcp_invite_external_user_as_owner.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.KMS.BulkEncryption",
+  "source": "panther",
+  "native_id": "GCP.KMS.BulkEncryption",
+  "title": "GCP KMS Bulk Encryption by GCS Service Account",
+  "file": "gcp_kms_bulk_encryption.py",
+  "paradigm": "correlation",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 10,
+  "window": null,
+  "notes": [
+   "count rule: fires after >= 10 events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.KMS.CrossProjectEncryption",
+  "source": "panther",
+  "native_id": "GCP.KMS.CrossProjectEncryption",
+  "title": "GCP KMS Cross-Project Encryption",
+  "file": "gcp_kms_cross_project_encryption.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.KMS.EnableKey",
+  "source": "panther",
+  "native_id": "GCP.KMS.EnableKey",
+  "title": "GCP KMS Key Granted to GCS Service Account",
+  "file": "gcp_kms_enable_key.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0005",
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486",
+   "T1562"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.KMS.EraseKey",
+  "source": "panther",
+  "native_id": "GCP.KMS.EraseKey",
+  "title": "GCP KMS Key Version Disabled or Destroyed",
+  "file": "gcp_kms_erase_key.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0005",
+   "TA0040"
+  ],
+  "mitre_techniques": [
+   "T1486",
+   "T1562"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Log.Bucket.Or.Sink.Deleted",
+  "source": "panther",
+  "native_id": "GCP.Log.Bucket.Or.Sink.Deleted",
+  "title": "GCP Log Bucket or Sink Deleted",
+  "file": "gcp_log_bucket_or_sink_deleted.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Logging.Settings.Modified",
+  "source": "panther",
+  "native_id": "GCP.Logging.Settings.Modified",
+  "title": "GCP Logging Settings Modified",
+  "file": "gcp_logging_settings_modified.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Logging.Sink.Modified",
+  "source": "panther",
+  "native_id": "GCP.Logging.Sink.Modified",
+  "title": "GCP Logging Sink Modified",
+  "file": "gcp_logging_sink_modified.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Permissions.Granted.to.Create.or.Manage.Service.Account.Key",
+  "source": "panther",
+  "native_id": "GCP.Permissions.Granted.to.Create.or.Manage.Service.Account.Key",
+  "title": "GCP Permissions Granted to Create or Manage Service Account Key",
+  "file": "gcp_permissions_granted_to_create_or_manage_service_account_key.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Privilege.Escalation.By.Deployments.Create",
+  "source": "panther",
+  "native_id": "GCP.Privilege.Escalation.By.Deployments.Create",
+  "title": "GCP.Privilege.Escalation.By.Deployments.Create",
+  "file": "gcp_privilege_escalation_by_deployments_create.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "deploymentmanager.deployments.create",
+      "permissions": [
+       "deploymentmanager.deployments.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "deploymentmanager.deployments.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Privileged.Operation",
+  "source": "panther",
+  "native_id": "GCP.Privileged.Operation",
+  "title": "GCP Privileged Operation",
+  "file": "gcp_privileged_operation.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccounts.getAccessToken",
+      "permissions": [
+       "iam.serviceAccounts.getAccessToken"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "orgpolicy.policy.set",
+      "permissions": [
+       "orgpolicy.policy.set"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.hmacKeys.create",
+      "permissions": [
+       "storage.hmacKeys.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "serviceusage.apiKeys.create",
+      "permissions": [
+       "apikeys.keys.create"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.create -> apikeys.keys.create (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "serviceusage.apiKeys.list",
+      "permissions": [
+       "apikeys.keys.list"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.list -> apikeys.keys.list (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "apikeys.keys.create",
+   "apikeys.keys.list",
+   "iam.serviceAccounts.getAccessToken",
+   "orgpolicy.policy.set",
+   "storage.hmacKeys.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Service.Account.Access.Denied",
+  "source": "panther",
+  "native_id": "GCP.Service.Account.Access.Denied",
+  "title": "GCP Service Account Access Denied",
+  "file": "gcp_service_account_access_denied.py",
+  "paradigm": "correlation",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": 30,
+  "window": null,
+  "notes": [
+   "count rule: fires after >= 30 events"
+  ],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Service.Account.or.Keys.Created",
+  "source": "panther",
+  "native_id": "GCP.Service.Account.or.Keys.Created",
+  "title": "GCP Service Account or Keys Created ",
+  "file": "gcp_service_account_or_keys_created.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.serviceusage.apiKeys.create.Privilege.Escalation",
+  "source": "panther",
+  "native_id": "GCP.serviceusage.apiKeys.create.Privilege.Escalation",
+  "title": "GCP serviceusage.apiKeys.create Privilege Escalation",
+  "file": "gcp_serviceusage_apikeys_create_privilege_escalation.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "serviceusage.apiKeys.create",
+      "permissions": [
+       "apikeys.keys.create"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.create -> apikeys.keys.create (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "apikeys.keys.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Compute.Snapshot.UnexpectedDomain",
+  "source": "panther",
+  "native_id": "GCP.Compute.Snapshot.UnexpectedDomain",
+  "title": "GCP Snapshot Creation Detection",
+  "file": "gcp_snapshot_insert.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "v1.compute.snapshots.insert",
+      "permissions": [
+       "compute.snapshots.create"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.snapshots.insert] (folded from v1.compute.snapshots.insert)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.snapshots.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.SQL.ConfigChanges",
+  "source": "panther",
+  "native_id": "GCP.SQL.ConfigChanges",
+  "title": "GCP SQL Config Changes",
+  "file": "gcp_sql_config_changes.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "cloudsql.instances.update",
+      "permissions": [
+       "cloudsql.instances.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "cloudsql.instances.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.Storage.Hmac.Keys.Create",
+  "source": "panther",
+  "native_id": "GCP.Storage.Hmac.Keys.Create",
+  "title": "GCP storage hmac keys create",
+  "file": "gcp_storage_hmac_keys_create.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "storage.hmacKeys.create",
+      "permissions": [
+       "storage.hmacKeys.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "storage.hmacKeys.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Tag.Binding.Creation",
+  "source": "panther",
+  "native_id": "GCP.Tag.Binding.Creation",
+  "title": "GCP Tag Binding Creation",
+  "file": "gcp_tag_binding_creation.py",
+  "paradigm": "event",
+  "level": "info",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.UnusedRegions",
+  "source": "panther",
+  "native_id": "GCP.UnusedRegions",
+  "title": "GCP Resource in Unused Region",
+  "file": "gcp_unused_regions.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0005"
+  ],
+  "mitre_techniques": [
+   "T1535"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.User.Added.to.IAP.Protected.Service",
+  "source": "panther",
+  "native_id": "GCP.User.Added.to.IAP.Protected.Service",
+  "title": "GCP User Added to IAP Protected Service",
+  "file": "gcp_user_added_to_iap_protected_service.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.cloud.iap.v1.IdentityAwareProxyAdminService.SetIamPolicy",
+      "permissions": [
+       "iap.tunnelServices.setIamPolicy",
+       "iap.web.setIamPolicy",
+       "iap.webServiceVersions.setIamPolicy",
+       "iap.webServices.setIamPolicy",
+       "iap.webTypes.setIamPolicy"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.iap.v1.IdentityAwareProxyAdminService.SetIamPolicy] <- https://docs.cloud.google.com/iap/docs/audit-log-howto",
+      "pattern": null,
+      "note": "One method maps to five resource-type-specific setIamPolicy permissions; which applies depends on the IAP resource. Canonical page is /iap/docs/audit-log-howto (/iap/docs/audit-logging 404s)."
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iap.tunnelServices.setIamPolicy",
+   "iap.web.setIamPolicy",
+   "iap.webServiceVersions.setIamPolicy",
+   "iap.webServices.setIamPolicy",
+   "iap.webTypes.setIamPolicy"
+  ]
+ },
+ {
+  "id": "panther:GCP.User.Added.To.Privileged.Group",
+  "source": "panther",
+  "native_id": "GCP.User.Added.To.Privileged.Group",
+  "title": "GCP User Added to Privileged Group",
+  "file": "gcp_user_added_to_privileged_group.py",
+  "paradigm": "event",
+  "level": "low",
+  "status": "disabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1078.004",
+   "T1484.001"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.VPC.Flow.Logs.Disabled",
+  "source": "panther",
+  "native_id": "GCP.VPC.Flow.Logs.Disabled",
+  "title": "GCP VPC Flow Logs Disabled",
+  "file": "gcp_vpc_flow_logs_disabled.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "v1.compute.subnetworks.patch",
+      "permissions": [
+       "compute.subnetworks.get",
+       "compute.subnetworks.update"
+      ],
+      "kind": "rest_method",
+      "confidence": "normalized",
+      "provenance": "method_permissions.json[compute.subnetworks.patch] (folded from v1.compute.subnetworks.patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "compute.subnetworks.get",
+   "compute.subnetworks.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.Workforce.Pool.Created.or.Updated",
+  "source": "panther",
+  "native_id": "GCP.Workforce.Pool.Created.or.Updated",
+  "title": "GCP Workforce Pool Created or Updated",
+  "file": "gcp_workforce_pool_created_or_updated.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003",
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1098.003",
+   "T1136.003"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.admin.v1.WorkforcePools.CreateWorkforcePool",
+      "permissions": [
+       "iam.workforcePools.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.WorkforcePools.CreateWorkforcePool] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.admin.v1.WorkforcePools.UpdateWorkforcePool",
+      "permissions": [
+       "iam.workforcePools.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.WorkforcePools.UpdateWorkforcePool] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.workforcePools.create",
+   "iam.workforcePools.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.Workload.Identity.Pool.Created.or.Updated",
+  "source": "panther",
+  "native_id": "GCP.Workload.Identity.Pool.Created.or.Updated",
+  "title": "GCP Workload Identity Pool Created or Updated",
+  "file": "gcp_workload_identity_pool_created_or_updated.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003",
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1098.003",
+   "T1136.003"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "google.iam.v1.WorkloadIdentityPools.CreateWorkloadIdentityPoolProvider",
+      "permissions": [
+       "iam.workloadIdentityPoolProviders.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.v1.WorkloadIdentityPools.CreateWorkloadIdentityPoolProvider] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPoolProvider",
+      "permissions": [
+       "iam.workloadIdentityPoolProviders.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.v1.WorkloadIdentityPools.UpdateWorkloadIdentityPoolProvider] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "iam.workloadIdentityPoolProviders.create",
+   "iam.workloadIdentityPoolProviders.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.GKE.Kubernetes.Cron.Job.Created.Or.Modified",
+  "source": "panther",
+  "native_id": "GCP.GKE.Kubernetes.Cron.Job.Created.Or.Modified",
+  "title": "GCP GKE Kubernetes Cron Job Created Or Modified",
+  "file": "gcp_k8s_cron_job_created_or_modified.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0003"
+  ],
+  "mitre_techniques": [
+   "T1053.003"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.batch.v1.cronjobs.create",
+      "permissions": [
+       "container.cronJobs.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.create -> container.cronJobs.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.batch.v1.cronjobs.update",
+      "permissions": [
+       "container.cronJobs.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.update -> container.cronJobs.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.cronJobs.create",
+   "container.cronJobs.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8s.ExecIntoPod",
+  "source": "panther",
+  "native_id": "GCP.K8s.ExecIntoPod",
+  "title": "Exec into Pod",
+  "file": "gcp_k8s_exec_into_pod.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.exec.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.exec.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8s.IOC.Activity",
+  "source": "panther",
+  "native_id": "GCP.K8s.IOC.Activity",
+  "title": "GCP K8s IOCActivity",
+  "file": "gcp_k8s_ioc_activity.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0011"
+  ],
+  "mitre_techniques": [
+   "T1573.002"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "k8s.io",
+      "permissions": [],
+      "kind": "unresolved",
+      "confidence": "none",
+      "provenance": "no rung matched",
+      "pattern": null,
+      "note": "not a permission, REST method, k8s op, known gRPC method or pattern"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [
+   "k8s.io"
+  ],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.K8s.New.Daemonset.Deployed",
+  "source": "panther",
+  "native_id": "GCP.K8s.New.Daemonset.Deployed",
+  "title": "GCP K8s New Daemonset Deployed",
+  "file": "gcp_k8s_new_daemonset_deployed.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0002"
+  ],
+  "mitre_techniques": [
+   "T1610"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.apps.v1.daemonsets.create",
+      "permissions": [
+       "container.daemonSets.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.apps.v1.daemonsets.create -> container.daemonSets.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.daemonSets.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8s.Pod.Attached.To.Node.Host.Network",
+  "source": "panther",
+  "native_id": "GCP.K8s.Pod.Attached.To.Node.Host.Network",
+  "title": "GCP K8s Pod Attached To Node Host Network",
+  "file": "gcp_k8s_pod_attached_to_node_host_network.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1611"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8S.Pod.Create.Or.Modify.Host.Path.Volume.Mount",
+  "source": "panther",
+  "native_id": "GCP.K8S.Pod.Create.Or.Modify.Host.Path.Volume.Mount",
+  "title": "GCP K8S Pod Create Or Modify Host Path Volume Mount",
+  "file": "gcp_k8s_pod_create_or_modify_host_path_vol_mount.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004",
+   "TA0010"
+  ],
+  "mitre_techniques": [
+   "T1041",
+   "T1611"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8s.Pod.Using.Host.PID.Namespace",
+  "source": "panther",
+  "native_id": "GCP.K8s.Pod.Using.Host.PID.Namespace",
+  "title": "GCP K8s Pod Using Host PID Namespace",
+  "file": "gcp_k8s_pod_using_host_pid_namespace.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0002",
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1610",
+   "T1611"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.update",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.core.v1.pods.patch",
+      "permissions": [
+       "container.pods.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.patch -> container.pods.update)",
+      "pattern": null,
+      "note": "k8s verb patch->update (no container.*.patch permission)"
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create",
+   "container.pods.update"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8S.Privileged.Pod.Created",
+  "source": "panther",
+  "native_id": "GCP.K8S.Privileged.Pod.Created",
+  "title": "GCP K8S Privileged Pod Created",
+  "file": "gcp_k8s_privileged_pod_created.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.pods.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.K8S.Service.Type.NodePort.Deployed",
+  "source": "panther",
+  "native_id": "GCP.K8S.Service.Type.NodePort.Deployed",
+  "title": "GCP K8S Service Type NodePort Deployed",
+  "file": "gcp_k8s_service_type_node_port_deployed.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "disabled",
+  "domain": "k8s",
+  "rule_type": "python",
+  "mitre_tactics": [
+   "TA0001"
+  ],
+  "mitre_techniques": [
+   "T1190"
+  ],
+  "logsource": {
+   "log_types": [
+    "GCP.AuditLog"
+   ]
+  },
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "io.k8s.core.v1.services.create",
+      "permissions": [
+       "container.services.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.services.create -> container.services.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": [
+   "container.services.create"
+  ]
+ },
+ {
+  "id": "panther:GCP.Access.Attempts.Violating.IAP.Access.Controls",
+  "source": "panther",
+  "native_id": "GCP.Access.Attempts.Violating.IAP.Access.Controls",
+  "title": "GCP Access Attempts Violating IAP Access Controls",
+  "file": "gcp_access_attempts_violating_iap_access_controls.py",
+  "paradigm": "event",
+  "level": "medium",
+  "status": "enabled",
+  "domain": "gcp_lb",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.HTTPLoadBalancer"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.CloudArmor.React2Shell.RCE.Attempt",
+  "source": "panther",
+  "native_id": "GCP.CloudArmor.React2Shell.RCE.Attempt",
+  "title": "GCP Cloud Armor RCE Attempt Detected",
+  "file": "gcp_cloud_armor_r2s_rce_attempt.py",
+  "paradigm": "event",
+  "level": "high",
+  "status": "enabled",
+  "domain": "gcp_lb",
+  "rule_type": "python",
+  "mitre_tactics": [],
+  "mitre_techniques": [],
+  "logsource": {
+   "log_types": [
+    "GCP.HTTPLoadBalancer"
+   ]
+  },
+  "requirement": {
+   "groups": [],
+   "excluded": [],
+   "confidence": "flat",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": null,
+  "notes": [],
+  "covered_permissions": []
+ },
+ {
+  "id": "panther:GCP.Cloud.Run.Service.Created.WITH.Set.IAM.Policy",
+  "source": "panther",
+  "native_id": "GCP.Cloud.Run.Service.Created.WITH.Set.IAM.Policy",
+  "title": "GCP Cloud Run Service Created WITH Set IAM Policy",
+  "file": "gcp_cloud_run_service_create_followed_by_set_iam_policy.yml",
+  "paradigm": "correlation",
+  "level": "high",
+  "status": "disabled",
+  "domain": "gcp",
+  "rule_type": "correlation_rule",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {},
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "run.services.create",
+      "permissions": [
+       "run.services.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     },
+     {
+      "token": "run.services.setIamPolicy",
+      "permissions": [
+       "run.services.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "1800m",
+  "notes": [
+   "multi-stage correlation of 2 rules: GCP.Cloud.Run.Service.Created -> GCP.Cloud.Run.Set.IAM.Policy"
+  ],
+  "covered_permissions": [
+   "run.services.create",
+   "run.services.setIamPolicy"
+  ]
+ },
+ {
+  "id": "panther:GCP.Privilege.Escalation.Via.TagBinding.Group",
+  "source": "panther",
+  "native_id": "GCP.Privilege.Escalation.Via.TagBinding.Group",
+  "title": "GCP Privilege Escalation via TagBinding",
+  "file": "gcp_tag_escalation.yml",
+  "paradigm": "correlation",
+  "level": "info",
+  "status": "disabled",
+  "domain": "gcp",
+  "rule_type": "correlation_rule",
+  "mitre_tactics": [
+   "TA0004"
+  ],
+  "mitre_techniques": [
+   "T1548"
+  ],
+  "logsource": {},
+  "requirement": {
+   "groups": [
+    [
+     {
+      "token": "iam.serviceAccounts.getAccessToken",
+      "permissions": [
+       "iam.serviceAccounts.getAccessToken"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "orgpolicy.policy.set",
+      "permissions": [
+       "orgpolicy.policy.set"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "storage.hmacKeys.create",
+      "permissions": [
+       "storage.hmacKeys.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "serviceusage.apiKeys.create",
+      "permissions": [
+       "apikeys.keys.create"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.create -> apikeys.keys.create (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "serviceusage.apiKeys.list",
+      "permissions": [
+       "apikeys.keys.list"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.list -> apikeys.keys.list (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
+   "excluded": [],
+   "confidence": "exact",
+   "note": ""
+  },
+  "event_names": [],
+  "unresolved_tokens": [],
+  "threshold": null,
+  "window": "1800m",
+  "notes": [
+   "multi-stage correlation of 3 rules: GCP.IAM.Tag.Enumeration -> GCP.Tag.Binding.Creation -> GCP.Privileged.Operation"
+  ],
+  "covered_permissions": [
+   "apikeys.keys.create",
+   "apikeys.keys.list",
+   "iam.serviceAccounts.getAccessToken",
+   "orgpolicy.policy.set",
+   "storage.hmacKeys.create"
+  ]
+ }
+]
