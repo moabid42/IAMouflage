@@ -1875,8 +1875,7 @@
     "line": 102,
     "heading_level": 3,
     "required_perms": [
-      "iam.serviceAccounts.setIamPolicy",
-      "iam.serviceaccounts.setiampolicy"
+      "iam.serviceAccounts.setIamPolicy"
     ],
     "optional_perms": [],
     "requires_actas": false,
@@ -1990,11 +1989,11 @@
     "line": 25,
     "heading_level": 3,
     "required_perms": [
-      "iam.ServiceAccounts.actAs"
+      "iam.serviceAccounts.actAs"
     ],
     "optional_perms": [],
     "requires_actas": true,
-    "primary_perm": "iam.ServiceAccounts.actAs",
+    "primary_perm": "iam.serviceAccounts.actAs",
     "extraction": "heading"
   },
   {
@@ -2283,7 +2282,7 @@
     "required_perms": [
       "run.jobs.create",
       "run.jobs.run",
-      "iam.serviceaccounts.actAs"
+      "iam.serviceAccounts.actAs"
     ],
     "optional_perms": [
       "run.jobs.get"
@@ -2306,7 +2305,7 @@
     "required_perms": [
       "run.jobs.update",
       "run.jobs.run",
-      "iam.serviceaccounts.actAs"
+      "iam.serviceAccounts.actAs"
     ],
     "optional_perms": [
       "run.jobs.get"
@@ -2398,7 +2397,7 @@
     "id": "privilege-escalation:gcp-serviceusage-privesc:1",
     "title": "serviceusage.apiKeys.create",
     "tactic": "privilege-escalation",
-    "service": "serviceusage",
+    "service": "apikeys",
     "file_service": "serviceusage",
     "section": "serviceusage",
     "file": "gcp-serviceusage-privesc.md",
@@ -2406,18 +2405,18 @@
     "line": 17,
     "heading_level": 3,
     "required_perms": [
-      "serviceusage.apiKeys.create"
+      "apikeys.keys.create"
     ],
     "optional_perms": [],
     "requires_actas": false,
-    "primary_perm": "serviceusage.apiKeys.create",
+    "primary_perm": "apikeys.keys.create",
     "extraction": "heading"
   },
   {
     "id": "privilege-escalation:gcp-serviceusage-privesc:2",
     "title": "serviceusage.apiKeys.list",
     "tactic": "privilege-escalation",
-    "service": "serviceusage",
+    "service": "apikeys",
     "file_service": "serviceusage",
     "section": "serviceusage",
     "file": "gcp-serviceusage-privesc.md",
@@ -2425,11 +2424,11 @@
     "line": 29,
     "heading_level": 3,
     "required_perms": [
-      "serviceusage.apiKeys.list"
+      "apikeys.keys.list"
     ],
     "optional_perms": [],
     "requires_actas": false,
-    "primary_perm": "serviceusage.apiKeys.list",
+    "primary_perm": "apikeys.keys.list",
     "extraction": "heading"
   },
   {
@@ -2838,7 +2837,7 @@
     "heading_level": 3,
     "required_perms": [
       "workflows.workflows.create",
-      "iam.serviceAccounts.ActAs",
+      "iam.serviceAccounts.actAs",
       "workflows.executions.create"
     ],
     "optional_perms": [

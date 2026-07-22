@@ -28,8 +28,28 @@ import json
 import re
 from pathlib import Path
 
+from core.canonical import canonicaliser
 from core.corpus import techniques_root
 from core.normalize import PERM_RE, find_permissions, op_signature, perm_service
+
+_ACTAS_SIG = op_signature("iam.serviceAccounts.actAs")
+
+
+def _canon_perm(p: str, canon) -> str:
+    """Normalise a technique permission to its canonical IAM spelling.
+
+    The hacktricks corpus carries casing drift (`iam.serviceaccounts.actAs`,
+    `iam.ServiceAccounts.actAs`) and retired service names
+    (`serviceusage.apiKeys.create` -> `apikeys.keys.create`). Left raw, these fail to
+    join the (canonicalised) detection side by exact string, silently under-counting
+    coverage. We normalise ONLY when the token resolves as a single real permission;
+    anything else (a genuinely off-vocab perm like storage.buckets.setIpFilter) is kept
+    untouched so we never corrupt a valid precondition.
+    """
+    r = canon.resolve(p)
+    if r.kind == "permission" and len(r.permissions) == 1:
+        return r.permissions[0]
+    return p
 
 # Each directory maps to (tactic, extraction_mode).
 #
@@ -74,6 +94,11 @@ def is_real_permission(tok: str) -> bool:
     return True
 
 _HEADING_RE = re.compile(r"^(#{2,4})\s+(.*)$")
+# Some headings carry a GitBook HTML anchor, e.g.
+#   ### `iam.serviceAccounts.setIamPolicy` <a href="#..." id="iam.serviceaccounts.setiampolicy"></a>
+# whose href/id hold a dotted token that permission extraction would scrape as a bogus
+# duplicate permission. Strip HTML tags from a heading before extracting.
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
 _PAREN_RE = re.compile(r"\(([^()]*)\)")
 _CLEAN_TITLE_RE = re.compile(r"<a\s+href=.*?</a>|[*_`]|\s+#.*$")
 
@@ -141,7 +166,7 @@ def parse_file_headings(path: Path, tactic: str):
         m = _HEADING_RE.match(line)
         if not m:
             continue
-        hashes, htext = m.group(1), m.group(2)
+        hashes, htext = m.group(1), _HTML_TAG_RE.sub("", m.group(2)).strip()
         if len(hashes) == 2:
             # top-level section header; remember for context, not a technique itself
             if not PERM_RE.search(htext):
@@ -265,6 +290,20 @@ def main():
             inline_tech.extend(parse_file(path, tactic, mode, valid_services))
 
     all_tech = heading_tech + inline_tech
+
+    # Canonicalise permissions to their real IAM spelling so techniques join the
+    # (already-canonical) detection side. Done as a final pass, AFTER the inline filter
+    # in pass 2 has used the original service prefixes.
+    canon = canonicaliser()
+    for t in all_tech:
+        t["required_perms"] = list(dict.fromkeys(_canon_perm(p, canon) for p in t["required_perms"]))
+        t["optional_perms"] = [p for p in dict.fromkeys(_canon_perm(p, canon) for p in t["optional_perms"])
+                               if p not in t["required_perms"]]
+        t["primary_perm"] = _canon_perm(t["primary_perm"], canon)
+        t["service"] = perm_service(t["primary_perm"]) or t["service"]
+        t["requires_actas"] = any(
+            op_signature(p) == _ACTAS_SIG for p in t["required_perms"] + t["optional_perms"])
+
     # Store rel_path relative to the corpus base so the output is reproducible across
     # checkouts (it was an absolute path, which changed per machine/location).
     for t in all_tech:
