@@ -2761,7 +2761,7 @@
   "04_covered_but_unlogged.cypher": {
     "title": "Rules that look like coverage but are blind by default",
     "why": "A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default \u2014 so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a \"Storage Buckets Enumeration\" rule on storage.buckets.list, a DATA_ACCESS read.",
-    "row_count": 28,
+    "row_count": 32,
     "rows": [
       {
         "source": "elastic",
@@ -2877,6 +2877,22 @@
       },
       {
         "source": "panther",
+        "rule": "GCP IAM and Tag Enumeration",
+        "level": "info",
+        "permission_matched": "resourcemanager.hierarchyNodes.listEffectiveTags",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "source": "panther",
+        "rule": "GCP IAM and Tag Enumeration",
+        "level": "info",
+        "permission_matched": "resourcemanager.tagKeys.list",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "source": "panther",
         "rule": "GCP IAM serviceAccounts getAccessToken Privilege Escalation",
         "level": "high",
         "permission_matched": "iam.serviceAccounts.getAccessToken",
@@ -2914,6 +2930,22 @@
         "permission_matched": "iam.serviceAccounts.getAccessToken",
         "log_type": "DATA_ACCESS",
         "used_by_a_technique": true
+      },
+      {
+        "source": "panther",
+        "rule": "GCP Privilege Escalation via TagBinding",
+        "level": "info",
+        "permission_matched": "resourcemanager.hierarchyNodes.listEffectiveTags",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
+      },
+      {
+        "source": "panther",
+        "rule": "GCP Privilege Escalation via TagBinding",
+        "level": "info",
+        "permission_matched": "resourcemanager.tagKeys.list",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": false
       },
       {
         "source": "panther",
@@ -2992,7 +3024,7 @@
   "05_rules_without_technique.cypher": {
     "title": "Where the detection effort lands vs. where the attacks are",
     "why": "Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses \u2014 often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward \"impact/destruction\" and away from the privilege-escalation / credential-access operations that dominate the corpus.",
-    "row_count": 49,
+    "row_count": 51,
     "rows": [
       {
         "source": "elastic",
@@ -3240,6 +3272,15 @@
       },
       {
         "source": "panther",
+        "rule": "GCP IAM and Tag Enumeration",
+        "permissions_no_technique_uses": [
+          "resourcemanager.hierarchyNodes.listEffectiveTags",
+          "resourcemanager.tagKeys.list"
+        ],
+        "mitre_tactics": null
+      },
+      {
+        "source": "panther",
         "rule": "GCP K8S Service Type NodePort Deployed",
         "permissions_no_technique_uses": [
           "container.services.create"
@@ -3251,7 +3292,11 @@
         "rule": "GCP Privilege Escalation via TagBinding",
         "permissions_no_technique_uses": [
           "apikeys.keys.create",
-          "apikeys.keys.list"
+          "apikeys.keys.list",
+          "resourcemanager.hierarchyNodes.createTagBinding",
+          "resourcemanager.hierarchyNodes.listEffectiveTags",
+          "resourcemanager.tagKeys.list",
+          "resourcemanager.tagValueBindings.create"
         ],
         "mitre_tactics": null
       },
@@ -3269,6 +3314,15 @@
         "rule": "GCP Snapshot Creation Detection",
         "permissions_no_technique_uses": [
           "compute.snapshots.create"
+        ],
+        "mitre_tactics": null
+      },
+      {
+        "source": "panther",
+        "rule": "GCP Tag Binding Creation",
+        "permissions_no_technique_uses": [
+          "resourcemanager.hierarchyNodes.createTagBinding",
+          "resourcemanager.tagValueBindings.create"
         ],
         "mitre_tactics": null
       },

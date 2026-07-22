@@ -179,7 +179,7 @@ _… 9 more rows (see findings.json)_
 
 > A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default — so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a "Storage Buckets Enumeration" rule on storage.buckets.list, a DATA_ACCESS read.
 
-**28 rows.**
+**32 rows.**
 
 | source | rule | level | permission_matched | log_type | used_by_a_technique |
 | --- | --- | --- | --- | --- | --- |
@@ -197,11 +197,15 @@ _… 9 more rows (see findings.json)_
 | panther | GCP GCS Bulk Object Rewrite Operation | medium | storage.objects.create | DATA_ACCESS | True |
 | panther | GCP GCS Object Copied to Different Bucket | medium | storage.objects.get | DATA_ACCESS | True |
 | panther | GCP GCS Ransom Note Upload | high | storage.objects.create | DATA_ACCESS | True |
+| panther | GCP IAM and Tag Enumeration | info | resourcemanager.hierarchyNodes.listEffectiveTags | DATA_ACCESS | False |
+| panther | GCP IAM and Tag Enumeration | info | resourcemanager.tagKeys.list | DATA_ACCESS | False |
 | panther | GCP IAM serviceAccounts getAccessToken Privilege Escalation | high | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
 | panther | GCP IAM serviceAccounts signBlob | high | iam.serviceAccounts.signBlob | DATA_ACCESS | True |
 | panther | GCP IAM serviceAccounts.signJwt Privilege Escalation | high | iam.serviceAccounts.signJwt | DATA_ACCESS | True |
 | panther | GCP Privilege Escalation via TagBinding | info | apikeys.keys.list | DATA_ACCESS | False |
 | panther | GCP Privilege Escalation via TagBinding | info | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
+| panther | GCP Privilege Escalation via TagBinding | info | resourcemanager.hierarchyNodes.listEffectiveTags | DATA_ACCESS | False |
+| panther | GCP Privilege Escalation via TagBinding | info | resourcemanager.tagKeys.list | DATA_ACCESS | False |
 | panther | GCP Privileged Operation | info | apikeys.keys.list | DATA_ACCESS | False |
 | panther | GCP Privileged Operation | info | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
 | panther | GCP VPC Flow Logs Disabled | medium | compute.subnetworks.get | DATA_ACCESS | False |
@@ -217,7 +221,7 @@ _… 9 more rows (see findings.json)_
 
 > Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses — often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward "impact/destruction" and away from the privilege-escalation / credential-access operations that dominate the corpus.
 
-**49 rows.**
+**51 rows.**
 
 | source | rule | permissions_no_technique_uses | mitre_tactics |
 | --- | --- | --- | --- |
@@ -249,20 +253,20 @@ _… 9 more rows (see findings.json)_
 | panther | GCP Firewall Rule Deleted | compute.firewalls.delete |  |
 | panther | GCP Firewall Rule Modified | compute.firewalls.get, compute.firewalls.update, compute.networks.updatePolicy |  |
 | panther | GCP IAM Role Has Changed | iam.roles.delete |  |
+| panther | GCP IAM and Tag Enumeration | resourcemanager.hierarchyNodes.listEffectiveTags, resourcemanager.tagKeys.list |  |
 | panther | GCP K8S Service Type NodePort Deployed | container.services.create |  |
-| panther | GCP Privilege Escalation via TagBinding | apikeys.keys.create, apikeys.keys.list |  |
+| panther | GCP Privilege Escalation via TagBinding | apikeys.keys.create, apikeys.keys.list, resourcemanager.hierarchyNodes.createTagBinding, resourcemanager.hierarchyNodes.listEffectiveTags, resourcemanager.tagKeys.list, resourcemanager.tagValueBindings.create |  |
 | panther | GCP Privileged Operation | apikeys.keys.create, apikeys.keys.list |  |
 | panther | GCP Snapshot Creation Detection | compute.snapshots.create |  |
+| panther | GCP Tag Binding Creation | resourcemanager.hierarchyNodes.createTagBinding, resourcemanager.tagValueBindings.create |  |
 | panther | GCP User Added to IAP Protected Service | iap.tunnelServices.setIamPolicy, iap.web.setIamPolicy, iap.webServiceVersions.setIamPolicy, iap.webServices.setIamPolicy, iap.webTypes.setIamPolicy |  |
 | panther | GCP VPC Flow Logs Disabled | compute.subnetworks.get, compute.subnetworks.update |  |
 | panther | GCP Workforce Pool Created or Updated | iam.workforcePools.create, iam.workforcePools.update |  |
 | panther | GCP Workload Identity Pool Created or Updated | iam.workloadIdentityPoolProviders.create, iam.workloadIdentityPoolProviders.update |  |
 | panther | GCP compute.instances.create Privilege Escalation | compute.instanceTemplates.useReadOnly, compute.instances.pscInterfaceCreate, compute.machineImages.useReadOnly, compute.networks.use |  |
 | panther | GCP serviceusage.apiKeys.create Privilege Escalation | apikeys.keys.create |  |
-| sigma | GCP Access Policy Deleted | accesscontextmanager.accessLevels.delete, accesscontextmanager.accessPolicies.delete, accesscontextmanager.authorizedOrgsDescs.delete, accesscontextmanager.policies.delete |  |
-| sigma | Google Cloud DNS Zone Modified or Deleted | dns.managedZones.delete, dns.managedZones.get, dns.managedZones.update |  |
 
-_… 9 more rows (see findings.json)_
+_… 11 more rows (see findings.json)_
 
 
 ## 06_coverage_by_tactic_service — Blind-spot concentration by tactic and service
