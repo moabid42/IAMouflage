@@ -6,13 +6,13 @@
     "rows": [
       {
         "status": "RULE_GAP",
-        "techniques": 117,
-        "pct": 46.1
+        "techniques": 131,
+        "pct": 51.6
       },
       {
         "status": "DETECTED",
-        "techniques": 86,
-        "pct": 33.9
+        "techniques": 72,
+        "pct": 28.3
       },
       {
         "status": "TELEMETRY_GAP",
@@ -29,7 +29,7 @@
   "01_blind_spot_techniques.cypher": {
     "title": "Every technique with zero detection coverage",
     "why": "The direct answer to \"which situations can my detections not figure out?\". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).",
-    "row_count": 166,
+    "row_count": 180,
     "rows": [
       {
         "tactic": "discovery",
@@ -682,6 +682,22 @@
       {
         "tactic": "privilege-escalation",
         "service": "aiplatform",
+        "primary_permission": "aiplatform.batchPredictionJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.customJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.customJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
         "primary_permission": "aiplatform.datasets.export",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
@@ -698,6 +714,14 @@
       {
         "tactic": "privilege-escalation",
         "service": "aiplatform",
+        "primary_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
         "primary_permission": "aiplatform.models.export",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
@@ -710,6 +734,46 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "aiplatform.models.upload, aiplatform.models.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.notebookExecutionJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "primary_permission": "aiplatform.pipelineJobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "apikeys",
+        "primary_permission": "apikeys.keys.list",
+        "blind_class": "TELEMETRY_GAP",
+        "needs_actAs": false,
+        "technique": "serviceusage.apiKeys.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.get",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.get",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
       },
       {
         "tactic": "privilege-escalation",
@@ -785,6 +849,14 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "batch",
+        "primary_permission": "batch.jobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "batch.jobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "bigquery",
         "primary_permission": "bigquery.datasets.update",
         "blind_class": "RULE_GAP",
@@ -849,6 +921,30 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "primary_permission": "cloudscheduler.jobs.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "primary_permission": "cloudscheduler.jobs.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "primary_permission": "cloudtasks.tasks.create",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudtasks.tasks.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "cloudtasks",
         "primary_permission": "cloudtasks.tasks.run",
         "blind_class": "RULE_GAP",
@@ -886,6 +982,14 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "compute.instances.osLogin"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.setMetadata",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.setMetadata"
       },
       {
         "tactic": "privilege-escalation",
@@ -1082,10 +1186,26 @@
       {
         "tactic": "privilege-escalation",
         "service": "iam",
-        "primary_permission": "iam.ServiceAccounts.actAs",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.actAs",
         "blind_class": "RULE_GAP",
         "needs_actAs": true,
         "technique": "iam.ServiceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
       },
       {
         "tactic": "privilege-escalation",
@@ -1193,27 +1313,19 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "secretmanager",
         "primary_permission": "secretmanager.versions.access",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
         "technique": "secretmanager.versions.access"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "serviceusage",
-        "primary_permission": "serviceusage.apiKeys.create",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "serviceusage.apiKeys.create"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "serviceusage",
-        "primary_permission": "serviceusage.apiKeys.list",
-        "blind_class": "TELEMETRY_GAP",
-        "needs_actAs": false,
-        "technique": "serviceusage.apiKeys.list"
       },
       {
         "tactic": "privilege-escalation",
@@ -1364,8 +1476,22 @@
   "02_rule_gap_classA.cypher": {
     "title": "Class A blind spots \u2014 logged by default, but no rule (write-a-signature gaps)",
     "why": "The \"cheap wins\". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today \u2014 there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.",
-    "row_count": 134,
+    "row_count": 143,
     "rows": [
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_permission": "aiplatform.batchPredictionJobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.batchPredictionJobs.create",
+        "technique": "aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_permission": "aiplatform.customJobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.customJobs.create",
+        "technique": "aiplatform.customJobs.create, iam.serviceAccounts.actAs"
+      },
       {
         "service": "aiplatform",
         "logged_but_unwatched_permission": "aiplatform.datasets.import",
@@ -1375,10 +1501,31 @@
       },
       {
         "service": "aiplatform",
+        "logged_but_unwatched_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.hyperparameterTuningJobs.create",
+        "technique": "aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
         "logged_but_unwatched_permission": "aiplatform.models.upload",
         "tactic": "privilege-escalation",
         "primary_permission": "aiplatform.models.upload",
         "technique": "aiplatform.models.upload, aiplatform.models.get"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_permission": "aiplatform.notebookExecutionJobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.notebookExecutionJobs.create",
+        "technique": "aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "aiplatform",
+        "logged_but_unwatched_permission": "aiplatform.pipelineJobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "aiplatform.pipelineJobs.create",
+        "technique": "aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs"
       },
       {
         "service": "apikeys",
@@ -1421,6 +1568,20 @@
         "tactic": "post-exploitation",
         "primary_permission": "appengine.memcache.getKey",
         "technique": "appengine.memcache.getKey"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_permission": "appengine.versions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
+      },
+      {
+        "service": "appengine",
+        "logged_but_unwatched_permission": "appengine.versions.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "appengine.applications.get",
+        "technique": "appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list"
       },
       {
         "service": "appengine",
@@ -1477,6 +1638,13 @@
         "tactic": "privilege-escalation",
         "primary_permission": "artifactregistry.tags.delete",
         "technique": "artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list)"
+      },
+      {
+        "service": "batch",
+        "logged_but_unwatched_permission": "batch.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "batch.jobs.create",
+        "technique": "batch.jobs.create, iam.serviceAccounts.actAs"
       },
       {
         "service": "bigquery",
@@ -1626,6 +1794,20 @@
         "technique": "cloudkms.cryptoKeyVersions.useToVerify"
       },
       {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_permission": "cloudscheduler.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.create",
+        "technique": "cloudscheduler.jobs.create , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "service": "cloudscheduler",
+        "logged_but_unwatched_permission": "cloudscheduler.jobs.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudscheduler.jobs.update",
+        "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
         "service": "cloudsql",
         "logged_but_unwatched_permission": "cloudsql.backupRuns.delete",
         "tactic": "post-exploitation",
@@ -1659,6 +1841,13 @@
         "tactic": "post-exploitation",
         "primary_permission": "cloudsql.users.create",
         "technique": "cloudsql.users.create"
+      },
+      {
+        "service": "cloudtasks",
+        "logged_but_unwatched_permission": "cloudtasks.tasks.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.tasks.create",
+        "technique": "cloudtasks.tasks.create, iam.serviceAccounts.actAs"
       },
       {
         "service": "cloudtasks",
@@ -1865,10 +2054,17 @@
       },
       {
         "service": "iam",
-        "logged_but_unwatched_permission": "iam.ServiceAccounts.actAs",
+        "logged_but_unwatched_permission": "aiplatform.endpoints.create",
         "tactic": "privilege-escalation",
-        "primary_permission": "iam.ServiceAccounts.actAs",
-        "technique": "iam.ServiceAccounts.actAs"
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_permission": "aiplatform.endpoints.deploy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
       },
       {
         "service": "iam",
@@ -2117,20 +2313,6 @@
       },
       {
         "service": "run",
-        "logged_but_unwatched_permission": "iam.serviceaccounts.actAs",
-        "tactic": "privilege-escalation",
-        "primary_permission": "run.jobs.create",
-        "technique": "run.jobs.create, run.jobs.run, iam.serviceaccounts.actAs,(run.jobs.get)"
-      },
-      {
-        "service": "run",
-        "logged_but_unwatched_permission": "iam.serviceaccounts.actAs",
-        "tactic": "privilege-escalation",
-        "primary_permission": "run.jobs.update",
-        "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
-      },
-      {
-        "service": "run",
         "logged_but_unwatched_permission": "run.jobs.create",
         "tactic": "privilege-escalation",
         "primary_permission": "run.jobs.create",
@@ -2170,6 +2352,13 @@
         "tactic": "privilege-escalation",
         "primary_permission": "run.jobs.update",
         "technique": "run.jobs.update,run.jobs.run,iam.serviceaccounts.actAs,(run.jobs.get)"
+      },
+      {
+        "service": "run",
+        "logged_but_unwatched_permission": "run.services.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.services.update",
+        "technique": "run.services.update , iam.serviceAccounts.actAs"
       },
       {
         "service": "secretmanager",
@@ -2212,13 +2401,6 @@
         "tactic": "post-exploitation",
         "primary_permission": "securitycenter.muteconfigs.update",
         "technique": "securitycenter.muteconfigs.update"
-      },
-      {
-        "service": "serviceusage",
-        "logged_but_unwatched_permission": "serviceusage.apiKeys.create",
-        "tactic": "privilege-escalation",
-        "primary_permission": "serviceusage.apiKeys.create",
-        "technique": "serviceusage.apiKeys.create"
       },
       {
         "service": "serviceusage",
@@ -2285,13 +2467,6 @@
       },
       {
         "service": "workflows",
-        "logged_but_unwatched_permission": "iam.serviceAccounts.ActAs",
-        "tactic": "privilege-escalation",
-        "primary_permission": "workflows.workflows.create",
-        "technique": "workflows.workflows.create, iam.serviceAccounts.ActAs, workflows.executions.create, (workflows.workflows.get, workflows.operations.get)"
-      },
-      {
-        "service": "workflows",
         "logged_but_unwatched_permission": "workflows.executions.create",
         "tactic": "privilege-escalation",
         "primary_permission": "workflows.workflows.create",
@@ -2328,6 +2503,15 @@
           "aiplatform.models.export"
         ],
         "technique": "aiplatform.models.export"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "apikeys",
+        "primary_permission": "apikeys.keys.list",
+        "data_access_permissions": [
+          "apikeys.keys.list"
+        ],
+        "technique": "serviceusage.apiKeys.list"
       },
       {
         "tactic": "post-exploitation",
@@ -2599,15 +2783,6 @@
           "secretmanager.versions.disable"
         ],
         "technique": "secretmanager.versions.disable"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "serviceusage",
-        "primary_permission": "serviceusage.apiKeys.list",
-        "data_access_permissions": [
-          "serviceusage.apiKeys.list"
-        ],
-        "technique": "serviceusage.apiKeys.list"
       },
       {
         "tactic": "privilege-escalation",
@@ -2921,7 +3096,7 @@
         "level": "info",
         "permission_matched": "apikeys.keys.list",
         "log_type": "DATA_ACCESS",
-        "used_by_a_technique": false
+        "used_by_a_technique": true
       },
       {
         "source": "panther",
@@ -2953,7 +3128,7 @@
         "level": "info",
         "permission_matched": "apikeys.keys.list",
         "log_type": "DATA_ACCESS",
-        "used_by_a_technique": false
+        "used_by_a_technique": true
       },
       {
         "source": "panther",
@@ -3024,7 +3199,7 @@
   "05_rules_without_technique.cypher": {
     "title": "Where the detection effort lands vs. where the attacks are",
     "why": "Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses \u2014 often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward \"impact/destruction\" and away from the privilege-escalation / credential-access operations that dominate the corpus.",
-    "row_count": 51,
+    "row_count": 49,
     "rows": [
       {
         "source": "elastic",
@@ -3291,21 +3466,10 @@
         "source": "panther",
         "rule": "GCP Privilege Escalation via TagBinding",
         "permissions_no_technique_uses": [
-          "apikeys.keys.create",
-          "apikeys.keys.list",
           "resourcemanager.hierarchyNodes.createTagBinding",
           "resourcemanager.hierarchyNodes.listEffectiveTags",
           "resourcemanager.tagKeys.list",
           "resourcemanager.tagValueBindings.create"
-        ],
-        "mitre_tactics": null
-      },
-      {
-        "source": "panther",
-        "rule": "GCP Privileged Operation",
-        "permissions_no_technique_uses": [
-          "apikeys.keys.create",
-          "apikeys.keys.list"
         ],
         "mitre_tactics": null
       },
@@ -3373,14 +3537,6 @@
           "compute.instances.pscInterfaceCreate",
           "compute.machineImages.useReadOnly",
           "compute.networks.use"
-        ],
-        "mitre_tactics": null
-      },
-      {
-        "source": "panther",
-        "rule": "GCP serviceusage.apiKeys.create Privilege Escalation",
-        "permissions_no_technique_uses": [
-          "apikeys.keys.create"
         ],
         "mitre_tactics": null
       },
@@ -3501,7 +3657,7 @@
   "06_coverage_by_tactic_service.cypher": {
     "title": "Blind-spot concentration by tactic and service",
     "why": "Shows the shape of the gap. Per tactic+service you see exactly where coverage is 0%. detected here means \"a single-event signature fires\" (detected_event); a technique caught only by a correlation rule is not counted as covered.",
-    "row_count": 52,
+    "row_count": 53,
     "rows": [
       {
         "tactic": "privilege-escalation",
@@ -3520,12 +3676,28 @@
         "pct_detected": 0.0
       },
       {
+        "tactic": "privilege-escalation",
+        "service": "aiplatform",
+        "detected": 0,
+        "total": 9,
+        "blind": 9,
+        "pct_detected": 0.0
+      },
+      {
         "tactic": "post-exploitation",
         "service": "monitoring",
         "detected": 0,
         "total": 8,
         "blind": 8,
         "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "detected": 4,
+        "total": 12,
+        "blind": 8,
+        "pct_detected": 33.3
       },
       {
         "tactic": "post-exploitation",
@@ -3561,11 +3733,11 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "iam",
-        "detected": 6,
-        "total": 12,
+        "service": "appengine",
+        "detected": 2,
+        "total": 8,
         "blind": 6,
-        "pct_detected": 50.0
+        "pct_detected": 25.0
       },
       {
         "tactic": "discovery",
@@ -3617,7 +3789,7 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "aiplatform",
+        "service": "compute",
         "detected": 5,
         "total": 9,
         "blind": 4,
@@ -3625,11 +3797,11 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "appengine",
-        "detected": 4,
-        "total": 8,
+        "service": "run",
+        "detected": 3,
+        "total": 7,
         "blind": 4,
-        "pct_detected": 50.0
+        "pct_detected": 42.9
       },
       {
         "tactic": "privilege-escalation",
@@ -3665,35 +3837,11 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "compute",
-        "detected": 6,
-        "total": 9,
-        "blind": 3,
-        "pct_detected": 66.7
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "pubsub",
         "detected": 3,
         "total": 6,
         "blind": 3,
         "pct_detected": 50.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "run",
-        "detected": 4,
-        "total": 7,
-        "blind": 3,
-        "pct_detected": 57.1
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "serviceusage",
-        "detected": 0,
-        "total": 3,
-        "blind": 3,
-        "pct_detected": 0.0
       },
       {
         "tactic": "privilege-escalation",
@@ -3738,6 +3886,22 @@
       {
         "tactic": "privilege-escalation",
         "service": "cloudkms",
+        "detected": 1,
+        "total": 3,
+        "blind": 2,
+        "pct_detected": 33.3
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudscheduler",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
         "detected": 1,
         "total": 3,
         "blind": 2,
@@ -3801,19 +3965,27 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "apikeys",
+        "detected": 1,
+        "total": 2,
+        "blind": 1,
+        "pct_detected": 50.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "batch",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "cloudfunctions",
         "detected": 4,
         "total": 5,
         "blind": 1,
         "pct_detected": 80.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "cloudtasks",
-        "detected": 2,
-        "total": 3,
-        "blind": 1,
-        "pct_detected": 66.7
       },
       {
         "tactic": "privilege-escalation",
@@ -3838,6 +4010,14 @@
         "total": 2,
         "blind": 1,
         "pct_detected": 50.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "serviceusage",
+        "detected": 0,
+        "total": 1,
+        "blind": 1,
+        "pct_detected": 0.0
       },
       {
         "tactic": "privilege-escalation",
@@ -3873,25 +4053,9 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "batch",
-        "detected": 1,
-        "total": 1,
-        "blind": 0,
-        "pct_detected": 100.0
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "bigtable",
         "detected": 4,
         "total": 4,
-        "blind": 0,
-        "pct_detected": 100.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "cloudscheduler",
-        "detected": 2,
-        "total": 2,
         "blind": 0,
         "pct_detected": 100.0
       },
@@ -3999,10 +4163,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "run.update",
-          "run.create",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4011,10 +4175,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "run.update",
-          "run.create",
-          "workflows.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4023,10 +4187,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "run.update",
-          "workflows.create",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4035,10 +4199,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "run.update",
-          "workflows.create",
-          "run.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4047,10 +4211,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "run.update",
-          "workflows.create",
-          "run.update"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4059,10 +4223,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "workflows.create",
-          "run.create",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4071,10 +4235,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "workflows.create",
-          "run.create",
-          "run.update"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4083,10 +4247,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "workflows.create",
-          "run.update",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4095,10 +4259,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "workflows.create",
-          "run.update",
-          "run.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4107,10 +4271,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.create",
-          "workflows.create",
-          "run.update",
-          "workflows.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4119,10 +4283,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "run.create",
-          "run.update",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4131,10 +4295,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "run.create",
-          "run.update",
-          "workflows.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4143,10 +4307,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "run.create",
-          "workflows.create",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4155,10 +4319,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "run.create",
-          "workflows.create",
-          "run.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4167,10 +4331,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "run.create",
-          "workflows.create",
-          "run.update"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4179,10 +4343,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "workflows.create",
-          "run.create",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4191,10 +4355,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "workflows.create",
-          "run.create",
-          "run.update"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4203,10 +4367,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "workflows.create",
-          "run.create",
-          "workflows.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4215,10 +4379,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "workflows.create",
-          "run.update",
-          "iam.actAs"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       },
       {
@@ -4227,10 +4391,10 @@
         "hops": 4,
         "chain": [
           "container.createToken",
-          "run.update",
-          "workflows.create",
-          "run.update",
-          "run.create"
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create",
+          "aiplatform.create"
         ]
       }
     ]

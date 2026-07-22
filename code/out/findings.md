@@ -13,8 +13,8 @@ finding is a **pure graph query** — no ML model is involved.
 
 | status | techniques | pct |
 | --- | --- | --- |
-| RULE_GAP | 117 | 46.1 |
-| DETECTED | 86 | 33.9 |
+| RULE_GAP | 131 | 51.6 |
+| DETECTED | 72 | 28.3 |
 | TELEMETRY_GAP | 49 | 19.3 |
 | CORRELATION_ONLY | 2 | 0.8 |
 
@@ -23,7 +23,7 @@ finding is a **pure graph query** — no ML model is involved.
 
 > The direct answer to "which situations can my detections not figure out?". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).
 
-**166 rows.**
+**180 rows.**
 
 | tactic | service | primary_permission | blind_class | needs_actAs | technique |
 | --- | --- | --- | --- | --- | --- |
@@ -68,25 +68,32 @@ finding is a **pure graph query** — no ML model is involved.
 | post-exploitation | cloudsql | cloudsql.instances.import | RULE_GAP | False | cloudsql.instances.import, storage.objects.get |
 | post-exploitation | cloudsql | cloudsql.instances.restoreBackup | RULE_GAP | False | cloudsql.instances.restoreBackup, cloudsql.backupRuns.get |
 
-_… 126 more rows (see findings.json)_
+_… 140 more rows (see findings.json)_
 
 
 ## 02_rule_gap_classA — Class A blind spots — logged by default, but no rule (write-a-signature gaps)
 
 > The "cheap wins". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today — there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.
 
-**134 rows.**
+**143 rows.**
 
 | service | logged_but_unwatched_permission | tactic | primary_permission | technique |
 | --- | --- | --- | --- | --- |
+| aiplatform | aiplatform.batchPredictionJobs.create | privilege-escalation | aiplatform.batchPredictionJobs.create | aiplatform.batchPredictionJobs.create, iam.serviceAccounts.actAs |
+| aiplatform | aiplatform.customJobs.create | privilege-escalation | aiplatform.customJobs.create | aiplatform.customJobs.create, iam.serviceAccounts.actAs |
 | aiplatform | aiplatform.datasets.import | privilege-escalation | aiplatform.datasets.import | aiplatform.datasets.import |
+| aiplatform | aiplatform.hyperparameterTuningJobs.create | privilege-escalation | aiplatform.hyperparameterTuningJobs.create | aiplatform.hyperparameterTuningJobs.create, iam.serviceAccounts.actAs |
 | aiplatform | aiplatform.models.upload | privilege-escalation | aiplatform.models.upload | aiplatform.models.upload, aiplatform.models.get |
+| aiplatform | aiplatform.notebookExecutionJobs.create | privilege-escalation | aiplatform.notebookExecutionJobs.create | aiplatform.notebookExecutionJobs.create, iam.serviceAccounts.actAs |
+| aiplatform | aiplatform.pipelineJobs.create | privilege-escalation | aiplatform.pipelineJobs.create | aiplatform.pipelineJobs.create, iam.serviceAccounts.actAs |
 | apikeys | apikeys.keys.lookup | unauthenticated-access | apikeys.keys.lookup | apikeys.keys.lookup |
 | appengine | appengine.instances.enableDebug | privilege-escalation | appengine.instances.enableDebug | appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get |
 | appengine | appengine.instances.enableDebug | privilege-escalation | appengine.instances.enableDebug | appengine.instances.enableDebug, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.services.get, appengine.services.list, appengine.versions.get, appengine.versions.list, compute.projects.get |
 | appengine | appengine.memcache.addKey | post-exploitation | appengine.memcache.addKey | appengine.memcache.addKey |
 | appengine | appengine.memcache.flush | post-exploitation | appengine.memcache.flush | appengine.memcache.flush |
 | appengine | appengine.memcache.getKey | post-exploitation | appengine.memcache.getKey | appengine.memcache.getKey |
+| appengine | appengine.versions.create | privilege-escalation | appengine.applications.get | appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list |
+| appengine | appengine.versions.create | privilege-escalation | appengine.applications.get | appengine.applications.get, appengine.instances.get, appengine.instances.list, appengine.operations.get, appengine.operations.list, appengine.services.get, appengine.services.list, appengine.versions.create, appengine.versions.get, appengine.versions.list, cloudbuild.builds.get,iam.serviceAccounts.actAs, resourcemanager.projects.get, storage.objects.create, storage.objects.list |
 | appengine | appengine.versions.update | privilege-escalation | appengine.versions.getFileContents | appengine.versions.getFileContents, appengine.versions.update |
 | appengine | appengine.versions.update | privilege-escalation | appengine.versions.getFileContents | appengine.versions.getFileContents, appengine.versions.update |
 | artifactregistry | artifactregistry.packages.delete | privilege-escalation | artifactregistry.tags.delete | artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list) |
@@ -95,6 +102,7 @@ _… 126 more rows (see findings.json)_
 | artifactregistry | artifactregistry.repositories.uploadArtifacts | privilege-escalation | artifactregistry.repositories.uploadArtifacts | artifactregistry.repositories.uploadArtifacts |
 | artifactregistry | artifactregistry.tags.delete | privilege-escalation | artifactregistry.tags.delete | artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list) |
 | artifactregistry | artifactregistry.versions.delete | privilege-escalation | artifactregistry.tags.delete | artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list) |
+| batch | batch.jobs.create | privilege-escalation | batch.jobs.create | batch.jobs.create, iam.serviceAccounts.actAs |
 | bigquery | bigquery.datasets.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
 | bigquery | bigquery.datasets.update | privilege-escalation | bigquery.datasets.update | bigquery.datasets.update, (bigquery.datasets.get) |
 | bigquery | bigquery.models.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
@@ -111,16 +119,8 @@ _… 126 more rows (see findings.json)_
 | cloudfunctions | cloudfunctions.functions.sourceCodeGet | post-exploitation | cloudfunctions.functions.sourceCodeGet | cloudfunctions.functions.sourceCodeGet |
 | cloudfunctions | cloudfunctions.functions.sourceCodeSet | privilege-escalation | cloudfunctions.functions.sourceCodeSet | cloudfunctions.functions.sourceCodeSet |
 | cloudkms | cloudkms.cryptoKeyVersions.destroy | post-exploitation | cloudkms.cryptoKeyVersions.destroy | cloudkms.cryptoKeyVersions.destroy |
-| cloudkms | cloudkms.cryptoKeyVersions.restore | post-exploitation | cloudkms.cryptoKeyVersions.restore | cloudkms.cryptoKeyVersions.restore |
-| cloudkms | cloudkms.cryptoKeyVersions.update | post-exploitation | cloudkms.cryptoKeyVersions.update | cloudkms.cryptoKeyVersions.update |
-| cloudkms | cloudkms.cryptoKeyVersions.useToEncryptViaDelegation | post-exploitation | cloudkms.cryptoKeyVersions.useToEncryptViaDelegation | cloudkms.cryptoKeyVersions.useToEncryptViaDelegation |
-| cloudkms | cloudkms.cryptoKeyVersions.useToSign | post-exploitation | cloudkms.cryptoKeyVersions.useToSign | cloudkms.cryptoKeyVersions.useToSign |
-| cloudkms | cloudkms.cryptoKeyVersions.useToVerify | post-exploitation | cloudkms.cryptoKeyVersions.useToVerify | cloudkms.cryptoKeyVersions.useToVerify |
-| cloudsql | cloudsql.backupRuns.delete | post-exploitation | cloudsql.backupRuns.delete | cloudsql.backupRuns.delete |
-| cloudsql | cloudsql.databases.delete | post-exploitation | cloudsql.databases.delete | cloudsql.databases.delete |
-| cloudsql | cloudsql.instances.import | post-exploitation | cloudsql.instances.import | cloudsql.instances.import, storage.objects.get |
 
-_… 94 more rows (see findings.json)_
+_… 103 more rows (see findings.json)_
 
 
 ## 03_telemetry_gap_classB — Class B blind spots — Data Access logs OFF by default (signatures cannot help)
@@ -133,6 +133,7 @@ _… 94 more rows (see findings.json)_
 | --- | --- | --- | --- | --- |
 | privilege-escalation | aiplatform | aiplatform.datasets.export | aiplatform.datasets.export | aiplatform.datasets.export |
 | privilege-escalation | aiplatform | aiplatform.models.export | aiplatform.models.export | aiplatform.models.export |
+| privilege-escalation | apikeys | apikeys.keys.list | apikeys.keys.list | serviceusage.apiKeys.list |
 | post-exploitation | appengine | appengine.memcache.list | appengine.memcache.list | appengine.memcache.list |
 | privilege-escalation | artifactregistry | artifactregistry.repositories.downloadArtifacts | artifactregistry.repositories.downloadArtifacts | artifactregistry.repositories.downloadArtifacts |
 | privilege-escalation | cloudbuild | cloudbuild.connections.fetchLinkableRepositories | cloudbuild.connections.fetchLinkableRepositories | cloudbuild.connections.fetchLinkableRepositories |
@@ -163,7 +164,6 @@ _… 94 more rows (see findings.json)_
 | privilege-escalation | secretmanager | secretmanager.versions.access | secretmanager.versions.access | secretmanager.versions.access |
 | post-exploitation | secretmanager | secretmanager.versions.access | secretmanager.versions.access | secretmanager.versions.access |
 | post-exploitation | secretmanager | secretmanager.versions.disable | secretmanager.versions.disable | secretmanager.versions.disable |
-| privilege-escalation | serviceusage | serviceusage.apiKeys.list | serviceusage.apiKeys.list | serviceusage.apiKeys.list |
 | privilege-escalation | source | source.repos.get | source.repos.get | source.repos.get |
 | unauthenticated-access | storage | storage.buckets.get | storage.buckets.get | storage.buckets.get |
 | unauthenticated-access | storage | storage.buckets.getIamPolicy | storage.buckets.getIamPolicy | storage.buckets.getIamPolicy |
@@ -202,11 +202,11 @@ _… 9 more rows (see findings.json)_
 | panther | GCP IAM serviceAccounts getAccessToken Privilege Escalation | high | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
 | panther | GCP IAM serviceAccounts signBlob | high | iam.serviceAccounts.signBlob | DATA_ACCESS | True |
 | panther | GCP IAM serviceAccounts.signJwt Privilege Escalation | high | iam.serviceAccounts.signJwt | DATA_ACCESS | True |
-| panther | GCP Privilege Escalation via TagBinding | info | apikeys.keys.list | DATA_ACCESS | False |
+| panther | GCP Privilege Escalation via TagBinding | info | apikeys.keys.list | DATA_ACCESS | True |
 | panther | GCP Privilege Escalation via TagBinding | info | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
 | panther | GCP Privilege Escalation via TagBinding | info | resourcemanager.hierarchyNodes.listEffectiveTags | DATA_ACCESS | False |
 | panther | GCP Privilege Escalation via TagBinding | info | resourcemanager.tagKeys.list | DATA_ACCESS | False |
-| panther | GCP Privileged Operation | info | apikeys.keys.list | DATA_ACCESS | False |
+| panther | GCP Privileged Operation | info | apikeys.keys.list | DATA_ACCESS | True |
 | panther | GCP Privileged Operation | info | iam.serviceAccounts.getAccessToken | DATA_ACCESS | True |
 | panther | GCP VPC Flow Logs Disabled | medium | compute.subnetworks.get | DATA_ACCESS | False |
 | sigma | Google Cloud DNS Zone Modified or Deleted | medium | dns.managedZones.get | DATA_ACCESS | False |
@@ -221,7 +221,7 @@ _… 9 more rows (see findings.json)_
 
 > Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses — often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward "impact/destruction" and away from the privilege-escalation / credential-access operations that dominate the corpus.
 
-**51 rows.**
+**49 rows.**
 
 | source | rule | permissions_no_technique_uses | mitre_tactics |
 | --- | --- | --- | --- |
@@ -255,8 +255,7 @@ _… 9 more rows (see findings.json)_
 | panther | GCP IAM Role Has Changed | iam.roles.delete |  |
 | panther | GCP IAM and Tag Enumeration | resourcemanager.hierarchyNodes.listEffectiveTags, resourcemanager.tagKeys.list |  |
 | panther | GCP K8S Service Type NodePort Deployed | container.services.create |  |
-| panther | GCP Privilege Escalation via TagBinding | apikeys.keys.create, apikeys.keys.list, resourcemanager.hierarchyNodes.createTagBinding, resourcemanager.hierarchyNodes.listEffectiveTags, resourcemanager.tagKeys.list, resourcemanager.tagValueBindings.create |  |
-| panther | GCP Privileged Operation | apikeys.keys.create, apikeys.keys.list |  |
+| panther | GCP Privilege Escalation via TagBinding | resourcemanager.hierarchyNodes.createTagBinding, resourcemanager.hierarchyNodes.listEffectiveTags, resourcemanager.tagKeys.list, resourcemanager.tagValueBindings.create |  |
 | panther | GCP Snapshot Creation Detection | compute.snapshots.create |  |
 | panther | GCP Tag Binding Creation | resourcemanager.hierarchyNodes.createTagBinding, resourcemanager.tagValueBindings.create |  |
 | panther | GCP User Added to IAP Protected Service | iap.tunnelServices.setIamPolicy, iap.web.setIamPolicy, iap.webServiceVersions.setIamPolicy, iap.webServices.setIamPolicy, iap.webTypes.setIamPolicy |  |
@@ -264,49 +263,51 @@ _… 9 more rows (see findings.json)_
 | panther | GCP Workforce Pool Created or Updated | iam.workforcePools.create, iam.workforcePools.update |  |
 | panther | GCP Workload Identity Pool Created or Updated | iam.workloadIdentityPoolProviders.create, iam.workloadIdentityPoolProviders.update |  |
 | panther | GCP compute.instances.create Privilege Escalation | compute.instanceTemplates.useReadOnly, compute.instances.pscInterfaceCreate, compute.machineImages.useReadOnly, compute.networks.use |  |
-| panther | GCP serviceusage.apiKeys.create Privilege Escalation | apikeys.keys.create |  |
+| sigma | GCP Access Policy Deleted | accesscontextmanager.accessLevels.delete, accesscontextmanager.accessPolicies.delete, accesscontextmanager.authorizedOrgsDescs.delete, accesscontextmanager.policies.delete |  |
+| sigma | Google Cloud DNS Zone Modified or Deleted | dns.managedZones.delete, dns.managedZones.get, dns.managedZones.update |  |
 
-_… 11 more rows (see findings.json)_
+_… 9 more rows (see findings.json)_
 
 
 ## 06_coverage_by_tactic_service — Blind-spot concentration by tactic and service
 
 > Shows the shape of the gap. Per tactic+service you see exactly where coverage is 0%. detected here means "a single-event signature fires" (detected_event); a technique caught only by a correlation rule is not counted as covered.
 
-**52 rows.**
+**53 rows.**
 
 | tactic | service | detected | total | blind | pct_detected |
 | --- | --- | --- | --- | --- | --- |
 | privilege-escalation | container | 9 | 30 | 21 | 30.0 |
 | post-exploitation | logging | 0 | 13 | 13 | 0.0 |
+| privilege-escalation | aiplatform | 0 | 9 | 9 | 0.0 |
 | post-exploitation | monitoring | 0 | 8 | 8 | 0.0 |
+| privilege-escalation | iam | 4 | 12 | 8 | 33.3 |
 | post-exploitation | cloudkms | 0 | 7 | 7 | 0.0 |
 | post-exploitation | cloudsql | 2 | 9 | 7 | 22.2 |
 | post-exploitation | pubsub | 6 | 13 | 7 | 46.2 |
 | unauthenticated-access | storage | 3 | 10 | 7 | 30.0 |
-| privilege-escalation | iam | 6 | 12 | 6 | 50.0 |
+| privilege-escalation | appengine | 2 | 8 | 6 | 25.0 |
 | discovery | cloudasset | 0 | 5 | 5 | 0.0 |
 | discovery | compute | 0 | 5 | 5 | 0.0 |
 | post-exploitation | secretmanager | 0 | 5 | 5 | 0.0 |
 | post-exploitation | securitycenter | 0 | 5 | 5 | 0.0 |
 | privilege-escalation | artifactregistry | 1 | 6 | 5 | 16.7 |
 | post-exploitation | appengine | 0 | 4 | 4 | 0.0 |
-| privilege-escalation | aiplatform | 5 | 9 | 4 | 55.6 |
-| privilege-escalation | appengine | 4 | 8 | 4 | 50.0 |
+| privilege-escalation | compute | 5 | 9 | 4 | 55.6 |
+| privilege-escalation | run | 3 | 7 | 4 | 42.9 |
 | privilege-escalation | storage | 2 | 6 | 4 | 33.3 |
 | discovery | serviceusage | 0 | 3 | 3 | 0.0 |
 | discovery | storage | 0 | 3 | 3 | 0.0 |
 | privilege-escalation | cloudbuild | 1 | 4 | 3 | 25.0 |
-| privilege-escalation | compute | 6 | 9 | 3 | 66.7 |
 | privilege-escalation | pubsub | 3 | 6 | 3 | 50.0 |
-| privilege-escalation | run | 4 | 7 | 3 | 57.1 |
-| privilege-escalation | serviceusage | 0 | 3 | 3 | 0.0 |
 | privilege-escalation | source | 1 | 4 | 3 | 25.0 |
 | discovery | resourcemanager | 0 | 2 | 2 | 0.0 |
 | post-exploitation | cloudfunctions | 0 | 2 | 2 | 0.0 |
 | post-exploitation | storage | 4 | 6 | 2 | 66.7 |
 | privilege-escalation | bigquery | 3 | 5 | 2 | 60.0 |
 | privilege-escalation | cloudkms | 1 | 3 | 2 | 33.3 |
+| privilege-escalation | cloudscheduler | 0 | 2 | 2 | 0.0 |
+| privilege-escalation | cloudtasks | 1 | 3 | 2 | 33.3 |
 | privilege-escalation | composer | 0 | 2 | 2 | 0.0 |
 | privilege-escalation | osconfig | 0 | 2 | 2 | 0.0 |
 | discovery | billing | 0 | 1 | 1 | 0.0 |
@@ -314,11 +315,10 @@ _… 11 more rows (see findings.json)_
 | persistence | logging | 0 | 1 | 1 | 0.0 |
 | post-exploitation | cloudbuild | 0 | 1 | 1 | 0.0 |
 | post-exploitation | iam | 1 | 2 | 1 | 50.0 |
-| privilege-escalation | cloudfunctions | 4 | 5 | 1 | 80.0 |
-| privilege-escalation | cloudtasks | 2 | 3 | 1 | 66.7 |
-| privilege-escalation | dataproc | 0 | 1 | 1 | 0.0 |
+| privilege-escalation | apikeys | 1 | 2 | 1 | 50.0 |
+| privilege-escalation | batch | 0 | 1 | 1 | 0.0 |
 
-_… 12 more rows (see findings.json)_
+_… 13 more rows (see findings.json)_
 
 
 ## 07_blind_privesc_to_crown_jewels — Undetected techniques that hand over a crown jewel
@@ -345,26 +345,26 @@ _… 12 more rows (see findings.json)_
 
 | foothold_service | foothold_permission | hops | chain |
 | --- | --- | --- | --- |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, run.update, run.create, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, run.update, run.create, workflows.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, run.update, workflows.create, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, run.update, workflows.create, run.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, run.update, workflows.create, run.update |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, workflows.create, run.create, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, workflows.create, run.create, run.update |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, workflows.create, run.update, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, workflows.create, run.update, run.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.create, workflows.create, run.update, workflows.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, run.create, run.update, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, run.create, run.update, workflows.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, run.create, workflows.create, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, run.create, workflows.create, run.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, run.create, workflows.create, run.update |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, workflows.create, run.create, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, workflows.create, run.create, run.update |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, workflows.create, run.create, workflows.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, workflows.create, run.update, iam.actAs |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, run.update, workflows.create, run.update, run.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
 
 
 ## 09_invisible_impersonation — Invisible service-account impersonation primitives
