@@ -77,6 +77,7 @@ PASS = os.environ.get("NEO4J_PASS", "detgap-thesis")
 DATA = Path(__file__).resolve().parents[1] / "data"
 
 EVENT = "event"
+UEBA = "ueba"
 
 
 def load_json(name):
@@ -148,10 +149,19 @@ def build_model():
         fired_event = False
         fired_any = False
         for r in rules:
+            # UEBA rules (ML anomaly / first-seen) name no specific operation and model
+            # behaviour, not a signature; by design they never create a DETECTED_BY edge.
+            # (new_terms rules do reference an op, so guard by paradigm, not by op count.)
+            if r["paradigm"] == UEBA:
+                continue
             group, via = rule_detects(r, req, logged)
             if group is None:
                 continue
-            single = r["paradigm"] == EVENT and len(group) == 1 and (r.get("threshold") in (None, 1))
+            # single-event = an event-paradigm rule with no repetition threshold. A
+            # conjunctive group is fine: an event rule's ANDed ops (e.g. all six perms
+            # in one compute.instances.insert authorizationInfo) still arrive in ONE
+            # audit event. Only correlation/threshold rules span multiple events.
+            single = r["paradigm"] == EVENT and (r.get("threshold") in (None, 1))
             fired_any = True
             fired_event = fired_event or single
             detected_by.append({
