@@ -7168,7 +7168,34 @@
    ]
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "flat",
    "note": ""
@@ -7178,7 +7205,10 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "resourcemanager.hierarchyNodes.listEffectiveTags",
+   "resourcemanager.tagKeys.list"
+  ]
  },
  {
   "id": "panther:GCP.Inbound.SSO.Profile.Created",
@@ -7973,7 +8003,22 @@
    ]
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "flat",
    "note": ""
@@ -7983,7 +8028,10 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "resourcemanager.hierarchyNodes.createTagBinding",
+   "resourcemanager.tagValueBindings.create"
+  ]
  },
  {
   "id": "panther:GCP.UnusedRegions",
@@ -8991,6 +9039,29 @@
    "groups": [
     [
      {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
       "token": "iam.serviceAccounts.getAccessToken",
       "permissions": [
        "iam.serviceAccounts.getAccessToken"
@@ -9003,6 +9074,29 @@
      }
     ],
     [
+     {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
      {
       "token": "orgpolicy.policy.set",
       "permissions": [
@@ -9017,6 +9111,29 @@
     ],
     [
      {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
       "token": "storage.hmacKeys.create",
       "permissions": [
        "storage.hmacKeys.create"
@@ -9030,6 +9147,29 @@
     ],
     [
      {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
       "token": "serviceusage.apiKeys.create",
       "permissions": [
        "apikeys.keys.create"
@@ -9042,6 +9182,209 @@
      }
     ],
     [
+     {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "serviceusage.apiKeys.list",
+      "permissions": [
+       "apikeys.keys.list"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.list -> apikeys.keys.list (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "iam.serviceAccounts.getAccessToken",
+      "permissions": [
+       "iam.serviceAccounts.getAccessToken"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "orgpolicy.policy.set",
+      "permissions": [
+       "orgpolicy.policy.set"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "storage.hmacKeys.create",
+      "permissions": [
+       "storage.hmacKeys.create"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "serviceusage.apiKeys.create",
+      "permissions": [
+       "apikeys.keys.create"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permission alias serviceusage.apiKeys.create -> apikeys.keys.create (retired service name)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagBindings.ListEffectiveTags",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.listEffectiveTags"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
      {
       "token": "serviceusage.apiKeys.list",
       "permissions": [
@@ -9071,6 +9414,10 @@
    "apikeys.keys.list",
    "iam.serviceAccounts.getAccessToken",
    "orgpolicy.policy.set",
+   "resourcemanager.hierarchyNodes.createTagBinding",
+   "resourcemanager.hierarchyNodes.listEffectiveTags",
+   "resourcemanager.tagKeys.list",
+   "resourcemanager.tagValueBindings.create",
    "storage.hmacKeys.create"
   ]
  }

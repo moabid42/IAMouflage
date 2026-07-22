@@ -65,16 +65,23 @@ def _looks_like_op(s: str) -> bool:
         return False
     if "googleapis.com" in s or "gserviceaccount" in s:
         return False
-    # The first segment must be a lowercase service name (compute, iam, run) or a known
-    # method prefix (google.*, io.k8s.*, v1.*). Bare CamelCase suffix fragments like
-    # `Services.CreateService` come from `.endswith(...)` guards whose rule ALSO checks
-    # the concrete IAM permission in the same body -- so the fragment is redundant, and
-    # keeping it would only add unresolvable noise (it is a method suffix, not a
-    # permission). Drop it.
-    head = s.lstrip(".").split(".", 1)[0]
-    if head[:1].isupper():
-        return False
     return True
+
+
+def _keep_camel(tok: str, canon: Canonicaliser) -> bool:
+    """A bare CamelCase suffix fragment (`Services.CreateService`,
+    `TagBindings.CreateTagBinding`) is kept only if the reference can resolve it.
+
+    Most such fragments come from `.endswith(...)` guards whose rule ALSO matches the
+    concrete IAM permission, so the fragment is redundant and resolves to nothing ->
+    dropped as noise. But a few rules (the Resource Manager Tag rules) match ONLY on
+    such a suffix; those DO resolve via the curated gRPC table and must be kept, or the
+    rule watches nothing.
+    """
+    head = tok.lstrip(".").split(".", 1)[0]
+    if not head[:1].isupper():
+        return True  # normal lowercase-service op, always keep
+    return bool(canon.resolve(tok).permissions)
 
 
 class OpLiteralVisitor(ast.NodeVisitor):
@@ -93,7 +100,7 @@ class OpLiteralVisitor(ast.NodeVisitor):
             self.tokens.append(node.value)
 
 
-def extract_py_tokens(src: str) -> list[str]:
+def extract_py_tokens(src: str, canon: Canonicaliser) -> list[str]:
     try:
         tree = ast.parse(src)
     except SyntaxError:
@@ -116,6 +123,8 @@ def extract_py_tokens(src: str) -> list[str]:
                 v.visit(stmt)
             tokens += v.tokens
 
+    # keep CamelCase suffix fragments only when the reference resolves them
+    tokens = [t for t in tokens if _keep_camel(t, canon)]
     # de-dup preserving order
     return list(dict.fromkeys(tokens))
 
@@ -144,7 +153,7 @@ def parse_event_rule(py_path: Path, canon: Canonicaliser) -> DetectionRecord | N
     if not meta:
         return None
 
-    tokens = extract_py_tokens(py_path.read_text())
+    tokens = extract_py_tokens(py_path.read_text(), canon)
     token_groups = [[t] for t in tokens]  # OR of literals -> separate groups
 
     threshold = meta.get("Threshold")

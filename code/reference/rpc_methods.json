@@ -124,6 +124,30 @@
   "source": "https://docs.cloud.google.com/resource-manager/docs/organization-policy/audit-logging"
  },
 
+ "google.cloud.resourcemanager.v3.TagKeys.ListTagKeys": {
+  "permissions": ["resourcemanager.tagKeys.list"], "permission_type": "ADMIN_READ",
+  "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+  "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+ },
+ "google.cloud.resourcemanager.v3.TagValues.ListTagValues": {
+  "permissions": ["resourcemanager.tagValues.list"], "permission_type": "ADMIN_READ",
+  "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+  "note": "Method lives in the TagValues service. The Panther enumeration rule matches the suffix 'TagKeys.ListTagValues' (wrong service prefix), so that clause does not actually fire on the real audit methodName; this entry documents the correct mapping."
+ },
+ "google.cloud.resourcemanager.v3.TagBindings.ListEffectiveTags": {
+  "permissions": ["resourcemanager.hierarchyNodes.listEffectiveTags"], "permission_type": "ADMIN_READ",
+  "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+  "note": "Audit op id is effectiveTags.list; the gating IAM permission is resourcemanager.hierarchyNodes.listEffectiveTags (Resource Manager roles reference). ADMIN_READ -> Data Access, off by default."
+ },
+ "google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding": {
+  "permissions": ["resourcemanager.hierarchyNodes.createTagBinding", "resourcemanager.tagValueBindings.create"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+  "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+ },
  "google.api.serviceusage.v1.ServiceUsage.DisableService": {
   "permissions": ["serviceusage.services.disable"], "permission_type": "ADMIN_WRITE",
   "audit_log": "ADMIN_ACTIVITY", "confidence": "official",

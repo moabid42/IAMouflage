@@ -203,6 +203,20 @@ class Canonicaliser:
             key = tok
         elif folded in self._rpc_idx:
             key = self._rpc_idx[folded]
+        elif "." in tok and tok.lstrip(".").split(".", 1)[0][:1].isupper():
+            # A bare CamelCase method *suffix* -- rule authors match with
+            # `.endswith("TagBindings.CreateTagBinding")`, dropping the service prefix.
+            # Match it against the tail of the curated (folded) gRPC keys.
+            suf = "." + folded
+            hits = [orig for f, orig in self._rpc_idx.items() if ("." + f).endswith(suf)]
+            if len(hits) == 1:
+                key = hits[0]
+            elif len(hits) > 1:
+                perms = tuple(sorted({p for h in hits
+                                      for p in (self.rpc[h].get("permissions") or ())}))
+                return Resolution(tok, perms, kind="grpc_method", confidence="pattern",
+                                  provenance=f"rpc_methods.json suffix, {len(hits)} matches",
+                                  note=f"matched {', '.join(sorted(hits))}")
         elif "*" in tok:
             # Rule authors wildcard inside the method name too, e.g.
             # `google.appengine.*.Firewall.Create*Rule`. Match the folded token as a
