@@ -3,7 +3,7 @@
 //      it grants — directly, or through a documented capability implication — a crown-jewel
 //      capability: project/org ownership, an exportable SA key, secret material, or KMS
 //      decryption. An attacker performs one uncovered API call and owns the asset, with no
-//      alert. This is a pure graph traversal; no model is involved.
+//      alert. Pure graph traversal; no model involved.
 MATCH (t:Technique)-[:GRANTS]->(:Capability)-[:IMPLIES*0..3]->(cj:Capability {kind:'crown_jewel'})
 WHERE t.detected = false
 WITH t, cj ORDER BY cj.name

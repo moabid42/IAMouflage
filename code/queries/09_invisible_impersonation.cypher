@@ -7,12 +7,12 @@
 //      pivot chains in query 08.
 MATCH (t:Technique)-[:GRANTS]->(:Capability {name:'IMPERSONATE_SA'})
 WHERE t.blind_class = 'TELEMETRY_GAP'
-OPTIONAL MATCH (t)-[:INVOKES]->(m:ApiMethod)
-WITH t, m ORDER BY m.op
-WITH t, collect(DISTINCT m.op) AS operations
+OPTIONAL MATCH (t)-[:REQUIRES {optional:false}]->(p:Permission)
+WITH t, p ORDER BY p.name
+WITH t, collect(DISTINCT p.name) AS permissions
 RETURN t.service      AS service,
        t.primary_perm AS primary_permission,
-       operations,
+       permissions,
        t.tactic       AS tactic,
        t.title        AS technique
 ORDER BY service, primary_permission;

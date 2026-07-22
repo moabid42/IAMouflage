@@ -1,12 +1,11 @@
 // TITLE: Multi-step pivot chains that no per-event rule can correlate
-// WHY: This is the scenario a signature engine structurally cannot see, and the graph can.
-//      Each ENABLES edge is "technique A yields a capability that unlocks technique B"
-//      (e.g. mint an SA token -> now satisfy iam.serviceAccounts.actAs -> deploy code as a
-//      new SA -> mint the next token...). Every step below is individually a blind spot AND
-//      the whole chain is invisible: no rule fires on any hop, and no rule reasons across
-//      hops. A low-privilege foothold walks across service accounts undetected.
-//      entry = standalone foothold (<=2 perms, no actAs); each subsequent hop is a
-//      deploy-as-SA technique reached purely by impersonation.
+// WHY: The scenario a signature engine structurally cannot see, and the graph can. Each
+//      ENABLES edge is "technique A yields a capability that unlocks technique B" (mint an
+//      SA token -> satisfy iam.serviceAccounts.actAs -> deploy code as a new SA -> mint the
+//      next token...). Every hop is individually a blind spot AND the whole chain is
+//      invisible: no rule fires on any hop, and no per-event rule reasons across hops.
+//      entry = standalone foothold (<=2 perms, no actAs); each hop is a deploy-as-SA
+//      technique reached purely by impersonation.
 MATCH path = (entry:Technique)-[:ENABLES*2..4]->(goal:Technique)
 WHERE ALL(n IN nodes(path) WHERE n.detected = false)
   AND entry.requires_actas = false

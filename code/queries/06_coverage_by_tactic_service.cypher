@@ -1,10 +1,10 @@
 // TITLE: Blind-spot concentration by tactic and service
-// WHY: Shows the shape of the gap. Privilege-escalation and post-exploitation are almost
-//      entirely blind; the handful of detections cluster in GKE/container, storage and SQL.
-//      Per service you can see exactly where you have 0% coverage.
+// WHY: Shows the shape of the gap. Per tactic+service you see exactly where coverage is
+//      0%. detected here means "a single-event signature fires" (detected_event); a
+//      technique caught only by a correlation rule is not counted as covered.
 MATCH (t:Technique)
 WITH t.tactic AS tactic, t.service AS service,
-     sum(CASE WHEN t.detected THEN 1 ELSE 0 END) AS detected,
+     sum(CASE WHEN t.detected_event THEN 1 ELSE 0 END) AS detected,
      count(*) AS total
 RETURN tactic,
        service,
