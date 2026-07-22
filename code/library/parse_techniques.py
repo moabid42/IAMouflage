@@ -28,6 +28,7 @@ import json
 import re
 from pathlib import Path
 
+from core.corpus import techniques_root
 from core.normalize import PERM_RE, find_permissions, op_signature, perm_service
 
 # Each directory maps to (tactic, extraction_mode).
@@ -237,8 +238,7 @@ def parse_file(path: Path, tactic: str, mode: str, valid_services: set[str]):
 
 def main():
     here = Path(__file__).resolve()
-    root = here.parents[2]  # .../draft/implementation
-    base = root / "techniques" / "hacktricks-cloud" / "src" / "pentesting-cloud" / "gcp-security"
+    base = techniques_root()  # draft/data/techniques/hacktricks-cloud/.../gcp-security
     out = here.parents[1] / "data" / "techniques.json"
 
     # Pass 1 — heading dirs (high fidelity). These also DEFINE the set of real GCP IAM
@@ -265,6 +265,13 @@ def main():
             inline_tech.extend(parse_file(path, tactic, mode, valid_services))
 
     all_tech = heading_tech + inline_tech
+    # Store rel_path relative to the corpus base so the output is reproducible across
+    # checkouts (it was an absolute path, which changed per machine/location).
+    for t in all_tech:
+        try:
+            t["rel_path"] = str(Path(t["rel_path"]).resolve().relative_to(base))
+        except ValueError:
+            pass
     out.write_text(json.dumps(all_tech, indent=2))
 
     by_tactic = {}

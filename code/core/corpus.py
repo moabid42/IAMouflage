@@ -23,6 +23,13 @@ _REPO = Path(__file__).resolve().parents[2]
 _DEFAULT = _REPO.parents[1] / "draft" / "data" / "detections"
 
 ENV_VAR = "IAMOUFLAGE_CORPUS"
+TECH_ENV_VAR = "IAMOUFLAGE_TECHNIQUES"
+
+# The technique corpus (hacktricks-cloud) sits beside the detection corpora under
+# draft/data. Same broken-path story as the detections: the old hardcoded
+# parents[2] no longer resolves after the move into IAMouflage.
+_TECH_DEFAULT = (_REPO.parents[1] / "draft" / "data" / "techniques" /
+                 "hacktricks-cloud" / "src" / "pentesting-cloud" / "gcp-security")
 
 # Where each corpus's GCP rules live, relative to the corpus root.
 SUBDIRS = {
@@ -55,6 +62,19 @@ def corpus_root(explicit: str | os.PathLike | None = None) -> Path:
 
 def source_dirs(source: str, root: Path) -> list[Path]:
     return [root / s for s in SUBDIRS[source] if (root / s).is_dir()]
+
+
+def techniques_root(explicit: str | os.PathLike | None = None) -> Path:
+    """Locate the hacktricks-cloud GCP technique corpus (flag / env / default)."""
+    for cand in (explicit, os.environ.get(TECH_ENV_VAR), _TECH_DEFAULT):
+        if not cand:
+            continue
+        p = Path(cand).expanduser().resolve()
+        if p.is_dir():
+            return p
+    raise FileNotFoundError(
+        f"technique corpus not found. Tried --techniques-root, ${TECH_ENV_VAR}, and the "
+        f"default {_TECH_DEFAULT}.")
 
 
 def add_corpus_arg(parser) -> None:
