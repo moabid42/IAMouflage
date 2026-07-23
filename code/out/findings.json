@@ -6,13 +6,13 @@
     "rows": [
       {
         "status": "RULE_GAP",
-        "techniques": 151,
-        "pct": 59.4
+        "techniques": 153,
+        "pct": 60.2
       },
       {
         "status": "DETECTED",
-        "techniques": 52,
-        "pct": 20.5
+        "techniques": 50,
+        "pct": 19.7
       },
       {
         "status": "TELEMETRY_GAP",
@@ -29,7 +29,7 @@
   "01_blind_spot_techniques.cypher": {
     "title": "Every technique with zero detection coverage",
     "why": "The direct answer to \"which situations can my detections not figure out?\". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).",
-    "row_count": 200,
+    "row_count": 202,
     "rows": [
       {
         "tactic": "discovery",
@@ -898,10 +898,26 @@
       {
         "tactic": "privilege-escalation",
         "service": "bigquery",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
         "primary_permission": "bigquery.tables.delete",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.tables.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigquery.tables.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -1636,7 +1652,7 @@
   "02_rule_gap_classA.cypher": {
     "title": "Class A blind spots \u2014 logged by default, but no rule (write-a-signature gaps)",
     "why": "The \"cheap wins\". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today \u2014 there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.",
-    "row_count": 164,
+    "row_count": 168,
     "rows": [
       {
         "service": "aiplatform",
@@ -1829,6 +1845,13 @@
       },
       {
         "service": "bigquery",
+        "logged_but_unwatched_permission": "bigquery.jobs.create",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
         "logged_but_unwatched_permission": "bigquery.models.delete",
         "tactic": "privilege-escalation",
         "primary_permission": "bigquery.tables.delete",
@@ -1843,10 +1866,31 @@
       },
       {
         "service": "bigquery",
+        "logged_but_unwatched_permission": "bigquery.rowAccessPolicies.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_permission": "bigquery.rowAccessPolicies.update",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.rowAccessPolicies.update",
+        "technique": "bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create"
+      },
+      {
+        "service": "bigquery",
         "logged_but_unwatched_permission": "bigquery.tables.delete",
         "tactic": "privilege-escalation",
         "primary_permission": "bigquery.tables.delete",
         "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
+      },
+      {
+        "service": "bigquery",
+        "logged_but_unwatched_permission": "bigquery.tables.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigquery.tables.setIamPolicy",
+        "technique": "bigquery.tables.setIamPolicy"
       },
       {
         "service": "bigtable",
@@ -4099,6 +4143,14 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "detected": 1,
+        "total": 5,
+        "blind": 4,
+        "pct_detected": 20.0
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "bigtable",
         "detected": 0,
         "total": 4,
@@ -4184,14 +4236,6 @@
         "total": 6,
         "blind": 2,
         "pct_detected": 66.7
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "bigquery",
-        "detected": 3,
-        "total": 5,
-        "blind": 2,
-        "pct_detected": 60.0
       },
       {
         "tactic": "privilege-escalation",
@@ -4768,6 +4812,1836 @@
           "gsecops:correlation x10"
         ],
         "technique": "secretmanager.versions.destroy"
+      }
+    ]
+  },
+  "11_vendor_coverage_per_technique.cypher": {
+    "title": "Which vendors detect each technique (source diff)",
+    "why": "The per-technique view of the four-corpus merge. For every technique some rule catches, which vendors (Sigma / Elastic / Google SecOps / Panther) catch it, and how many agree. A high vendor_count = redundantly covered; 1 = only one vendor would catch it, so dropping that vendor blinds you to it.",
+    "row_count": 52,
+    "rows": [
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "vendor_count": 4,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.setIamPolicy",
+        "vendor_count": 4,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.delete",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "Cloud Logging sink bucket-name hijack - storage.buckets.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.delete",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "Cloud Storage subscription bucket-name hijack - storage.buckets.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.delete",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.delete, storage.objects.delete & storage.objects.list"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "storage",
+        "primary_permission": "storage.buckets.setIpFilter",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.setIpFilter & storage.buckets.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.create",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "container.pods.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther"
+        ],
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.delete",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.delete"
+      },
+      {
+        "tactic": "unauthenticated-access",
+        "service": "storage",
+        "primary_permission": "storage.buckets.update",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "storage.buckets.update"
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccountKeys.create",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther"
+        ],
+        "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.pods.update",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ],
+        "technique": "container.pods.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.mutatingWebhookConfigurations.create",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ],
+        "technique": "container.mutatingWebhookConfigurations.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.mutatingWebhookConfigurations.update",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ],
+        "technique": "container.mutatingWebhookConfigurations.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.cronJobs.create",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ],
+        "technique": "container.cronJobs.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.cronJobs.update",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ],
+        "technique": "container.cronJobs.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.create",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ],
+        "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "persistence",
+        "service": "storage",
+        "primary_permission": "storage.hmacKeys.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.instances.update",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudsql.instances.update, ( cloudsql.instances.get)"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudsql",
+        "primary_permission": "cloudsql.users.update",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ],
+        "technique": "cloudsql.users.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.disable",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ],
+        "technique": "iam.serviceAccounts.disable"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.delete",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "pubsub.topics.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.create",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume)"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.delete",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "pubsub.subscriptions.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.versions.destroy",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "secretmanager.versions.destroy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.secrets.delete",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "secretmanager.secrets.delete"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "apikeys",
+        "primary_permission": "apikeys.keys.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "serviceusage.apiKeys.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.update",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "appengine",
+        "primary_permission": "appengine.applications.update",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "appengine.applications.update, appengine.operations.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigquery",
+        "primary_permission": "bigquery.datasets.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "bigquery.datasets.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudbuild",
+        "primary_permission": "cloudbuild.builds.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudbuild.builds.create, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.update",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.update",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudfunctions.functions.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.instances.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.snapshots.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "compute.snapshots.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.disks.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "compute.disks.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.daemonSets.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "container.daemonSets.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.jobs.create",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ],
+        "technique": "container.jobs.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "container",
+        "primary_permission": "container.jobs.update",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ],
+        "technique": "container.jobs.update"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "primary_permission": "deploymentmanager.deployments.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "deploymentmanager.deployments.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.roles.update",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "iam.roles.update (iam.roles.get)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "orgpolicy",
+        "primary_permission": "orgpolicy.policy.set",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "orgpolicy.policy.set"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "orgpolicy",
+        "primary_permission": "orgpolicy.policy.set",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "orgpolicy.policy.set, iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.create",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ],
+        "technique": "pubsub.subscriptions.create"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "resourcemanager.organizations.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.folders.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "resourcemanager.folders.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.projects.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ],
+        "technique": "resourcemanager.projects.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "run.services.create , iam.serviceAccounts.actAs, run.routes.invoke"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "primary_permission": "run.services.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "run.services.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "storage",
+        "primary_permission": "storage.hmacKeys.create",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "storage.hmacKeys.create"
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.create",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ],
+        "technique": "iam.serviceAccounts.create"
+      }
+    ]
+  },
+  "12_vendor_overlap_per_operation.cypher": {
+    "title": "Which vendors watch each operation (overlap matrix)",
+    "why": "The per-operation overlap. For every permission any rule watches, the set of vendors watching it. Operations watched by all four are heavily redundant; those watched by one are a single point of coverage. This is the raw diff between the detection stacks at the operation level.",
+    "row_count": 135,
+    "rows": [
+      {
+        "operation": "compute.firewalls.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 4,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "storage.buckets.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 4,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.firewalls.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.firewalls.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.firewalls.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.networks.updatePolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.pods.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccountKeys.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
+        "operation": "storage.buckets.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "storage.buckets.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.images.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
+        "operation": "container.clusterRoleBindings.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.clusterRoleBindings.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.cronJobs.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.cronJobs.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.mutatingWebhookConfigurations.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.mutatingWebhookConfigurations.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.pods.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "container.validatingWebhookConfigurations.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.validatingWebhookConfigurations.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "dns.managedZones.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "dns.managedZones.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "dns.managedZones.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "panther",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "iam.roles.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.roles.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "accesscontextmanager.accessLevels.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "accesscontextmanager.accessPolicies.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "accesscontextmanager.authorizedOrgsDescs.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "accesscontextmanager.policies.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "apikeys.keys.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "apikeys.keys.getKeyString",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "apikeys.keys.list",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "appengine.applications.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "bigquery.datasets.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "cloudbuild.builds.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudfunctions.functions.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudfunctions.functions.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudsql.instances.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "cloudsql.instances.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "cloudsql.instances.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudsql.users.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "cloudsql.users.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.disks.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.disks.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.instanceTemplates.useReadOnly",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.instances.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.instances.pscInterfaceCreate",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.instances.setMetadata",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.instances.setServiceAccount",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.machineImages.useReadOnly",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.networks.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "compute.networks.use",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.packetMirrorings.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.packetMirrorings.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.packetMirrorings.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.packetMirrorings.list",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.packetMirrorings.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.routes.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "compute.routes.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "compute.snapshots.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.snapshots.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.subnetworks.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.subnetworks.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.subnetworks.use",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.subnetworks.useExternalIp",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "compute.vpnTunnels.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "compute.vpnTunnels.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.clusterRoleBindings.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.clusterRoles.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.configMaps.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.configMaps.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.daemonSets.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "container.jobs.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.jobs.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.pods.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.roleBindings.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.roleBindings.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.roleBindings.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.roles.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.secrets.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.secrets.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.secrets.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.secrets.list",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.secrets.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "container.selfSubjectAccessReviews.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.selfSubjectRulesReviews.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "container.services.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "deploymentmanager.deployments.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "dns.changes.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.roles.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.actAs",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.disable",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.getAccessToken",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.signBlob",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.signJwt",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.workforcePools.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.workforcePools.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.workloadIdentityPoolProviders.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.workloadIdentityPoolProviders.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.workloadIdentityPools.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "iam.workloadIdentityPools.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "iap.tunnelServices.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iap.web.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iap.webServiceVersions.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iap.webServices.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iap.webTypes.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "orgpolicy.policies.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "orgpolicy.policies.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "orgpolicy.policy.set",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "pubsub.subscriptions.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "pubsub.subscriptions.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "pubsub.topics.attachSubscription",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "pubsub.topics.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "pubsub.topics.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "elastic"
+        ]
+      },
+      {
+        "operation": "resourcemanager.folders.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "resourcemanager.hierarchyNodes.createTagBinding",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.hierarchyNodes.listEffectiveTags",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.organizations.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "resourcemanager.projects.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "resourcemanager.tagKeys.list",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.tagValueBindings.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "run.services.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "run.services.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "secretmanager.secrets.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "secretmanager.versions.destroy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "serviceusage.services.disable",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "storage.buckets.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "storage.buckets.getIamPolicy",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "storage.buckets.list",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "sigma"
+        ]
+      },
+      {
+        "operation": "storage.hmacKeys.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "storage.hmacKeys.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "gsecops"
+        ]
+      },
+      {
+        "operation": "storage.objects.create",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "storage.objects.delete",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "storage.objects.get",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      }
+    ]
+  },
+  "13_vendor_unique_operations.cypher": {
+    "title": "Each vendor's UNIQUE operations (what only they watch)",
+    "why": "The value-add of each corpus. Operations that exactly one vendor watches \u2014 remove that vendor and these go uncovered. Shows how much unique surface each detection stack contributes versus how much is redundant with the others.",
+    "row_count": 4,
+    "rows": [
+      {
+        "only_vendor": "panther",
+        "unique_operations": 50,
+        "sample": [
+          "apikeys.keys.create",
+          "apikeys.keys.list",
+          "cloudbuild.builds.create",
+          "cloudfunctions.functions.create",
+          "cloudfunctions.functions.update",
+          "cloudsql.instances.update",
+          "compute.disks.create",
+          "compute.disks.setIamPolicy",
+          "compute.instanceTemplates.useReadOnly",
+          "compute.instances.create",
+          "compute.instances.pscInterfaceCreate",
+          "compute.instances.setMetadata",
+          "compute.instances.setServiceAccount",
+          "compute.machineImages.useReadOnly",
+          "compute.networks.use"
+        ]
+      },
+      {
+        "only_vendor": "sigma",
+        "unique_operations": 29,
+        "sample": [
+          "accesscontextmanager.accessLevels.delete",
+          "accesscontextmanager.accessPolicies.delete",
+          "accesscontextmanager.authorizedOrgsDescs.delete",
+          "accesscontextmanager.policies.delete",
+          "cloudsql.instances.create",
+          "cloudsql.instances.delete",
+          "cloudsql.users.delete",
+          "cloudsql.users.update",
+          "compute.packetMirrorings.create",
+          "compute.packetMirrorings.delete",
+          "compute.packetMirrorings.get",
+          "compute.packetMirrorings.list",
+          "compute.packetMirrorings.update",
+          "compute.vpnTunnels.create",
+          "compute.vpnTunnels.delete"
+        ]
+      },
+      {
+        "only_vendor": "elastic",
+        "unique_operations": 18,
+        "sample": [
+          "appengine.applications.update",
+          "compute.networks.delete",
+          "compute.routes.create",
+          "compute.routes.delete",
+          "container.clusterRoles.update",
+          "container.configMaps.delete",
+          "container.configMaps.update",
+          "container.pods.get",
+          "container.roles.update",
+          "container.secrets.get",
+          "container.secrets.list",
+          "container.selfSubjectAccessReviews.create",
+          "container.selfSubjectRulesReviews.create",
+          "pubsub.subscriptions.create",
+          "pubsub.subscriptions.delete"
+        ]
+      },
+      {
+        "only_vendor": "gsecops",
+        "unique_operations": 13,
+        "sample": [
+          "apikeys.keys.getKeyString",
+          "bigquery.datasets.setIamPolicy",
+          "iam.workloadIdentityPools.delete",
+          "iam.workloadIdentityPools.update",
+          "orgpolicy.policies.delete",
+          "orgpolicy.policies.update",
+          "resourcemanager.folders.setIamPolicy",
+          "resourcemanager.organizations.setIamPolicy",
+          "resourcemanager.projects.setIamPolicy",
+          "secretmanager.secrets.delete",
+          "secretmanager.versions.destroy",
+          "serviceusage.services.disable",
+          "storage.hmacKeys.delete"
+        ]
+      }
+    ]
+  },
+  "14_vendor_unique_detections.cypher": {
+    "title": "Techniques only ONE vendor catches (incremental coverage)",
+    "why": "The incremental-coverage diff. Techniques that a single vendor detects and no other does \u2014 the concrete answer to \"what does adding this vendor buy me over the others?\". These flip to blind spots if that vendor is removed.",
+    "row_count": 4,
+    "rows": [
+      {
+        "only_vendor": "panther",
+        "techniques_only_this_vendor_catches": 18,
+        "sample": [
+          "storage.hmacKeys.create",
+          "cloudsql.instances.update",
+          "apikeys.keys.create",
+          "cloudbuild.builds.create",
+          "cloudfunctions.functions.create",
+          "cloudfunctions.functions.update",
+          "cloudfunctions.functions.update",
+          "compute.instances.create",
+          "compute.snapshots.setIamPolicy",
+          "compute.disks.setIamPolicy",
+          "container.daemonSets.create",
+          "deploymentmanager.deployments.create"
+        ]
+      },
+      {
+        "only_vendor": "elastic",
+        "techniques_only_this_vendor_catches": 6,
+        "sample": [
+          "pubsub.topics.delete",
+          "pubsub.subscriptions.create",
+          "pubsub.subscriptions.delete",
+          "appengine.applications.update",
+          "appengine.applications.update",
+          "pubsub.subscriptions.create"
+        ]
+      },
+      {
+        "only_vendor": "gsecops",
+        "techniques_only_this_vendor_catches": 6,
+        "sample": [
+          "secretmanager.versions.destroy",
+          "secretmanager.secrets.delete",
+          "bigquery.datasets.setIamPolicy",
+          "resourcemanager.organizations.setIamPolicy",
+          "resourcemanager.folders.setIamPolicy",
+          "resourcemanager.projects.setIamPolicy"
+        ]
+      },
+      {
+        "only_vendor": "sigma",
+        "techniques_only_this_vendor_catches": 5,
+        "sample": [
+          "cloudsql.users.update",
+          "iam.serviceAccounts.disable",
+          "container.jobs.create",
+          "container.jobs.update",
+          "iam.serviceAccounts.create"
+        ]
       }
     ]
   }

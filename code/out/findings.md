@@ -13,8 +13,8 @@ finding is a **pure graph query** — no ML model is involved.
 
 | status | techniques | pct |
 | --- | --- | --- |
-| RULE_GAP | 151 | 59.4 |
-| DETECTED | 52 | 20.5 |
+| RULE_GAP | 153 | 60.2 |
+| DETECTED | 50 | 19.7 |
 | TELEMETRY_GAP | 49 | 19.3 |
 | CORRELATION_ONLY | 2 | 0.8 |
 
@@ -23,7 +23,7 @@ finding is a **pure graph query** — no ML model is involved.
 
 > The direct answer to "which situations can my detections not figure out?". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).
 
-**200 rows.**
+**202 rows.**
 
 | tactic | service | primary_permission | blind_class | needs_actAs | technique |
 | --- | --- | --- | --- | --- | --- |
@@ -68,14 +68,14 @@ finding is a **pure graph query** — no ML model is involved.
 | post-exploitation | cloudsql | cloudsql.instances.import | RULE_GAP | False | cloudsql.instances.import, storage.objects.get |
 | post-exploitation | cloudsql | cloudsql.instances.restoreBackup | RULE_GAP | False | cloudsql.instances.restoreBackup, cloudsql.backupRuns.get |
 
-_… 160 more rows (see findings.json)_
+_… 162 more rows (see findings.json)_
 
 
 ## 02_rule_gap_classA — Class A blind spots — logged by default, but no rule (write-a-signature gaps)
 
 > The "cheap wins". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today — there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.
 
-**164 rows.**
+**168 rows.**
 
 | service | logged_but_unwatched_permission | tactic | primary_permission | technique |
 | --- | --- | --- | --- | --- |
@@ -106,21 +106,21 @@ _… 160 more rows (see findings.json)_
 | batch | batch.jobs.create | privilege-escalation | batch.jobs.create | batch.jobs.create, iam.serviceAccounts.actAs |
 | bigquery | bigquery.datasets.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
 | bigquery | bigquery.datasets.update | privilege-escalation | bigquery.datasets.update | bigquery.datasets.update, (bigquery.datasets.get) |
+| bigquery | bigquery.jobs.create | privilege-escalation | bigquery.rowAccessPolicies.update | bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create |
 | bigquery | bigquery.models.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
 | bigquery | bigquery.models.getMetadata | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
+| bigquery | bigquery.rowAccessPolicies.setIamPolicy | privilege-escalation | bigquery.rowAccessPolicies.update | bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create |
+| bigquery | bigquery.rowAccessPolicies.update | privilege-escalation | bigquery.rowAccessPolicies.update | bigquery.rowAccessPolicies.update, bigquery.rowAccessPolicies.setIamPolicy, bigquery.tables.getData, bigquery.jobs.create |
 | bigquery | bigquery.tables.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
+| bigquery | bigquery.tables.setIamPolicy | privilege-escalation | bigquery.tables.setIamPolicy | bigquery.tables.setIamPolicy |
 | bigtable | bigtable.authorizedViews.setIamPolicy | privilege-escalation | bigtable.authorizedViews.setIamPolicy | bigtable.authorizedViews.setIamPolicy |
 | bigtable | bigtable.backups.setIamPolicy | privilege-escalation | bigtable.backups.setIamPolicy | bigtable.backups.setIamPolicy |
 | bigtable | bigtable.instances.setIamPolicy | privilege-escalation | bigtable.instances.setIamPolicy | bigtable.instances.setIamPolicy |
 | bigtable | bigtable.tables.setIamPolicy | privilege-escalation | bigtable.tables.setIamPolicy | bigtable.tables.setIamPolicy |
 | billing | billing.accounts.create | discovery | billing.accounts.create | billing.accounts.create |
 | cloudasset | cloudasset.assets.analyzeIamPolicy | discovery | cloudasset.assets.analyzeIamPolicy | cloudasset.assets.analyzeIamPolicy |
-| cloudasset | cloudasset.assets.analyzeMove | discovery | cloudasset.assets.analyzeMove | cloudasset.assets.analyzeMove |
-| cloudasset | cloudasset.assets.queryIamPolicy | discovery | cloudasset.assets.queryIamPolicy | cloudasset.assets.queryIamPolicy |
-| cloudasset | cloudasset.assets.searchAllIamPolicies | discovery | cloudasset.assets.searchAllIamPolicies | cloudasset.assets.searchAllIamPolicies |
-| cloudasset | cloudasset.assets.searchAllResources | discovery | cloudasset.assets.searchAllResources | cloudasset.assets.searchAllResources |
 
-_… 124 more rows (see findings.json)_
+_… 128 more rows (see findings.json)_
 
 
 ## 03_telemetry_gap_classB — Class B blind spots — Data Access logs OFF by default (signatures cannot help)
@@ -295,6 +295,7 @@ _… 8 more rows (see findings.json)_
 | privilege-escalation | pubsub | 1 | 6 | 5 | 16.7 |
 | privilege-escalation | run | 2 | 7 | 5 | 28.6 |
 | post-exploitation | appengine | 0 | 4 | 4 | 0.0 |
+| privilege-escalation | bigquery | 1 | 5 | 4 | 20.0 |
 | privilege-escalation | bigtable | 0 | 4 | 4 | 0.0 |
 | privilege-escalation | source | 0 | 4 | 4 | 0.0 |
 | privilege-escalation | storage | 2 | 6 | 4 | 33.3 |
@@ -306,7 +307,6 @@ _… 8 more rows (see findings.json)_
 | discovery | resourcemanager | 0 | 2 | 2 | 0.0 |
 | post-exploitation | cloudfunctions | 0 | 2 | 2 | 0.0 |
 | post-exploitation | storage | 4 | 6 | 2 | 66.7 |
-| privilege-escalation | bigquery | 3 | 5 | 2 | 60.0 |
 | privilege-escalation | cloudfunctions | 3 | 5 | 2 | 60.0 |
 | privilege-escalation | cloudscheduler | 0 | 2 | 2 | 0.0 |
 | privilege-escalation | composer | 0 | 2 | 2 | 0.0 |
@@ -392,4 +392,136 @@ _… 13 more rows (see findings.json)_
 | --- | --- | --- | --- | --- |
 | post-exploitation | secretmanager | secretmanager.secrets.delete | gsecops:correlation x10 | secretmanager.secrets.delete |
 | post-exploitation | secretmanager | secretmanager.versions.destroy | gsecops:correlation x10 | secretmanager.versions.destroy |
+
+
+## 11_vendor_coverage_per_technique — Which vendors detect each technique (source diff)
+
+> The per-technique view of the four-corpus merge. For every technique some rule catches, which vendors (Sigma / Elastic / Google SecOps / Panther) catch it, and how many agree. A high vendor_count = redundantly covered; 1 = only one vendor would catch it, so dropping that vendor blinds you to it.
+
+**52 rows.**
+
+| tactic | service | primary_permission | vendor_count | vendors | technique |
+| --- | --- | --- | --- | --- | --- |
+| privilege-escalation | storage | storage.buckets.setIamPolicy | 4 | elastic, gsecops, panther, sigma | storage.buckets.setIamPolicy |
+| unauthenticated-access | storage | storage.buckets.setIamPolicy | 4 | elastic, gsecops, panther, sigma | storage.buckets.setIamPolicy |
+| post-exploitation | storage | storage.buckets.delete | 3 | elastic, panther, sigma | Cloud Logging sink bucket-name hijack - storage.buckets.delete |
+| post-exploitation | storage | storage.buckets.delete | 3 | elastic, panther, sigma | Cloud Storage subscription bucket-name hijack - storage.buckets.delete |
+| post-exploitation | storage | storage.buckets.delete | 3 | elastic, panther, sigma | storage.buckets.delete, storage.objects.delete & storage.objects.list |
+| post-exploitation | storage | storage.buckets.setIpFilter | 3 | elastic, panther, sigma | storage.buckets.setIpFilter & storage.buckets.update |
+| privilege-escalation | container | container.pods.create | 3 | elastic, panther, sigma | container.pods.create |
+| privilege-escalation | iam | iam.serviceAccountKeys.create | 3 | elastic, gsecops, panther | iam.serviceAccountKeys.create |
+| unauthenticated-access | storage | storage.buckets.delete | 3 | elastic, panther, sigma | storage.buckets.delete |
+| unauthenticated-access | storage | storage.buckets.update | 3 | elastic, panther, sigma | storage.buckets.update |
+| workspace-pivoting | iam | iam.serviceAccountKeys.create | 3 | elastic, gsecops, panther | iam.serviceAccountKeys.create |
+| privilege-escalation | container | container.pods.update | 2 | elastic, panther | container.pods.update |
+| privilege-escalation | container | container.mutatingWebhookConfigurations.create | 2 | elastic, sigma | container.mutatingWebhookConfigurations.create |
+| privilege-escalation | container | container.mutatingWebhookConfigurations.update | 2 | elastic, sigma | container.mutatingWebhookConfigurations.update |
+| privilege-escalation | container | container.cronJobs.create | 2 | panther, sigma | container.cronJobs.create |
+| privilege-escalation | container | container.cronJobs.update | 2 | panther, sigma | container.cronJobs.update |
+| privilege-escalation | iam | iam.roles.create | 2 | elastic, panther | iam.roles.create & iam.serviceAccounts.setIamPolicy |
+| persistence | storage | storage.hmacKeys.create | 1 | panther | storage.hmacKeys.create |
+| post-exploitation | cloudsql | cloudsql.instances.update | 1 | panther | cloudsql.instances.update, ( cloudsql.instances.get) |
+| post-exploitation | cloudsql | cloudsql.users.update | 1 | sigma | cloudsql.users.update |
+| post-exploitation | iam | iam.serviceAccounts.disable | 1 | sigma | iam.serviceAccounts.disable |
+| post-exploitation | pubsub | pubsub.topics.delete | 1 | elastic | pubsub.topics.delete |
+| post-exploitation | pubsub | pubsub.subscriptions.create | 1 | elastic | pubsub.subscriptions.create,pubsub.topics.attachSubscription , (pubsub.subscriptions.consume) |
+| post-exploitation | pubsub | pubsub.subscriptions.delete | 1 | elastic | pubsub.subscriptions.delete |
+| post-exploitation | secretmanager | secretmanager.versions.destroy | 1 | gsecops | secretmanager.versions.destroy |
+| post-exploitation | secretmanager | secretmanager.secrets.delete | 1 | gsecops | secretmanager.secrets.delete |
+| privilege-escalation | apikeys | apikeys.keys.create | 1 | panther | serviceusage.apiKeys.create |
+| privilege-escalation | appengine | appengine.applications.update | 1 | elastic | appengine.applications.update, appengine.operations.get |
+| privilege-escalation | appengine | appengine.applications.update | 1 | elastic | appengine.applications.update, appengine.operations.get |
+| privilege-escalation | bigquery | bigquery.datasets.setIamPolicy | 1 | gsecops | bigquery.datasets.setIamPolicy |
+| privilege-escalation | cloudbuild | cloudbuild.builds.create | 1 | panther | cloudbuild.builds.create, iam.serviceAccounts.actAs |
+| privilege-escalation | cloudfunctions | cloudfunctions.functions.create | 1 | panther | cloudfunctions.functions.create , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs |
+| privilege-escalation | cloudfunctions | cloudfunctions.functions.update | 1 | panther | cloudfunctions.functions.update , cloudfunctions.functions.sourceCodeSet, iam.serviceAccounts.actAs |
+| privilege-escalation | cloudfunctions | cloudfunctions.functions.update | 1 | panther | cloudfunctions.functions.update |
+| privilege-escalation | compute | compute.instances.create | 1 | panther | compute.instances.create,iam.serviceAccounts.actAs, compute.disks.create, compute.instances.create, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.subnetworks.use, compute.subnetworks.useExternalIp |
+| privilege-escalation | compute | compute.snapshots.setIamPolicy | 1 | panther | compute.snapshots.setIamPolicy |
+| privilege-escalation | compute | compute.disks.setIamPolicy | 1 | panther | compute.disks.setIamPolicy |
+| privilege-escalation | container | container.daemonSets.create | 1 | panther | container.daemonSets.create |
+| privilege-escalation | container | container.jobs.create | 1 | sigma | container.jobs.create |
+| privilege-escalation | container | container.jobs.update | 1 | sigma | container.jobs.update |
+
+_… 12 more rows (see findings.json)_
+
+
+## 12_vendor_overlap_per_operation — Which vendors watch each operation (overlap matrix)
+
+> The per-operation overlap. For every permission any rule watches, the set of vendors watching it. Operations watched by all four are heavily redundant; those watched by one are a single point of coverage. This is the raw diff between the detection stacks at the operation level.
+
+**135 rows.**
+
+| operation | log_type | vendor_count | vendors |
+| --- | --- | --- | --- |
+| compute.firewalls.create | ADMIN_ACTIVITY | 4 | elastic, gsecops, panther, sigma |
+| storage.buckets.setIamPolicy | ADMIN_ACTIVITY | 4 | elastic, gsecops, panther, sigma |
+| compute.firewalls.delete | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| compute.firewalls.get | DATA_ACCESS | 3 | elastic, panther, sigma |
+| compute.firewalls.update | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| compute.networks.updatePolicy | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| container.pods.create | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| iam.serviceAccountKeys.create | ADMIN_ACTIVITY | 3 | elastic, gsecops, panther |
+| storage.buckets.delete | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| storage.buckets.update | ADMIN_ACTIVITY | 3 | elastic, panther, sigma |
+| compute.images.setIamPolicy | ADMIN_ACTIVITY | 2 | gsecops, panther |
+| container.clusterRoleBindings.create | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| container.clusterRoleBindings.update | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| container.cronJobs.create | ADMIN_ACTIVITY | 2 | panther, sigma |
+| container.cronJobs.update | ADMIN_ACTIVITY | 2 | panther, sigma |
+| container.mutatingWebhookConfigurations.create | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| container.mutatingWebhookConfigurations.update | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| container.pods.update | ADMIN_ACTIVITY | 2 | elastic, panther |
+| container.validatingWebhookConfigurations.create | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| container.validatingWebhookConfigurations.update | ADMIN_ACTIVITY | 2 | elastic, sigma |
+| dns.managedZones.delete | ADMIN_ACTIVITY | 2 | panther, sigma |
+| dns.managedZones.get | DATA_ACCESS | 2 | panther, sigma |
+| dns.managedZones.update | ADMIN_ACTIVITY | 2 | panther, sigma |
+| iam.roles.create | ADMIN_ACTIVITY | 2 | elastic, panther |
+| iam.roles.delete | ADMIN_ACTIVITY | 2 | elastic, panther |
+| accesscontextmanager.accessLevels.delete | ADMIN_ACTIVITY | 1 | sigma |
+| accesscontextmanager.accessPolicies.delete | ADMIN_ACTIVITY | 1 | sigma |
+| accesscontextmanager.authorizedOrgsDescs.delete | ADMIN_ACTIVITY | 1 | sigma |
+| accesscontextmanager.policies.delete | ADMIN_ACTIVITY | 1 | sigma |
+| apikeys.keys.create | ADMIN_ACTIVITY | 1 | panther |
+| apikeys.keys.getKeyString | DATA_ACCESS | 1 | gsecops |
+| apikeys.keys.list | DATA_ACCESS | 1 | panther |
+| appengine.applications.update | ADMIN_ACTIVITY | 1 | elastic |
+| bigquery.datasets.setIamPolicy | ADMIN_ACTIVITY | 1 | gsecops |
+| cloudbuild.builds.create | ADMIN_ACTIVITY | 1 | panther |
+| cloudfunctions.functions.create | ADMIN_ACTIVITY | 1 | panther |
+| cloudfunctions.functions.update | ADMIN_ACTIVITY | 1 | panther |
+| cloudsql.instances.create | ADMIN_ACTIVITY | 1 | sigma |
+| cloudsql.instances.delete | ADMIN_ACTIVITY | 1 | sigma |
+| cloudsql.instances.update | ADMIN_ACTIVITY | 1 | panther |
+
+_… 95 more rows (see findings.json)_
+
+
+## 13_vendor_unique_operations — Each vendor's UNIQUE operations (what only they watch)
+
+> The value-add of each corpus. Operations that exactly one vendor watches — remove that vendor and these go uncovered. Shows how much unique surface each detection stack contributes versus how much is redundant with the others.
+
+**4 rows.**
+
+| only_vendor | unique_operations | sample |
+| --- | --- | --- |
+| panther | 50 | apikeys.keys.create, apikeys.keys.list, cloudbuild.builds.create, cloudfunctions.functions.create, cloudfunctions.functions.update, cloudsql.instances.update, compute.disks.create, compute.disks.setIamPolicy, compute.instanceTemplates.useReadOnly, compute.instances.create, compute.instances.pscInterfaceCreate, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.machineImages.useReadOnly, compute.networks.use |
+| sigma | 29 | accesscontextmanager.accessLevels.delete, accesscontextmanager.accessPolicies.delete, accesscontextmanager.authorizedOrgsDescs.delete, accesscontextmanager.policies.delete, cloudsql.instances.create, cloudsql.instances.delete, cloudsql.users.delete, cloudsql.users.update, compute.packetMirrorings.create, compute.packetMirrorings.delete, compute.packetMirrorings.get, compute.packetMirrorings.list, compute.packetMirrorings.update, compute.vpnTunnels.create, compute.vpnTunnels.delete |
+| elastic | 18 | appengine.applications.update, compute.networks.delete, compute.routes.create, compute.routes.delete, container.clusterRoles.update, container.configMaps.delete, container.configMaps.update, container.pods.get, container.roles.update, container.secrets.get, container.secrets.list, container.selfSubjectAccessReviews.create, container.selfSubjectRulesReviews.create, pubsub.subscriptions.create, pubsub.subscriptions.delete |
+| gsecops | 13 | apikeys.keys.getKeyString, bigquery.datasets.setIamPolicy, iam.workloadIdentityPools.delete, iam.workloadIdentityPools.update, orgpolicy.policies.delete, orgpolicy.policies.update, resourcemanager.folders.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.projects.setIamPolicy, secretmanager.secrets.delete, secretmanager.versions.destroy, serviceusage.services.disable, storage.hmacKeys.delete |
+
+
+## 14_vendor_unique_detections — Techniques only ONE vendor catches (incremental coverage)
+
+> The incremental-coverage diff. Techniques that a single vendor detects and no other does — the concrete answer to "what does adding this vendor buy me over the others?". These flip to blind spots if that vendor is removed.
+
+**4 rows.**
+
+| only_vendor | techniques_only_this_vendor_catches | sample |
+| --- | --- | --- |
+| panther | 18 | storage.hmacKeys.create, cloudsql.instances.update, apikeys.keys.create, cloudbuild.builds.create, cloudfunctions.functions.create, cloudfunctions.functions.update, cloudfunctions.functions.update, compute.instances.create, compute.snapshots.setIamPolicy, compute.disks.setIamPolicy, container.daemonSets.create, deploymentmanager.deployments.create |
+| elastic | 6 | pubsub.topics.delete, pubsub.subscriptions.create, pubsub.subscriptions.delete, appengine.applications.update, appengine.applications.update, pubsub.subscriptions.create |
+| gsecops | 6 | secretmanager.versions.destroy, secretmanager.secrets.delete, bigquery.datasets.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.folders.setIamPolicy, resourcemanager.projects.setIamPolicy |
+| sigma | 5 | cloudsql.users.update, iam.serviceAccounts.disable, container.jobs.create, container.jobs.update, iam.serviceAccounts.create |
 
