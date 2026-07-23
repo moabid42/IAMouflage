@@ -524,8 +524,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteBucket' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteBucket$/",
-      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteBucket$",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteBucket' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteBucket$/",
+      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteBucket$",
       "note": ""
      }
     ]
@@ -574,8 +574,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteSink' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteSink$/",
-      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.DeleteSink$",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteSink' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteSink$/",
+      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteSink$",
       "note": ""
      }
     ]
@@ -1199,8 +1199,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.UpdateSink' -> /^google\\.logging\\.ConfigServiceV[^.]*\\.UpdateSink$/",
-      "pattern": "^google\\.logging\\.ConfigServiceV[^.]*\\.UpdateSink$",
+      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.UpdateSink' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.UpdateSink$/",
+      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.UpdateSink$",
       "note": ""
      }
     ]
@@ -1381,8 +1381,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccount' -> /^google\\.iam\\.admin\\.DeleteServiceAccount$/",
-      "pattern": "^google\\.iam\\.admin\\.DeleteServiceAccount$",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccount' -> /^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccount$",
       "note": ""
      }
     ]
@@ -1430,8 +1430,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.DisableServiceAccount' -> /^google\\.iam\\.admin\\.DisableServiceAccount$/",
-      "pattern": "^google\\.iam\\.admin\\.DisableServiceAccount$",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DisableServiceAccount' -> /^google\\.iam\\.admin\\.v[^.]*\\.DisableServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.DisableServiceAccount$",
       "note": ""
      }
     ]
@@ -1996,8 +1996,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccountKey' -> /^google\\.iam\\.admin\\.DeleteServiceAccountKey$/",
-      "pattern": "^google\\.iam\\.admin\\.DeleteServiceAccountKey$",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccountKey' -> /^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccountKey$/",
+      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccountKey$",
       "note": ""
      }
     ]
@@ -2100,8 +2100,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.CreateServiceAccount' -> /^google\\.iam\\.admin\\.CreateServiceAccount$/",
-      "pattern": "^google\\.iam\\.admin\\.CreateServiceAccount$",
+      "provenance": "wildcard matcher 'google.iam.admin.v*.CreateServiceAccount' -> /^google\\.iam\\.admin\\.v[^.]*\\.CreateServiceAccount$/",
+      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.CreateServiceAccount$",
       "note": ""
      }
     ]

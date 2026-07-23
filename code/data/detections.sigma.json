@@ -1115,8 +1115,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.disable' -> /.*serviceAccounts\\.disable$/",
-      "pattern": ".*serviceAccounts\\.disable$",
+      "provenance": "wildcard matcher '.serviceAccounts.disable' -> /.*\\.serviceAccounts\\.disable$/",
+      "pattern": ".*\\.serviceAccounts\\.disable$",
       "note": ""
      }
     ],
@@ -1126,8 +1126,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.delete' -> /.*serviceAccounts\\.delete$/",
-      "pattern": ".*serviceAccounts\\.delete$",
+      "provenance": "wildcard matcher '.serviceAccounts.delete' -> /.*\\.serviceAccounts\\.delete$/",
+      "pattern": ".*\\.serviceAccounts\\.delete$",
       "note": ""
      }
     ]
@@ -1170,8 +1170,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.patch' -> /.*serviceAccounts\\.patch$/",
-      "pattern": ".*serviceAccounts\\.patch$",
+      "provenance": "wildcard matcher '.serviceAccounts.patch' -> /.*\\.serviceAccounts\\.patch$/",
+      "pattern": ".*\\.serviceAccounts\\.patch$",
       "note": ""
      }
     ],
@@ -1181,8 +1181,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.create' -> /.*serviceAccounts\\.create$/",
-      "pattern": ".*serviceAccounts\\.create$",
+      "provenance": "wildcard matcher '.serviceAccounts.create' -> /.*\\.serviceAccounts\\.create$/",
+      "pattern": ".*\\.serviceAccounts\\.create$",
       "note": ""
      }
     ],
@@ -1192,8 +1192,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.update' -> /.*serviceAccounts\\.update$/",
-      "pattern": ".*serviceAccounts\\.update$",
+      "provenance": "wildcard matcher '.serviceAccounts.update' -> /.*\\.serviceAccounts\\.update$/",
+      "pattern": ".*\\.serviceAccounts\\.update$",
       "note": ""
      }
     ],
@@ -1203,8 +1203,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.enable' -> /.*serviceAccounts\\.enable$/",
-      "pattern": ".*serviceAccounts\\.enable$",
+      "provenance": "wildcard matcher '.serviceAccounts.enable' -> /.*\\.serviceAccounts\\.enable$/",
+      "pattern": ".*\\.serviceAccounts\\.enable$",
       "note": ""
      }
     ],
@@ -1214,8 +1214,8 @@
       "permissions": [],
       "kind": "pattern",
       "confidence": "pattern",
-      "provenance": "wildcard matcher '.serviceAccounts.undelete' -> /.*serviceAccounts\\.undelete$/",
-      "pattern": ".*serviceAccounts\\.undelete$",
+      "provenance": "wildcard matcher '.serviceAccounts.undelete' -> /.*\\.serviceAccounts\\.undelete$/",
+      "pattern": ".*\\.serviceAccounts\\.undelete$",
       "note": ""
      }
     ]
