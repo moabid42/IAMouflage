@@ -521,12 +521,14 @@
     [
      {
       "token": "google.logging.v*.ConfigServiceV*.DeleteBucket",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteBucket' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteBucket$/",
-      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteBucket$",
-      "note": ""
+      "permissions": [
+       "logging.buckets.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.DeleteBucket] <- https://docs.cloud.google.com/logging/docs/audit-logging",
+      "pattern": null,
+      "note": "Cloud LOGGING bucket delete (not Cloud Storage)."
      }
     ]
    ],
@@ -539,7 +541,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "logging.buckets.delete"
+  ]
  },
  {
   "id": "elastic:51859fa0-d86b-4214-bf48-ebb30ed91305",
@@ -571,11 +575,13 @@
     [
      {
       "token": "google.logging.v*.ConfigServiceV*.DeleteSink",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.DeleteSink' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteSink$/",
-      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.DeleteSink$",
+      "permissions": [
+       "logging.sinks.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.DeleteSink] <- https://docs.cloud.google.com/logging/docs/audit-logging",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -589,7 +595,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "logging.sinks.delete"
+  ]
  },
  {
   "id": "elastic:cc89312d-6f47-48e4-a87c-4977bd4633c3",
@@ -1196,11 +1204,13 @@
     [
      {
       "token": "google.logging.v*.ConfigServiceV*.UpdateSink",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.logging.v*.ConfigServiceV*.UpdateSink' -> /^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.UpdateSink$/",
-      "pattern": "^google\\.logging\\.v[^.]*\\.ConfigServiceV[^.]*\\.UpdateSink$",
+      "permissions": [
+       "logging.sinks.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.UpdateSink] <- https://docs.cloud.google.com/logging/docs/audit-logging",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -1214,7 +1224,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "logging.sinks.update"
+  ]
  },
  {
   "id": "elastic:80528e81-949f-4d38-b0c7-aef4b160212e",
@@ -1378,11 +1390,13 @@
     [
      {
       "token": "google.iam.admin.v*.DeleteServiceAccount",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.DeleteServiceAccount' -> /^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccount$/",
-      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.DeleteServiceAccount$",
+      "permissions": [
+       "iam.serviceAccounts.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.DeleteServiceAccount] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -1396,7 +1410,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "iam.serviceAccounts.delete"
+  ]
  },
  {
   "id": "elastic:bca7d28e-4a48-47b1-adb7-5074310e9a61",
@@ -2097,11 +2113,13 @@
     [
      {
       "token": "google.iam.admin.v*.CreateServiceAccount",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'google.iam.admin.v*.CreateServiceAccount' -> /^google\\.iam\\.admin\\.v[^.]*\\.CreateServiceAccount$/",
-      "pattern": "^google\\.iam\\.admin\\.v[^.]*\\.CreateServiceAccount$",
+      "permissions": [
+       "iam.serviceAccounts.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.iam.admin.v1.CreateServiceAccount] <- https://docs.cloud.google.com/iam/docs/audit-logging",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -2115,7 +2133,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "iam.serviceAccounts.create"
+  ]
  },
  {
   "id": "elastic:a8a48752-58f3-43a9-beb5-14b9e9f6a8b0",
