@@ -397,13 +397,13 @@
    "groups": [
     [
      {
-      "token": "v1.compute.snapshots.setIamPolicy",
+      "token": "v1.compute.disks.setIamPolicy",
       "permissions": [
-       "compute.snapshots.setIamPolicy"
+       "compute.disks.setIamPolicy"
       ],
       "kind": "permission",
       "confidence": "normalized",
-      "provenance": "permissions.json (folded v1.compute.snapshots.setIamPolicy -> compute.snapshots.setIamPolicy)",
+      "provenance": "permissions.json (folded v1.compute.disks.setIamPolicy -> compute.disks.setIamPolicy)",
       "pattern": null,
       "note": ""
      }
@@ -423,13 +423,13 @@
     ],
     [
      {
-      "token": "v1.compute.disks.setIamPolicy",
+      "token": "v1.compute.snapshots.setIamPolicy",
       "permissions": [
-       "compute.disks.setIamPolicy"
+       "compute.snapshots.setIamPolicy"
       ],
       "kind": "permission",
       "confidence": "normalized",
-      "provenance": "permissions.json (folded v1.compute.disks.setIamPolicy -> compute.disks.setIamPolicy)",
+      "provenance": "permissions.json (folded v1.compute.snapshots.setIamPolicy -> compute.snapshots.setIamPolicy)",
       "pattern": null,
       "note": ""
      }
@@ -507,17 +507,6 @@
    "groups": [
     [
      {
-      "token": "compute.instances.create",
-      "permissions": [
-       "compute.instances.create"
-      ],
-      "kind": "permission",
-      "confidence": "exact",
-      "provenance": "permissions.json",
-      "pattern": null,
-      "note": ""
-     },
-     {
       "token": "compute.disks.create",
       "permissions": [
        "compute.disks.create"
@@ -529,20 +518,9 @@
       "note": ""
      },
      {
-      "token": "compute.subnetworks.useExternalIp",
+      "token": "compute.instances.create",
       "permissions": [
-       "compute.subnetworks.useExternalIp"
-      ],
-      "kind": "permission",
-      "confidence": "exact",
-      "provenance": "permissions.json",
-      "pattern": null,
-      "note": ""
-     },
-     {
-      "token": "compute.subnetworks.use",
-      "permissions": [
-       "compute.subnetworks.use"
+       "compute.instances.create"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -572,6 +550,17 @@
       "note": ""
      },
      {
+      "token": "compute.instances.setMetadata",
+      "permissions": [
+       "compute.instances.setMetadata"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     },
+     {
       "token": "compute.instances.setServiceAccount",
       "permissions": [
        "compute.instances.setServiceAccount"
@@ -583,9 +572,20 @@
       "note": ""
      },
      {
-      "token": "compute.instances.setMetadata",
+      "token": "compute.subnetworks.use",
       "permissions": [
-       "compute.instances.setMetadata"
+       "compute.subnetworks.use"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     },
+     {
+      "token": "compute.subnetworks.useExternalIp",
+      "permissions": [
+       "compute.subnetworks.useExternalIp"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -671,19 +671,6 @@
    "groups": [
     [
      {
-      "token": "dns.managedZones.delete",
-      "permissions": [
-       "dns.managedZones.delete"
-      ],
-      "kind": "permission",
-      "confidence": "exact",
-      "provenance": "permissions.json",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
       "token": "dns.changes.create",
       "permissions": [
        "dns.changes.create"
@@ -697,9 +684,9 @@
     ],
     [
      {
-      "token": "dns.managedZones.update",
+      "token": "dns.managedZones.delete",
       "permissions": [
-       "dns.managedZones.update"
+       "dns.managedZones.delete"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -718,6 +705,19 @@
       "kind": "rest_method",
       "confidence": "exact",
       "provenance": "method_permissions.json[dns.managedZones.patch]",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "dns.managedZones.update",
+      "permissions": [
+       "dns.managedZones.update"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
       "pattern": null,
       "note": ""
      }
@@ -888,19 +888,6 @@
     ],
     [
      {
-      "token": ".compute.firewalls.update",
-      "permissions": [
-       "compute.firewalls.update"
-      ],
-      "kind": "permission",
-      "confidence": "normalized",
-      "provenance": "permissions.json (folded .compute.firewalls.update -> compute.firewalls.update)",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
       "token": ".compute.firewalls.patch",
       "permissions": [
        "compute.firewalls.get",
@@ -910,6 +897,19 @@
       "kind": "rest_method",
       "confidence": "normalized",
       "provenance": "method_permissions.json[compute.firewalls.patch] (folded from .compute.firewalls.patch)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": ".compute.firewalls.update",
+      "permissions": [
+       "compute.firewalls.update"
+      ],
+      "kind": "permission",
+      "confidence": "normalized",
+      "provenance": "permissions.json (folded .compute.firewalls.update -> compute.firewalls.update)",
       "pattern": null,
       "note": ""
      }
@@ -1117,6 +1117,17 @@
    "groups": [
     [
      {
+      "token": "gsutil.*rewrite",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'gsutil.*rewrite' -> /^gsutil\\.[^.]*rewrite$/",
+      "pattern": "^gsutil\\.[^.]*rewrite$",
+      "note": ""
+     }
+    ],
+    [
+     {
       "token": "storage.objects.create",
       "permissions": [
        "storage.objects.create"
@@ -1125,17 +1136,6 @@
       "confidence": "exact",
       "provenance": "permissions.json",
       "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
-      "token": "gsutil.*rewrite",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'gsutil.*rewrite' -> /^gsutil\\.[^.]*rewrite$/",
-      "pattern": "^gsutil\\.[^.]*rewrite$",
       "note": ""
      }
     ]
@@ -2048,19 +2048,6 @@
    "groups": [
     [
      {
-      "token": "google.logging.v2.ConfigServiceV2.DeleteSink",
-      "permissions": [
-       "logging.sinks.delete"
-      ],
-      "kind": "grpc_method",
-      "confidence": "official",
-      "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.DeleteSink] <- https://docs.cloud.google.com/logging/docs/audit-logging",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
       "token": "google.logging.v2.ConfigServiceV2.DeleteBucket",
       "permissions": [
        "logging.buckets.delete"
@@ -2070,6 +2057,19 @@
       "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.DeleteBucket] <- https://docs.cloud.google.com/logging/docs/audit-logging",
       "pattern": null,
       "note": "Cloud LOGGING bucket delete (not Cloud Storage)."
+     }
+    ],
+    [
+     {
+      "token": "google.logging.v2.ConfigServiceV2.DeleteSink",
+      "permissions": [
+       "logging.sinks.delete"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.logging.v2.ConfigServiceV2.DeleteSink] <- https://docs.cloud.google.com/logging/docs/audit-logging",
+      "pattern": null,
+      "note": ""
      }
     ]
    ],
@@ -2269,9 +2269,9 @@
    "groups": [
     [
      {
-      "token": "storage.hmacKeys.create",
+      "token": "iam.serviceAccounts.getAccessToken",
       "permissions": [
-       "storage.hmacKeys.create"
+       "iam.serviceAccounts.getAccessToken"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -2282,9 +2282,9 @@
     ],
     [
      {
-      "token": "iam.serviceAccounts.getAccessToken",
+      "token": "orgpolicy.policy.set",
       "permissions": [
-       "iam.serviceAccounts.getAccessToken"
+       "orgpolicy.policy.set"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -2321,9 +2321,9 @@
     ],
     [
      {
-      "token": "orgpolicy.policy.set",
+      "token": "storage.hmacKeys.create",
       "permissions": [
-       "orgpolicy.policy.set"
+       "storage.hmacKeys.create"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -3010,19 +3010,6 @@
    "groups": [
     [
      {
-      "token": "io.k8s.batch.v1.cronjobs.update",
-      "permissions": [
-       "container.cronJobs.update"
-      ],
-      "kind": "k8s",
-      "confidence": "normalized",
-      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.update -> container.cronJobs.update)",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
       "token": "io.k8s.batch.v1.cronjobs.create",
       "permissions": [
        "container.cronJobs.create"
@@ -3030,6 +3017,19 @@
       "kind": "k8s",
       "confidence": "normalized",
       "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.create -> container.cronJobs.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "io.k8s.batch.v1.cronjobs.update",
+      "permissions": [
+       "container.cronJobs.update"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.batch.v1.cronjobs.update -> container.cronJobs.update)",
       "pattern": null,
       "note": ""
      }
@@ -3208,6 +3208,19 @@
    "groups": [
     [
      {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
       "token": "io.k8s.core.v1.pods.patch",
       "permissions": [
        "container.pods.update"
@@ -3228,19 +3241,6 @@
       "kind": "k8s",
       "confidence": "normalized",
       "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
-      "token": "io.k8s.core.v1.pods.create",
-      "permissions": [
-       "container.pods.create"
-      ],
-      "kind": "k8s",
-      "confidence": "normalized",
-      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
       "pattern": null,
       "note": ""
      }
@@ -3288,6 +3288,19 @@
    "groups": [
     [
      {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
       "token": "io.k8s.core.v1.pods.patch",
       "permissions": [
        "container.pods.update"
@@ -3308,19 +3321,6 @@
       "kind": "k8s",
       "confidence": "normalized",
       "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
-      "token": "io.k8s.core.v1.pods.create",
-      "permissions": [
-       "container.pods.create"
-      ],
-      "kind": "k8s",
-      "confidence": "normalized",
-      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
       "pattern": null,
       "note": ""
      }
@@ -3368,6 +3368,19 @@
    "groups": [
     [
      {
+      "token": "io.k8s.core.v1.pods.create",
+      "permissions": [
+       "container.pods.create"
+      ],
+      "kind": "k8s",
+      "confidence": "normalized",
+      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
       "token": "io.k8s.core.v1.pods.patch",
       "permissions": [
        "container.pods.update"
@@ -3388,19 +3401,6 @@
       "kind": "k8s",
       "confidence": "normalized",
       "provenance": "k8s->container alias (io.k8s.core.v1.pods.update -> container.pods.update)",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
-      "token": "io.k8s.core.v1.pods.create",
-      "permissions": [
-       "container.pods.create"
-      ],
-      "kind": "k8s",
-      "confidence": "normalized",
-      "provenance": "k8s->container alias (io.k8s.core.v1.pods.create -> container.pods.create)",
       "pattern": null,
       "note": ""
      }
@@ -3690,9 +3690,9 @@
       "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
      },
      {
-      "token": "storage.hmacKeys.create",
+      "token": "iam.serviceAccounts.getAccessToken",
       "permissions": [
-       "storage.hmacKeys.create"
+       "iam.serviceAccounts.getAccessToken"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -3726,9 +3726,9 @@
       "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
      },
      {
-      "token": "iam.serviceAccounts.getAccessToken",
+      "token": "orgpolicy.policy.set",
       "permissions": [
-       "iam.serviceAccounts.getAccessToken"
+       "orgpolicy.policy.set"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -3834,42 +3834,6 @@
       "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
      },
      {
-      "token": "orgpolicy.policy.set",
-      "permissions": [
-       "orgpolicy.policy.set"
-      ],
-      "kind": "permission",
-      "confidence": "exact",
-      "provenance": "permissions.json",
-      "pattern": null,
-      "note": ""
-     }
-    ],
-    [
-     {
-      "token": "TagKeys.ListTagKeys",
-      "permissions": [
-       "resourcemanager.tagKeys.list"
-      ],
-      "kind": "grpc_method",
-      "confidence": "official",
-      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
-      "pattern": null,
-      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
-     },
-     {
-      "token": "TagBindings.CreateTagBinding",
-      "permissions": [
-       "resourcemanager.hierarchyNodes.createTagBinding",
-       "resourcemanager.tagValueBindings.create"
-      ],
-      "kind": "grpc_method",
-      "confidence": "official",
-      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
-      "pattern": null,
-      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
-     },
-     {
       "token": "storage.hmacKeys.create",
       "permissions": [
        "storage.hmacKeys.create"
@@ -3909,6 +3873,42 @@
       "token": "iam.serviceAccounts.getAccessToken",
       "permissions": [
        "iam.serviceAccounts.getAccessToken"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "TagKeys.ListTagKeys",
+      "permissions": [
+       "resourcemanager.tagKeys.list"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagKeys.ListTagKeys] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "ADMIN_READ -> Data Access, off by default. Tag enumeration is therefore invisible in a stock project unless Data Access logging is enabled."
+     },
+     {
+      "token": "TagBindings.CreateTagBinding",
+      "permissions": [
+       "resourcemanager.hierarchyNodes.createTagBinding",
+       "resourcemanager.tagValueBindings.create"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.resourcemanager.v3.TagBindings.CreateTagBinding] <- https://docs.cloud.google.com/resource-manager/docs/audit-logging",
+      "pattern": null,
+      "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
+     },
+     {
+      "token": "orgpolicy.policy.set",
+      "permissions": [
+       "orgpolicy.policy.set"
       ],
       "kind": "permission",
       "confidence": "exact",
@@ -4014,9 +4014,9 @@
       "note": "Binding a tag value requires hierarchyNodes.createTagBinding on the target resource plus tagValueBindings.create on the tag value (Resource Manager roles reference). ADMIN_WRITE -> Admin Activity, logged by default."
      },
      {
-      "token": "orgpolicy.policy.set",
+      "token": "storage.hmacKeys.create",
       "permissions": [
-       "orgpolicy.policy.set"
+       "storage.hmacKeys.create"
       ],
       "kind": "permission",
       "confidence": "exact",

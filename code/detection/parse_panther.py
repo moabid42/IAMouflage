@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import itertools
 import re
 import sys
 from pathlib import Path
@@ -41,9 +42,9 @@ import yaml
 from core.canonical import Canonicaliser, canonicaliser
 from core.corpus import add_corpus_arg, corpus_root, source_dirs
 from detection.record import (
-    CORRELATION, EVENT, DetectionRecord, OpRequirement, Requirement, dump_records,
-    resolve_token_groups,
+    CORRELATION, EVENT, DetectionRecord, dump_records, resolve_token_groups,
 )
+from detection.runner import out_path, report
 
 # op-shaped literal: dotted, >=2 dots, no space/slash/at; or a suffix fragment
 # beginning with a dot (`.Services.CreateService`, `.setMetadata`).
@@ -54,8 +55,6 @@ _FIELD_PATHS = {
     "protoPayload.serviceName", "protoPayload.resourceName",
     "resource.labels", "protoPayload.request", "protoPayload.metadata",
 }
-# helper-only method names that carry the field, used to gate which literals count
-_METHOD_HINT = re.compile(r'method|permission|action|event_type|CreateService', re.I)
 
 
 def _looks_like_op(s: str) -> bool:
@@ -202,8 +201,9 @@ def extract_py_tokens(src: str, canon: Canonicaliser) -> tuple[list[str], bool]:
         candidates |= _methods_from_string(s)
 
     # lift bare methods / scope generic SetIamPolicy, then keep only what resolves.
+    # sorted() so the output is deterministic (a set's iteration order is not).
     tokens = []
-    for t in candidates:
+    for t in sorted(candidates):
         nt = _normalise_panther_token(t, service, canon)
         if _resolvable(nt, canon):
             tokens.append(nt)
@@ -315,7 +315,6 @@ def resolve_correlations(chains: list[dict], by_native: dict[str, DetectionRecor
     op alternatives we take the cartesian product, so each concrete way of satisfying
     the whole chain is its own group.
     """
-    import itertools
     out = []
     for ch in chains:
         # The correlation_rules directory is multi-cloud. A chain is GCP-relevant only
@@ -370,7 +369,6 @@ def main():
 
     canon = canonicaliser()
     root = corpus_root(args.corpus_root)
-    out = Path(__file__).resolve().parents[1] / "data" / "detections.panther.json"
 
     records: list[DetectionRecord] = []
     chains: list[dict] = []
@@ -389,15 +387,8 @@ def main():
     by_native = {r.native_id: r for r in records}
     records += resolve_correlations(chains, by_native, canon)
 
-    dump_records(records, out)
-    from collections import Counter
-    para = Counter(r.paradigm for r in records)
-    covered = {p for r in records for p in r.requirement.covered_permissions()}
-    print(f"[panther] {len(records)} rules -> {out.name}  paradigms={dict(para)}")
-    print(f"[panther] distinct permissions referenced: {len(covered)}")
-    unres = {t for r in records for t in r.unresolved_tokens}
-    if unres:
-        print(f"[panther] unresolved tokens ({len(unres)}): {sorted(unres)}")
+    dump_records(records, out_path("panther"))
+    report("panther", records)
 
 
 if __name__ == "__main__":
