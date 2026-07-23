@@ -140,6 +140,11 @@ class Canonicaliser:
         for m in self.method_perms:
             self._method_idx.setdefault(_strip_versions(m).lower(), m)
         self._rpc_idx = {_strip_versions(k).lower(): k for k in self.rpc}
+        # Chronicle/SecOps often emits a gRPC method with its package stripped, e.g. the
+        # bare `Decrypt` for google.cloud.kms.v1.KeyManagementService.Decrypt. Curated
+        # entries carrying a `bare` field are indexed by it so a bare token can be lifted
+        # back to its full name (which then resolves normally).
+        self._bare_idx = {v["bare"].lower(): k for k, v in self.rpc.items() if v.get("bare")}
 
         self.unresolved: list[str] = []
 
@@ -298,6 +303,12 @@ class Canonicaliser:
         self.unresolved.append(tok)
         return Resolution(tok, provenance="no rung matched",
                           note="not a permission, REST method, k8s op, known gRPC method or pattern")
+
+    def full_from_bare(self, token: str) -> str | None:
+        """Lift a package-stripped bare gRPC method (`Decrypt`) to its full curated name
+        (`google.cloud.kms.v1.KeyManagementService.Decrypt`), which then resolves normally.
+        Returns None if the token is not a known bare method."""
+        return self._bare_idx.get(token.strip().lower())
 
     def expand_pattern(self, rx: str, universe: set[str]) -> tuple[str, ...]:
         """Concrete permissions in `universe` matched by a pattern resolution.

@@ -154,6 +154,38 @@
   "source": "https://docs.cloud.google.com/service-usage/docs/audit-logging"
  },
 
+ "google.cloud.kms.v1.KeyManagementService.Decrypt": {
+  "bare": "Decrypt", "permissions": ["cloudkms.cryptoKeyVersions.useToDecrypt"],
+  "permission_type": "DATA_READ", "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging",
+  "note": "Chronicle emits the bare method name `Decrypt`. DATA_READ -> Data Access, off by default -> the decrypt op is invisible in a stock project."
+ },
+ "google.cloud.kms.v1.KeyManagementService.Encrypt": {
+  "bare": "Encrypt", "permissions": ["cloudkms.cryptoKeyVersions.useToEncrypt"],
+  "permission_type": "DATA_READ", "audit_log": "DATA_ACCESS", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
+ },
+ "google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion": {
+  "bare": "UpdateCryptoKeyVersion", "permissions": ["cloudkms.cryptoKeyVersions.update"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
+ },
+ "google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion": {
+  "bare": "DestroyCryptoKeyVersion", "permissions": ["cloudkms.cryptoKeyVersions.destroy"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
+ },
+ "google.cloud.kms.v1.KeyManagementService.CreateCryptoKey": {
+  "bare": "CreateCryptoKey", "permissions": ["cloudkms.cryptoKeys.create"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
+ },
+ "google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey": {
+  "bare": "UpdateCryptoKey", "permissions": ["cloudkms.cryptoKeys.update"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
+ },
+
  "google.api.apikeys.v2.ApiKeys.GetKeyString": {
   "permissions": ["apikeys.keys.getKeyString"], "permission_type": "ADMIN_READ",
   "audit_log": "DATA_ACCESS", "confidence": "official",
