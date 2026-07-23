@@ -178,22 +178,6 @@ def resolve_token_groups(
     return Requirement(groups=groups, excluded=excluded, confidence=confidence), unresolved
 
 
-def expand_patterns(rec: DetectionRecord, canon: Canonicaliser, universe: set[str]) -> None:
-    """Resolve any wildcard ops in-place against the permissions that matter.
-
-    Done as a second pass because the universe (technique permissions plus every
-    concretely-resolved permission) is only known once all corpora are parsed.
-    """
-    for group in rec.requirement.groups:
-        for op in group:
-            if op.pattern and not op.permissions:
-                op.permissions = list(canon.expand_pattern(op.pattern, universe))
-                if op.permissions:
-                    op.provenance += f" -> {len(op.permissions)} permission(s) in universe"
-                else:
-                    op.note = (op.note + " ; pattern matched no permission in universe").strip(" ;")
-
-
 def dump_records(records: list[DetectionRecord], path) -> None:
     payload = [r.to_dict() for r in records]
     path.write_text(json.dumps(payload, indent=1))

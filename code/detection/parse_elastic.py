@@ -27,10 +27,11 @@ import tomllib
 from pathlib import Path
 
 from core.canonical import Canonicaliser, canonicaliser
-from core.corpus import add_corpus_arg, corpus_root, source_dirs
+from core.corpus import add_corpus_arg
 from detection.record import (
     CORRELATION, EVENT, UEBA, DetectionRecord, dump_records, resolve_token_groups,
 )
+from detection.runner import collect, out_path, report
 
 PARADIGM_BY_TYPE = {
     "query": EVENT,
@@ -119,13 +120,9 @@ def parse_rule(path: Path, canon: Canonicaliser) -> DetectionRecord | None:
 
     tactics, techniques = mitre_from_threat(rule.get("threat"))
 
-    confidence = "exact"
-    if len(token_groups) > 1:
-        # several op alternatives kept as separate groups: faithful for OR clauses,
-        # a slight over-approximation if the rule truly ANDed two operations (rare).
-        confidence = "exact"
-
-    req, unresolved = resolve_token_groups(token_groups, canon, confidence=confidence)
+    # multiple op-bearing clauses are kept as separate groups (OR): faithful for the OR
+    # clauses that dominate this corpus, a slight over-approximation for the rare true AND.
+    req, unresolved = resolve_token_groups(token_groups, canon, confidence="exact")
 
     rid = rule.get("rule_id", path.stem)
     domain = "k8s" if any(k in path.stem for k in ("gke", "k8s")) else "gcp"
@@ -157,25 +154,9 @@ def main():
     args = ap.parse_args()
 
     canon = canonicaliser()
-    root = corpus_root(args.corpus_root)
-    out = Path(__file__).resolve().parents[1] / "data" / "detections.elastic.json"
-
-    records = []
-    for d in source_dirs("elastic", root):
-        for path in sorted(d.glob("*.toml")):
-            r = parse_rule(path, canon)
-            if r:
-                records.append(r)
-
-    dump_records(records, out)
-    from collections import Counter
-    para = Counter(r.paradigm for r in records)
-    covered = {p for r in records for p in r.requirement.covered_permissions()}
-    print(f"[elastic] {len(records)} rules -> {out.name}  paradigms={dict(para)}")
-    print(f"[elastic] distinct permissions referenced: {len(covered)}")
-    unres = {t for r in records for t in r.unresolved_tokens}
-    if unres:
-        print(f"[elastic] unresolved tokens ({len(unres)}): {sorted(unres)}")
+    records = collect("elastic", ".toml", lambda p: parse_rule(p, canon), args.corpus_root)
+    dump_records(records, out_path("elastic"))
+    report("elastic", records)
 
 
 if __name__ == "__main__":

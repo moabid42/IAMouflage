@@ -25,6 +25,7 @@ Output: data/detections.sigma.json
 from __future__ import annotations
 
 import argparse
+import itertools
 import re
 import sys
 from pathlib import Path
@@ -32,10 +33,9 @@ from pathlib import Path
 import yaml
 
 from core.canonical import Canonicaliser, canonicaliser
-from core.corpus import add_corpus_arg, corpus_root, source_dirs
-from detection.record import (
-    EVENT, DetectionRecord, Requirement, dump_records, resolve_token_groups,
-)
+from core.corpus import add_corpus_arg
+from detection.record import EVENT, DetectionRecord, dump_records, resolve_token_groups
+from detection.runner import collect, out_path, report
 
 OP_BEARING_FIELDS = {
     "gcp.audit.method_name",
@@ -87,8 +87,10 @@ def mitre_split(tags):
         if not t.startswith("attack."):
             continue
         val = t[len("attack."):]
-        (techniques if re.match(r"t\d", val) else tactics).append(
-            val.upper() if re.match(r"t\d", val) else val)
+        if re.match(r"t\d", val):
+            techniques.append(val.upper())
+        else:
+            tactics.append(val)
     return sorted(set(tactics)), sorted(set(techniques))
 
 
@@ -96,7 +98,7 @@ def mitre_split(tags):
 # its op tokens; the identifier contributes one AND-group (its fields ANDed) unless a
 # single field carries a value list, which is an OR within the group.
 def identifier_ops(block: dict):
-    """Return (op_tokens_by_field, event_names, is_filter_only).
+    """Return (op_tokens_by_field, event_names).
 
     op_tokens_by_field: list of lists -- each inner list is the disjunction of values
     for one op-bearing field in this identifier. The identifier fires when every
@@ -263,7 +265,6 @@ def _distribute(fields: list[list[str]]) -> list[list[str]]:
         return []
     if len(fields) == 1:
         return [[v] for v in fields[0]]
-    import itertools
     return [list(combo) for combo in itertools.product(*fields)]
 
 
@@ -273,23 +274,9 @@ def main():
     args = ap.parse_args()
 
     canon = canonicaliser()
-    root = corpus_root(args.corpus_root)
-    out = Path(__file__).resolve().parents[1] / "data" / "detections.sigma.json"
-
-    records = []
-    for d in source_dirs("sigma", root):
-        for path in sorted(d.rglob("*.yml")):
-            r = parse_rule(path, canon)
-            if r:
-                records.append(r)
-
-    dump_records(records, out)
-    covered = {p for r in records for p in r.requirement.covered_permissions()}
-    print(f"[sigma] {len(records)} rules -> {out.name}")
-    print(f"[sigma] distinct permissions referenced: {len(covered)}")
-    unres = {t for r in records for t in r.unresolved_tokens}
-    if unres:
-        print(f"[sigma] unresolved tokens ({len(unres)}): {sorted(unres)}")
+    records = collect("sigma", ".yml", lambda p: parse_rule(p, canon), args.corpus_root)
+    dump_records(records, out_path("sigma"))
+    report("sigma", records)
 
 
 if __name__ == "__main__":

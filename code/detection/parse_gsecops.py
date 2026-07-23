@@ -22,14 +22,14 @@ from __future__ import annotations
 
 import argparse
 import re
-import sys
 from pathlib import Path
 
 from core.canonical import Canonicaliser, canonicaliser
-from core.corpus import add_corpus_arg, corpus_root, source_dirs
+from core.corpus import add_corpus_arg
 from detection.record import (
     CORRELATION, EVENT, DetectionRecord, dump_records, resolve_token_groups,
 )
+from detection.runner import collect, out_path, report
 
 _RULE_NAME = re.compile(r'\brule\s+([A-Za-z0-9_]+)\s*\{')
 _META = re.compile(r'(\w+)\s*=\s*"([^"]*)"')
@@ -219,25 +219,10 @@ def main():
     args = ap.parse_args()
 
     canon = canonicaliser()
-    root = corpus_root(args.corpus_root)
-    out = Path(__file__).resolve().parents[1] / "data" / "detections.gsecops.json"
-
-    records = []
-    for d in source_dirs("gsecops", root):
-        for path in sorted(d.glob("*.yaral")):
-            r = parse_rule(path.read_text(), path, canon)
-            if r:
-                records.append(r)
-
-    dump_records(records, out)
-    from collections import Counter
-    para = Counter(r.paradigm for r in records)
-    covered = {p for r in records for p in r.requirement.covered_permissions()}
-    print(f"[gsecops] {len(records)} rules -> {out.name}  paradigms={dict(para)}")
-    print(f"[gsecops] distinct permissions referenced: {len(covered)}")
-    unres = {t for r in records for t in r.unresolved_tokens}
-    if unres:
-        print(f"[gsecops] unresolved tokens ({len(unres)}): {sorted(unres)}")
+    records = collect("gsecops", ".yaral",
+                      lambda p: parse_rule(p.read_text(), p, canon), args.corpus_root)
+    dump_records(records, out_path("gsecops"))
+    report("gsecops", records)
 
 
 if __name__ == "__main__":
