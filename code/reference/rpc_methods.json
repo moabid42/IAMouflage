@@ -186,6 +186,33 @@
   "source": "https://docs.cloud.google.com/kms/docs/audit-logging"
  },
 
+ "google.iam.admin.v1.CreateServiceAccount": {
+  "bare": "CreateServiceAccount", "permissions": ["iam.serviceAccounts.create"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.iam.admin.v1.DeleteServiceAccount": {
+  "bare": "DeleteServiceAccount", "permissions": ["iam.serviceAccounts.delete"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/iam/docs/audit-logging"
+ },
+ "google.logging.v2.ConfigServiceV2.UpdateSink": {
+  "bare": "UpdateSink", "permissions": ["logging.sinks.update"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/logging/docs/audit-logging"
+ },
+ "google.logging.v2.ConfigServiceV2.DeleteSink": {
+  "bare": "DeleteSink", "permissions": ["logging.sinks.delete"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/logging/docs/audit-logging"
+ },
+ "google.logging.v2.ConfigServiceV2.DeleteBucket": {
+  "bare": "DeleteBucket", "permissions": ["logging.buckets.delete"],
+  "permission_type": "ADMIN_WRITE", "audit_log": "ADMIN_ACTIVITY", "confidence": "official",
+  "source": "https://docs.cloud.google.com/logging/docs/audit-logging",
+  "note": "Cloud LOGGING bucket delete (not Cloud Storage)."
+ },
+
  "google.api.apikeys.v2.ApiKeys.GetKeyString": {
   "permissions": ["apikeys.keys.getKeyString"], "permission_type": "ADMIN_READ",
   "audit_log": "DATA_ACCESS", "confidence": "official",
