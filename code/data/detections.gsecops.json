@@ -59,12 +59,14 @@
    "groups": [
     [
      {
-      "token": "bigquery.*.setIamPolicy",
-      "permissions": [],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'bigquery.*.setIamPolicy' -> /^bigquery\\.[^.]*\\.setIamPolicy$/",
-      "pattern": "^bigquery\\.[^.]*\\.setIamPolicy$",
+      "token": "bigquery.datasets.setIamPolicy",
+      "permissions": [
+       "bigquery.datasets.setIamPolicy"
+      ],
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -78,7 +80,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "bigquery.datasets.setIamPolicy"
+  ]
  },
  {
   "id": "gsecops:mr_dc6b1f68-734d-4b4b-91c2-1675f2422c11",

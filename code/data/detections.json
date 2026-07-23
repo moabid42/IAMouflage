@@ -4463,16 +4463,14 @@
    "groups": [
     [
      {
-      "token": "bigquery.*.setIamPolicy",
+      "token": "bigquery.datasets.setIamPolicy",
       "permissions": [
-       "bigquery.datasets.setIamPolicy",
-       "bigquery.rowAccessPolicies.setIamPolicy",
-       "bigquery.tables.setIamPolicy"
+       "bigquery.datasets.setIamPolicy"
       ],
-      "kind": "pattern",
-      "confidence": "pattern",
-      "provenance": "wildcard matcher 'bigquery.*.setIamPolicy' -> /^bigquery\\.[^.]*\\.setIamPolicy$/ -> 3 permission(s)",
-      "pattern": "^bigquery\\.[^.]*\\.setIamPolicy$",
+      "kind": "permission",
+      "confidence": "exact",
+      "provenance": "permissions.json",
+      "pattern": null,
       "note": ""
      }
     ]
@@ -4487,9 +4485,7 @@
   "window": null,
   "notes": [],
   "covered_permissions": [
-   "bigquery.datasets.setIamPolicy",
-   "bigquery.rowAccessPolicies.setIamPolicy",
-   "bigquery.tables.setIamPolicy"
+   "bigquery.datasets.setIamPolicy"
   ]
  },
  {

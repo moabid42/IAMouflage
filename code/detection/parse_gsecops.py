@@ -50,10 +50,15 @@ _THRESHOLD = re.compile(r'#\w+\s*>=?\s*(\d+)')
 # that to scope the generic method to `<service>.*.set|getIamPolicy` instead of leaving it
 # as a global (all-services) pattern or dropping it.
 _TARGET_APP = re.compile(r'target\.application\s*=\s*"([^"]+)"', re.IGNORECASE)
+_RESOURCE_SUBTYPE = re.compile(r'resource_subtype\s*=\s*"([^"]+)"', re.IGNORECASE)
 _GENERIC_IAMPOLICY = re.compile(
     r'(^set|^get|\.IAMPolicy\.Set|\.IAMPolicy\.Get)iampolicy$', re.IGNORECASE)
 # googleapis host stem -> IAM permission service name (mostly identical; a few differ).
 _HOST_SERVICE = {"cloudresourcemanager": "resourcemanager"}
+# Chronicle resource_subtype -> IAM resource name, to pin the exact resource a generic
+# IAMPolicy method acted on (e.g. a rule scoped to bigquery_dataset watches only DATASETS,
+# not tables/rowAccessPolicies). Unknown subtypes fall back to a service-wide wildcard.
+_SUBTYPE_RESOURCE = {"bigquery_dataset": "datasets"}
 
 
 def app_service(events: str) -> str | None:
@@ -64,18 +69,24 @@ def app_service(events: str) -> str | None:
     return _HOST_SERVICE.get(stem, stem) if stem else None
 
 
-def scope_generic_iampolicy(token: str, service: str | None) -> str:
-    """Turn a generic Set/GetIamPolicy method into a service-scoped wildcard token.
+def app_resource(events: str) -> str | None:
+    m = _RESOURCE_SUBTYPE.search(events)
+    return _SUBTYPE_RESOURCE.get(m.group(1)) if m else None
 
-    `google.iam.v1.IAMPolicy.SetIamPolicy` + service `bigquery` -> `bigquery.*.setIamPolicy`
-    (the canonicaliser's pattern rung then expands it to the bigquery.*.setIamPolicy
-    permissions that matter). Service-specific forms like `beta.compute.images.setIamPolicy`
-    are NOT generic and pass through untouched. Without a service we cannot scope it.
+
+def scope_generic_iampolicy(token: str, service: str | None, resource: str | None) -> str:
+    """Turn a generic Set/GetIamPolicy method into a resource- or service-scoped token.
+
+    `google.iam.v1.IAMPolicy.SetIamPolicy` + service `bigquery` + resource `datasets`
+    -> `bigquery.datasets.setIamPolicy` (exact). With the service but no resource
+    -> `bigquery.*.setIamPolicy` (the canonicaliser expands the wildcard). Service-specific
+    forms like `beta.compute.images.setIamPolicy` are NOT generic and pass through
+    untouched. Without a service we cannot scope it at all.
     """
     if not service or not _GENERIC_IAMPOLICY.search(token):
         return token
     verb = "getIamPolicy" if "get" in token.lower()[-14:] else "setIamPolicy"
-    return f"{service}.*.{verb}"
+    return f"{service}.{resource or '*'}.{verb}"
 
 
 def _meta_dict(block: str) -> dict:
@@ -135,9 +146,10 @@ def parse_rule(text: str, path: Path, canon: Canonicaliser) -> DetectionRecord |
         if tok:
             tokens.append(tok)
 
-    # Scope any generic IAMPolicy method to the rule's target.application service.
-    service = app_service(events)
-    tokens = [scope_generic_iampolicy(t, service) for t in tokens]
+    # Scope any generic IAMPolicy method to the rule's service (+ exact resource if the
+    # rule pins one via resource_subtype).
+    service, resource = app_service(events), app_resource(events)
+    tokens = [scope_generic_iampolicy(t, service, resource) for t in tokens]
 
     # Each product_event_type value is an alternative -> its own DNF group.
     token_groups = [[t] for t in dict.fromkeys(tokens)]
