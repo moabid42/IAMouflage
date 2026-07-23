@@ -68,36 +68,74 @@ def _looks_like_op(s: str) -> bool:
     return True
 
 
-def _keep_camel(tok: str, canon: Canonicaliser) -> bool:
-    """A bare CamelCase suffix fragment (`Services.CreateService`,
-    `TagBindings.CreateTagBinding`) is kept only if the reference can resolve it.
+# A GCP service host in a `serviceName == "cloudkms.googleapis.com"` guard -> used to
+# scope a generic/ambiguous method (bare SetIamPolicy) to its service, like Chronicle's
+# target.application on the SecOps side.
+_HOST_RE = re.compile(r'\b([a-z][a-z0-9-]*)\.googleapis\.com\b')
+_HOST_SERVICE = {"cloudresourcemanager": "resourcemanager"}
+# `cloudaudit.googleapis.com` is the audit-log path identifier, not a GCP service; it
+# appears inside logName strings and must not be read as the rule's service.
+_NON_SERVICE_HOSTS = {"cloudaudit"}
+# org/folder IAM changes are scoped by logName, not serviceName -> Resource Manager.
+_LOGNAME_SCOPE = re.compile(r'startswith\(\s*["\'](organizations|folder)', re.IGNORECASE)
+# bare/CamelCase set-policy method names (SetIamPolicy / SetIAMPolicy / setIamPermissions)
+_GENERIC_SETIAM = {"setiampolicy", "setiampermissions"}
 
-    Most such fragments come from `.endswith(...)` guards whose rule ALSO matches the
-    concrete IAM permission, so the fragment is redundant and resolves to nothing ->
-    dropped as noise. But a few rules (the Resource Manager Tag rules) match ONLY on
-    such a suffix; those DO resolve via the curated gRPC table and must be kept, or the
-    rule watches nothing.
+
+def _methods_from_string(s: str) -> set[str]:
+    """Pull bare CamelCase gRPC method names out of a string constant.
+
+    Panther rules name the operation as a bare method, sometimes inside a regex:
+      method == "CreateServiceAccount"
+      re.search(r"...ConfigServiceV\\d\\.Delete(Bucket|Sink)", methodName)
+    We expand simple `Verb(Alt1|Alt2)` alternations and collect plain CamelCase words;
+    each is only kept later if the curated reference can resolve it, so non-methods
+    (`SecurityPolicy`, `ConfigServiceV`) fall away harmlessly.
     """
-    head = tok.lstrip(".").split(".", 1)[0]
-    if not head[:1].isupper():
-        return True  # normal lowercase-service op, always keep
-    return bool(canon.resolve(tok).permissions)
+    out: set[str] = set()
+    for verb, alts in re.findall(r'([A-Z][a-z]+)\(([A-Za-z0-9|]+)\)', s):
+        for a in alts.split("|"):
+            if a[:1].isupper():
+                out.add(verb + a)
+    for m in re.findall(r'[A-Z][a-z]+[A-Za-z0-9]{2,}', s):
+        out.add(m)
+    return out
 
 
-class OpLiteralVisitor(ast.NodeVisitor):
-    """Collect op-shaped string literals that gate a rule's firing.
+def _service_from_source(src: str) -> str | None:
+    hosts = [_HOST_SERVICE.get(h, h) for h in _HOST_RE.findall(src)
+             if h not in _NON_SERVICE_HOSTS]
+    if hosts:
+        return hosts[0]
+    return "resourcemanager" if _LOGNAME_SCOPE.search(src) else None
 
-    We scope to the `rule()` function plus module-level string constants (which the
-    rule references, e.g. RULE_CREATED_PARTS). Literals inside title()/dedup()/
-    alert_context() are ignored: they format alerts, they do not decide firing.
-    """
+
+def _normalise_panther_token(tok: str, service: str | None, canon: Canonicaliser) -> str:
+    """Resolve a raw op token the way SecOps does: lift a bare gRPC method to its full
+    name, and scope a generic SetIamPolicy to the rule's service."""
+    full = canon.full_from_bare(tok)
+    if full:
+        return full
+    if service and tok.replace(".", "").lower() in _GENERIC_SETIAM:
+        return f"{service}.*.setIamPolicy"
+    return tok
+
+
+def _resolvable(tok: str, canon: Canonicaliser) -> bool:
+    r = canon.resolve(tok)
+    return bool(r.permissions) or r.pattern is not None
+
+
+class StringVisitor(ast.NodeVisitor):
+    """Collect every string constant that gates a rule's firing (rule() + module-level
+    constants it references). title()/dedup()/alert_context() are not visited."""
 
     def __init__(self):
-        self.tokens: list[str] = []
+        self.strings: list[str] = []
 
     def visit_Constant(self, node: ast.Constant):
-        if isinstance(node.value, str) and _looks_like_op(node.value):
-            self.tokens.append(node.value)
+        if isinstance(node.value, str):
+            self.strings.append(node.value)
 
 
 def _is_conjunctive(tree: ast.Module) -> bool:
@@ -139,26 +177,36 @@ def extract_py_tokens(src: str, canon: Canonicaliser) -> tuple[list[str], bool]:
     except SyntaxError:
         return [], False
 
-    tokens: list[str] = []
-
-    # module-level string constants (lists/tuples of op fragments)
-    for node in tree.body:
+    strings: list[str] = []
+    for node in tree.body:                       # module-level constants (op lists)
         if isinstance(node, ast.Assign):
-            v = OpLiteralVisitor()
+            v = StringVisitor()
             v.visit(node.value)
-            tokens += v.tokens
-
-    # the rule() function body
-    for node in ast.walk(tree):
+            strings += v.strings
+    for node in ast.walk(tree):                  # rule() body
         if isinstance(node, ast.FunctionDef) and node.name == "rule":
-            v = OpLiteralVisitor()
+            v = StringVisitor()
             for stmt in node.body:
                 v.visit(stmt)
-            tokens += v.tokens
+            strings += v.strings
 
-    # keep CamelCase suffix fragments only when the reference resolves them
-    tokens = [t for t in tokens if _keep_camel(t, canon)]
-    # de-dup preserving order
+    # a serviceName == "<svc>.googleapis.com" guard scopes an ambiguous SetIamPolicy
+    service = _service_from_source(src)
+
+    # candidate op tokens: dotted permission/method literals + bare CamelCase methods
+    # (incl. those inside regex patterns).
+    candidates: set[str] = set()
+    for s in strings:
+        if _looks_like_op(s):
+            candidates.add(s)
+        candidates |= _methods_from_string(s)
+
+    # lift bare methods / scope generic SetIamPolicy, then keep only what resolves.
+    tokens = []
+    for t in candidates:
+        nt = _normalise_panther_token(t, service, canon)
+        if _resolvable(nt, canon):
+            tokens.append(nt)
     return list(dict.fromkeys(tokens)), _is_conjunctive(tree)
 
 

@@ -17,9 +17,9 @@
     "workspace": 10,
     "gcp_lb": 2
   },
-  "patterns_expanded": 4,
-  "distinct_permissions": 138,
-  "rules_with_ops": 119,
+  "patterns_expanded": 8,
+  "distinct_permissions": 145,
+  "rules_with_ops": 126,
   "event_only_rules": 135,
-  "universe_size": 355
+  "universe_size": 356
 }

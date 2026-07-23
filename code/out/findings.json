@@ -6,13 +6,13 @@
     "rows": [
       {
         "status": "RULE_GAP",
-        "techniques": 151,
-        "pct": 59.4
+        "techniques": 146,
+        "pct": 57.5
       },
       {
         "status": "DETECTED",
-        "techniques": 50,
-        "pct": 19.7
+        "techniques": 57,
+        "pct": 22.4
       },
       {
         "status": "TELEMETRY_GAP",
@@ -21,15 +21,15 @@
       },
       {
         "status": "CORRELATION_ONLY",
-        "techniques": 4,
-        "pct": 1.6
+        "techniques": 2,
+        "pct": 0.8
       }
     ]
   },
   "01_blind_spot_techniques.cypher": {
     "title": "Every technique with zero detection coverage",
     "why": "The direct answer to \"which situations can my detections not figure out?\". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).",
-    "row_count": 200,
+    "row_count": 195,
     "rows": [
       {
         "tactic": "discovery",
@@ -362,14 +362,6 @@
       {
         "tactic": "post-exploitation",
         "service": "logging",
-        "primary_permission": "logging.buckets.delete",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "logging.buckets.delete"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "logging",
         "primary_permission": "logging.buckets.update",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
@@ -422,22 +414,6 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "logging.logs.delete"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "logging",
-        "primary_permission": "logging.sinks.delete",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "logging.sinks.delete"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "logging",
-        "primary_permission": "logging.sinks.update",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "logging.sinks.update"
       },
       {
         "tactic": "post-exploitation",
@@ -993,14 +969,6 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "cloudkms",
-        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "cloudkms.cryptoKeys.setIamPolicy"
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "cloudscheduler",
         "primary_permission": "cloudscheduler.jobs.create",
         "blind_class": "RULE_GAP",
@@ -1346,14 +1314,6 @@
       {
         "tactic": "privilege-escalation",
         "service": "iam",
-        "primary_permission": "iam.serviceAccounts.setIamPolicy",
-        "blind_class": "RULE_GAP",
-        "needs_actAs": false,
-        "technique": "iam.serviceAccounts.setIamPolicy"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "iam",
         "primary_permission": "iam.serviceAccounts.signBlob",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
@@ -1636,7 +1596,7 @@
   "02_rule_gap_classA.cypher": {
     "title": "Class A blind spots \u2014 logged by default, but no rule (write-a-signature gaps)",
     "why": "The \"cheap wins\". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today \u2014 there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.",
-    "row_count": 166,
+    "row_count": 161,
     "rows": [
       {
         "service": "aiplatform",
@@ -2010,13 +1970,6 @@
         "technique": "cloudkms.cryptoKeyVersions.useToVerify"
       },
       {
-        "service": "cloudkms",
-        "logged_but_unwatched_permission": "cloudkms.cryptoKeys.setIamPolicy",
-        "tactic": "privilege-escalation",
-        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
-        "technique": "cloudkms.cryptoKeys.setIamPolicy"
-      },
-      {
         "service": "cloudscheduler",
         "logged_but_unwatched_permission": "cloudscheduler.jobs.create",
         "tactic": "privilege-escalation",
@@ -2332,20 +2285,6 @@
         "technique": "iam.serviceAccountKeys.disable"
       },
       {
-        "service": "iam",
-        "logged_but_unwatched_permission": "iam.serviceAccounts.setIamPolicy",
-        "tactic": "privilege-escalation",
-        "primary_permission": "iam.serviceAccounts.setIamPolicy",
-        "technique": "iam.serviceAccounts.setIamPolicy"
-      },
-      {
-        "service": "logging",
-        "logged_but_unwatched_permission": "logging.buckets.delete",
-        "tactic": "post-exploitation",
-        "primary_permission": "logging.buckets.delete",
-        "technique": "logging.buckets.delete"
-      },
-      {
         "service": "logging",
         "logged_but_unwatched_permission": "logging.buckets.update",
         "tactic": "post-exploitation",
@@ -2393,20 +2332,6 @@
         "tactic": "persistence",
         "primary_permission": "logging.sinks.create",
         "technique": "logging.sinks.create"
-      },
-      {
-        "service": "logging",
-        "logged_but_unwatched_permission": "logging.sinks.delete",
-        "tactic": "post-exploitation",
-        "primary_permission": "logging.sinks.delete",
-        "technique": "logging.sinks.delete"
-      },
-      {
-        "service": "logging",
-        "logged_but_unwatched_permission": "logging.sinks.update",
-        "tactic": "post-exploitation",
-        "primary_permission": "logging.sinks.update",
-        "technique": "logging.sinks.update"
       },
       {
         "service": "logging",
@@ -3257,7 +3182,7 @@
   "04_covered_but_unlogged.cypher": {
     "title": "Rules that look like coverage but are blind by default",
     "why": "A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default \u2014 so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a \"Storage Buckets Enumeration\" rule on storage.buckets.list, a DATA_ACCESS read.",
-    "row_count": 32,
+    "row_count": 34,
     "rows": [
       {
         "source": "elastic",
@@ -3413,6 +3338,22 @@
       },
       {
         "source": "panther",
+        "rule": "GCP KMS Bulk Encryption by GCS Service Account",
+        "level": "medium",
+        "permission_matched": "cloudkms.cryptoKeyVersions.useToEncrypt",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": true
+      },
+      {
+        "source": "panther",
+        "rule": "GCP KMS Cross-Project Encryption",
+        "level": "high",
+        "permission_matched": "cloudkms.cryptoKeyVersions.useToEncrypt",
+        "log_type": "DATA_ACCESS",
+        "used_by_a_technique": true
+      },
+      {
+        "source": "panther",
         "rule": "GCP Privilege Escalation via TagBinding",
         "level": "info",
         "permission_matched": "apikeys.keys.list",
@@ -3520,7 +3461,7 @@
   "05_rules_without_technique.cypher": {
     "title": "Where the detection effort lands vs. where the attacks are",
     "why": "Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses \u2014 often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward \"impact/destruction\" and away from the privilege-escalation / credential-access operations that dominate the corpus.",
-    "row_count": 48,
+    "row_count": 50,
     "rows": [
       {
         "source": "elastic",
@@ -3561,6 +3502,14 @@
         "rule": "GCP Pub/Sub Topic Creation",
         "permissions_no_technique_uses": [
           "pubsub.topics.create"
+        ],
+        "mitre_tactics": null
+      },
+      {
+        "source": "elastic",
+        "rule": "GCP Service Account Deletion",
+        "permissions_no_technique_uses": [
+          "iam.serviceAccounts.delete"
         ],
         "mitre_tactics": null
       },
@@ -3925,6 +3874,14 @@
       },
       {
         "source": "sigma",
+        "rule": "Google Cloud Service Account Disabled or Deleted",
+        "permissions_no_technique_uses": [
+          "iam.serviceAccounts.delete"
+        ],
+        "mitre_tactics": null
+      },
+      {
+        "source": "sigma",
         "rule": "Google Cloud Storage Buckets Enumeration",
         "permissions_no_technique_uses": [
           "storage.buckets.list"
@@ -3978,10 +3935,10 @@
       {
         "tactic": "post-exploitation",
         "service": "logging",
-        "detected": 0,
+        "detected": 3,
         "total": 13,
-        "blind": 13,
-        "pct_detected": 0.0
+        "blind": 10,
+        "pct_detected": 23.1
       },
       {
         "tactic": "post-exploitation",
@@ -4000,14 +3957,6 @@
         "pct_detected": 0.0
       },
       {
-        "tactic": "privilege-escalation",
-        "service": "iam",
-        "detected": 3,
-        "total": 12,
-        "blind": 9,
-        "pct_detected": 25.0
-      },
-      {
         "tactic": "post-exploitation",
         "service": "monitoring",
         "detected": 0,
@@ -4016,12 +3965,12 @@
         "pct_detected": 0.0
       },
       {
-        "tactic": "post-exploitation",
-        "service": "cloudkms",
-        "detected": 0,
-        "total": 7,
-        "blind": 7,
-        "pct_detected": 0.0
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "detected": 4,
+        "total": 12,
+        "blind": 8,
+        "pct_detected": 33.3
       },
       {
         "tactic": "post-exploitation",
@@ -4078,6 +4027,14 @@
         "total": 5,
         "blind": 5,
         "pct_detected": 0.0
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "detected": 2,
+        "total": 7,
+        "blind": 5,
+        "pct_detected": 28.6
       },
       {
         "tactic": "post-exploitation",
@@ -4177,14 +4134,6 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "cloudkms",
-        "detected": 0,
-        "total": 3,
-        "blind": 3,
-        "pct_detected": 0.0
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "cloudtasks",
         "detected": 0,
         "total": 3,
@@ -4222,6 +4171,14 @@
         "total": 5,
         "blind": 2,
         "pct_detected": 60.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "detected": 1,
+        "total": 3,
+        "blind": 2,
+        "pct_detected": 33.3
       },
       {
         "tactic": "privilege-escalation",
@@ -4771,26 +4728,8 @@
   "10_correlation_only.cypher": {
     "title": "Techniques only a correlation or threshold rule can catch",
     "why": "New with the multi-corpus merge. These techniques are invisible to every single-event signature (detected_event = false) yet DO trip a stateful rule \u2014 a Google SecOps `match ... over <window>` count, a Panther Threshold, or a multi-stage correlation chain. They are caught only if the operation repeats enough times or the whole chain completes, so one careful execution still evades them. This is exactly the ground a per-event detector cannot hold and the POMDP planner must price against history, not a single action.",
-    "row_count": 4,
+    "row_count": 2,
     "rows": [
-      {
-        "tactic": "post-exploitation",
-        "service": "cloudkms",
-        "primary_permission": "cloudkms.cryptoKeyVersions.destroy",
-        "caught_only_by": [
-          "gsecops:correlation x10"
-        ],
-        "technique": "cloudkms.cryptoKeyVersions.destroy"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "cloudkms",
-        "primary_permission": "cloudkms.cryptoKeyVersions.update",
-        "caught_only_by": [
-          "gsecops:correlation x10"
-        ],
-        "technique": "cloudkms.cryptoKeyVersions.update"
-      },
       {
         "tactic": "post-exploitation",
         "service": "secretmanager",
@@ -4814,7 +4753,7 @@
   "11_vendor_coverage_per_technique.cypher": {
     "title": "Which vendors detect each technique (source diff)",
     "why": "The per-technique view of the four-corpus merge. For every technique some rule catches, which vendors (Sigma / Elastic / Google SecOps / Panther) catch it, and how many agree. A high vendor_count = redundantly covered; 1 = only one vendor would catch it, so dropping that vendor blinds you to it.",
-    "row_count": 54,
+    "row_count": 59,
     "rows": [
       {
         "tactic": "privilege-escalation",
@@ -4941,6 +4880,18 @@
       {
         "tactic": "workspace-pivoting",
         "service": "iam",
+        "primary_permission": "iam.serviceAccounts.create",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ],
+        "technique": "iam.serviceAccounts.create"
+      },
+      {
+        "tactic": "workspace-pivoting",
+        "service": "iam",
         "primary_permission": "iam.serviceAccountKeys.create",
         "vendor_count": 3,
         "vendors": [
@@ -4949,6 +4900,61 @@
           "panther"
         ],
         "technique": "iam.serviceAccountKeys.create"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.destroy",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.destroy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeyVersions.update",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ],
+        "technique": "cloudkms.cryptoKeyVersions.update"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.buckets.delete",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ],
+        "technique": "logging.buckets.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.sinks.delete",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ],
+        "technique": "logging.sinks.delete"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "logging",
+        "primary_permission": "logging.sinks.update",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ],
+        "technique": "logging.sinks.update"
       },
       {
         "tactic": "privilege-escalation",
@@ -5017,6 +5023,39 @@
         "technique": "iam.roles.create & iam.serviceAccounts.setIamPolicy"
       },
       {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.organizations.setIamPolicy",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ],
+        "technique": "resourcemanager.organizations.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.folders.setIamPolicy",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ],
+        "technique": "resourcemanager.folders.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "resourcemanager",
+        "primary_permission": "resourcemanager.projects.setIamPolicy",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ],
+        "technique": "resourcemanager.projects.setIamPolicy"
+      },
+      {
         "tactic": "persistence",
         "service": "storage",
         "primary_permission": "storage.hmacKeys.create",
@@ -5025,26 +5064,6 @@
           "panther"
         ],
         "technique": "storage.hmacKeys.create"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "cloudkms",
-        "primary_permission": "cloudkms.cryptoKeyVersions.destroy",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ],
-        "technique": "cloudkms.cryptoKeyVersions.destroy"
-      },
-      {
-        "tactic": "post-exploitation",
-        "service": "cloudkms",
-        "primary_permission": "cloudkms.cryptoKeyVersions.update",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ],
-        "technique": "cloudkms.cryptoKeyVersions.update"
       },
       {
         "tactic": "post-exploitation",
@@ -5208,6 +5227,16 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "cloudkms.cryptoKeys.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "compute",
         "primary_permission": "compute.instances.create",
         "vendor_count": 1,
@@ -5288,6 +5317,16 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "iam",
+        "primary_permission": "iam.serviceAccounts.setIamPolicy",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ],
+        "technique": "iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "orgpolicy",
         "primary_permission": "orgpolicy.policy.set",
         "vendor_count": 1,
@@ -5318,36 +5357,6 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "resourcemanager",
-        "primary_permission": "resourcemanager.organizations.setIamPolicy",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ],
-        "technique": "resourcemanager.organizations.setIamPolicy"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "resourcemanager",
-        "primary_permission": "resourcemanager.folders.setIamPolicy",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ],
-        "technique": "resourcemanager.folders.setIamPolicy"
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "resourcemanager",
-        "primary_permission": "resourcemanager.projects.setIamPolicy",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ],
-        "technique": "resourcemanager.projects.setIamPolicy"
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "run",
         "primary_permission": "run.services.create",
         "vendor_count": 1,
@@ -5375,23 +5384,13 @@
           "panther"
         ],
         "technique": "storage.hmacKeys.create"
-      },
-      {
-        "tactic": "workspace-pivoting",
-        "service": "iam",
-        "primary_permission": "iam.serviceAccounts.create",
-        "vendor_count": 1,
-        "vendors": [
-          "sigma"
-        ],
-        "technique": "iam.serviceAccounts.create"
       }
     ]
   },
   "12_vendor_overlap_per_operation.cypher": {
     "title": "Which vendors watch each operation (overlap matrix)",
     "why": "The per-operation overlap. For every permission any rule watches, the set of vendors watching it. Operations watched by all four are heavily redundant; those watched by one are a single point of coverage. This is the raw diff between the detection stacks at the operation level.",
-    "row_count": 138,
+    "row_count": 145,
     "rows": [
       {
         "operation": "compute.firewalls.create",
@@ -5476,6 +5475,16 @@
         ]
       },
       {
+        "operation": "iam.serviceAccounts.create",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 3,
+        "vendors": [
+          "elastic",
+          "panther",
+          "sigma"
+        ]
+      },
+      {
         "operation": "storage.buckets.delete",
         "log_type": "ADMIN_ACTIVITY",
         "vendor_count": 3,
@@ -5493,6 +5502,24 @@
           "elastic",
           "panther",
           "sigma"
+        ]
+      },
+      {
+        "operation": "cloudkms.cryptoKeyVersions.destroy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudkms.cryptoKeyVersions.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
         ]
       },
       {
@@ -5631,6 +5658,69 @@
         ]
       },
       {
+        "operation": "iam.serviceAccounts.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "sigma"
+        ]
+      },
+      {
+        "operation": "logging.buckets.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "logging.sinks.delete",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "logging.sinks.update",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "elastic",
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.folders.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.organizations.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
+        "operation": "resourcemanager.projects.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 2,
+        "vendors": [
+          "gsecops",
+          "panther"
+        ]
+      },
+      {
         "operation": "accesscontextmanager.accessLevels.delete",
         "log_type": "ADMIN_ACTIVITY",
         "vendor_count": 1,
@@ -5727,27 +5817,27 @@
         ]
       },
       {
-        "operation": "cloudkms.cryptoKeyVersions.destroy",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ]
-      },
-      {
-        "operation": "cloudkms.cryptoKeyVersions.update",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ]
-      },
-      {
         "operation": "cloudkms.cryptoKeyVersions.useToDecrypt",
         "log_type": "DATA_ACCESS",
         "vendor_count": 1,
         "vendors": [
           "gsecops"
+        ]
+      },
+      {
+        "operation": "cloudkms.cryptoKeyVersions.useToEncrypt",
+        "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "cloudkms.cryptoKeys.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
         ]
       },
       {
@@ -6183,14 +6273,6 @@
         ]
       },
       {
-        "operation": "iam.serviceAccounts.create",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "sigma"
-        ]
-      },
-      {
         "operation": "iam.serviceAccounts.disable",
         "log_type": "ADMIN_ACTIVITY",
         "vendor_count": 1,
@@ -6201,6 +6283,14 @@
       {
         "operation": "iam.serviceAccounts.getAccessToken",
         "log_type": "DATA_ACCESS",
+        "vendor_count": 1,
+        "vendors": [
+          "panther"
+        ]
+      },
+      {
+        "operation": "iam.serviceAccounts.setIamPolicy",
+        "log_type": "ADMIN_ACTIVITY",
         "vendor_count": 1,
         "vendors": [
           "panther"
@@ -6375,14 +6465,6 @@
         ]
       },
       {
-        "operation": "resourcemanager.folders.setIamPolicy",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ]
-      },
-      {
         "operation": "resourcemanager.hierarchyNodes.createTagBinding",
         "log_type": "ADMIN_ACTIVITY",
         "vendor_count": 1,
@@ -6396,22 +6478,6 @@
         "vendor_count": 1,
         "vendors": [
           "panther"
-        ]
-      },
-      {
-        "operation": "resourcemanager.organizations.setIamPolicy",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
-        ]
-      },
-      {
-        "operation": "resourcemanager.projects.setIamPolicy",
-        "log_type": "ADMIN_ACTIVITY",
-        "vendor_count": 1,
-        "vendors": [
-          "gsecops"
         ]
       },
       {
@@ -6543,13 +6609,15 @@
     "rows": [
       {
         "only_vendor": "panther",
-        "unique_operations": 50,
+        "unique_operations": 53,
         "sample": [
           "apikeys.keys.create",
           "apikeys.keys.list",
           "cloudbuild.builds.create",
           "cloudfunctions.functions.create",
           "cloudfunctions.functions.update",
+          "cloudkms.cryptoKeyVersions.useToEncrypt",
+          "cloudkms.cryptoKeys.setIamPolicy",
           "cloudsql.instances.update",
           "compute.disks.create",
           "compute.disks.setIamPolicy",
@@ -6557,14 +6625,12 @@
           "compute.instances.create",
           "compute.instances.pscInterfaceCreate",
           "compute.instances.setMetadata",
-          "compute.instances.setServiceAccount",
-          "compute.machineImages.useReadOnly",
-          "compute.networks.use"
+          "compute.instances.setServiceAccount"
         ]
       },
       {
         "only_vendor": "sigma",
-        "unique_operations": 29,
+        "unique_operations": 28,
         "sample": [
           "accesscontextmanager.accessLevels.delete",
           "accesscontextmanager.accessPolicies.delete",
@@ -6606,23 +6672,19 @@
       },
       {
         "only_vendor": "gsecops",
-        "unique_operations": 16,
+        "unique_operations": 11,
         "sample": [
           "apikeys.keys.getKeyString",
           "bigquery.datasets.setIamPolicy",
-          "cloudkms.cryptoKeyVersions.destroy",
-          "cloudkms.cryptoKeyVersions.update",
           "cloudkms.cryptoKeyVersions.useToDecrypt",
           "iam.workloadIdentityPools.delete",
           "iam.workloadIdentityPools.update",
           "orgpolicy.policies.delete",
           "orgpolicy.policies.update",
-          "resourcemanager.folders.setIamPolicy",
-          "resourcemanager.organizations.setIamPolicy",
-          "resourcemanager.projects.setIamPolicy",
           "secretmanager.secrets.delete",
           "secretmanager.versions.destroy",
-          "serviceusage.services.disable"
+          "serviceusage.services.disable",
+          "storage.hmacKeys.delete"
         ]
       }
     ]
@@ -6634,7 +6696,7 @@
     "rows": [
       {
         "only_vendor": "panther",
-        "techniques_only_this_vendor_catches": 18,
+        "techniques_only_this_vendor_catches": 20,
         "sample": [
           "storage.hmacKeys.create",
           "cloudsql.instances.update",
@@ -6643,25 +6705,11 @@
           "cloudfunctions.functions.create",
           "cloudfunctions.functions.update",
           "cloudfunctions.functions.update",
+          "cloudkms.cryptoKeys.setIamPolicy",
           "compute.instances.create",
           "compute.snapshots.setIamPolicy",
           "compute.disks.setIamPolicy",
-          "container.daemonSets.create",
-          "deploymentmanager.deployments.create"
-        ]
-      },
-      {
-        "only_vendor": "gsecops",
-        "techniques_only_this_vendor_catches": 8,
-        "sample": [
-          "cloudkms.cryptoKeyVersions.destroy",
-          "cloudkms.cryptoKeyVersions.update",
-          "secretmanager.versions.destroy",
-          "secretmanager.secrets.delete",
-          "bigquery.datasets.setIamPolicy",
-          "resourcemanager.organizations.setIamPolicy",
-          "resourcemanager.folders.setIamPolicy",
-          "resourcemanager.projects.setIamPolicy"
+          "container.daemonSets.create"
         ]
       },
       {
@@ -6678,13 +6726,21 @@
       },
       {
         "only_vendor": "sigma",
-        "techniques_only_this_vendor_catches": 5,
+        "techniques_only_this_vendor_catches": 4,
         "sample": [
           "cloudsql.users.update",
           "iam.serviceAccounts.disable",
           "container.jobs.create",
-          "container.jobs.update",
-          "iam.serviceAccounts.create"
+          "container.jobs.update"
+        ]
+      },
+      {
+        "only_vendor": "gsecops",
+        "techniques_only_this_vendor_catches": 3,
+        "sample": [
+          "secretmanager.versions.destroy",
+          "secretmanager.secrets.delete",
+          "bigquery.datasets.setIamPolicy"
         ]
       }
     ]
