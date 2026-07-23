@@ -4942,7 +4942,21 @@
    "platform": "GCP"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "google.cloud.kms.v1.KeyManagementService.Decrypt",
+      "permissions": [
+       "cloudkms.cryptoKeyVersions.useToDecrypt"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.kms.v1.KeyManagementService.Decrypt] <- https://docs.cloud.google.com/kms/docs/audit-logging",
+      "pattern": null,
+      "note": "Chronicle emits the bare method name `Decrypt`. DATA_READ -> Data Access, off by default -> the decrypt op is invisible in a stock project."
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""
@@ -4952,7 +4966,9 @@
   "threshold": null,
   "window": null,
   "notes": [],
-  "covered_permissions": []
+  "covered_permissions": [
+   "cloudkms.cryptoKeyVersions.useToDecrypt"
+  ]
  },
  {
   "id": "gsecops:mr_75b441f1-edde-4a33-bc12-06a92ccb9ba8",
@@ -5028,7 +5044,34 @@
    "platform": "GCP"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion",
+      "permissions": [
+       "cloudkms.cryptoKeyVersions.destroy"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion] <- https://docs.cloud.google.com/kms/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ],
+    [
+     {
+      "token": "google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion",
+      "permissions": [
+       "cloudkms.cryptoKeyVersions.update"
+      ],
+      "kind": "grpc_method",
+      "confidence": "official",
+      "provenance": "rpc_methods.json[google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion] <- https://docs.cloud.google.com/kms/docs/audit-logging",
+      "pattern": null,
+      "note": ""
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""
@@ -5040,7 +5083,10 @@
   "notes": [
    "correlation over 1h, needs >= 10 events"
   ],
-  "covered_permissions": []
+  "covered_permissions": [
+   "cloudkms.cryptoKeyVersions.destroy",
+   "cloudkms.cryptoKeyVersions.update"
+  ]
  },
  {
   "id": "gsecops:mr_c91c9fe8-6569-4764-a8d8-9b88dd3b7f77",

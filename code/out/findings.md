@@ -13,17 +13,17 @@ finding is a **pure graph query** — no ML model is involved.
 
 | status | techniques | pct |
 | --- | --- | --- |
-| RULE_GAP | 153 | 60.2 |
+| RULE_GAP | 151 | 59.4 |
 | DETECTED | 50 | 19.7 |
 | TELEMETRY_GAP | 49 | 19.3 |
-| CORRELATION_ONLY | 2 | 0.8 |
+| CORRELATION_ONLY | 4 | 1.6 |
 
 
 ## 01_blind_spot_techniques — Every technique with zero detection coverage
 
 > The direct answer to "which situations can my detections not figure out?". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).
 
-**202 rows.**
+**200 rows.**
 
 | tactic | service | primary_permission | blind_class | needs_actAs | technique |
 | --- | --- | --- | --- | --- | --- |
@@ -55,9 +55,7 @@ finding is a **pure graph query** — no ML model is involved.
 | post-exploitation | cloudbuild | cloudbuild.builds.approve | RULE_GAP | False | cloudbuild.builds.approve |
 | post-exploitation | cloudfunctions | cloudfunctions.functions.delete | RULE_GAP | False | cloudfunctions.functions.delete |
 | post-exploitation | cloudfunctions | cloudfunctions.functions.sourceCodeGet | RULE_GAP | False | cloudfunctions.functions.sourceCodeGet |
-| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.destroy | RULE_GAP | False | cloudkms.cryptoKeyVersions.destroy |
 | post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.restore | RULE_GAP | False | cloudkms.cryptoKeyVersions.restore |
-| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.update | RULE_GAP | False | cloudkms.cryptoKeyVersions.update |
 | post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.useToEncrypt | TELEMETRY_GAP | False | cloudkms.cryptoKeyVersions.useToEncrypt |
 | post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.useToEncryptViaDelegation | RULE_GAP | False | cloudkms.cryptoKeyVersions.useToEncryptViaDelegation |
 | post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.useToSign | RULE_GAP | False | cloudkms.cryptoKeyVersions.useToSign |
@@ -67,15 +65,17 @@ finding is a **pure graph query** — no ML model is involved.
 | post-exploitation | cloudsql | cloudsql.instances.export | TELEMETRY_GAP | False | cloudsql.instances.export, storage.objects.create |
 | post-exploitation | cloudsql | cloudsql.instances.import | RULE_GAP | False | cloudsql.instances.import, storage.objects.get |
 | post-exploitation | cloudsql | cloudsql.instances.restoreBackup | RULE_GAP | False | cloudsql.instances.restoreBackup, cloudsql.backupRuns.get |
+| post-exploitation | cloudsql | cloudsql.users.create | RULE_GAP | False | cloudsql.users.create |
+| post-exploitation | cloudsql | cloudsql.users.list | TELEMETRY_GAP | False | cloudsql.users.list |
 
-_… 162 more rows (see findings.json)_
+_… 160 more rows (see findings.json)_
 
 
 ## 02_rule_gap_classA — Class A blind spots — logged by default, but no rule (write-a-signature gaps)
 
 > The "cheap wins". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today — there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.
 
-**168 rows.**
+**166 rows.**
 
 | service | logged_but_unwatched_permission | tactic | primary_permission | technique |
 | --- | --- | --- | --- | --- |
@@ -120,7 +120,7 @@ _… 162 more rows (see findings.json)_
 | billing | billing.accounts.create | discovery | billing.accounts.create | billing.accounts.create |
 | cloudasset | cloudasset.assets.analyzeIamPolicy | discovery | cloudasset.assets.analyzeIamPolicy | cloudasset.assets.analyzeIamPolicy |
 
-_… 128 more rows (see findings.json)_
+_… 126 more rows (see findings.json)_
 
 
 ## 03_telemetry_gap_classB — Class B blind spots — Data Access logs OFF by default (signatures cannot help)
@@ -179,7 +179,7 @@ _… 9 more rows (see findings.json)_
 
 > A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default — so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a "Storage Buckets Enumeration" rule on storage.buckets.list, a DATA_ACCESS read.
 
-**31 rows.**
+**32 rows.**
 
 | source | rule | level | permission_matched | log_type | used_by_a_technique |
 | --- | --- | --- | --- | --- | --- |
@@ -190,6 +190,7 @@ _… 9 more rows (see findings.json)_
 | elastic | GKE Secrets List from Unusual Source AS Organization | high | container.secrets.list | DATA_ACCESS | True |
 | elastic | GKE User Exec into Pod | medium | container.pods.get | DATA_ACCESS | False |
 | gsecops | GCP Service API Key Retrieved | high | apikeys.keys.getKeyString | DATA_ACCESS | False |
+| gsecops | Unauthorized KMS Decryption | medium | cloudkms.cryptoKeyVersions.useToDecrypt | DATA_ACCESS | True |
 | panther | GCP DNS Zone Modified or Deleted | low | dns.managedZones.get | DATA_ACCESS | False |
 | panther | GCP Firewall Rule Modified | low | compute.firewalls.get | DATA_ACCESS | False |
 | panther | GCP GCS Bulk Object Deletion | medium | storage.objects.delete | DATA_ACCESS | True |
@@ -386,10 +387,12 @@ _… 13 more rows (see findings.json)_
 
 > New with the multi-corpus merge. These techniques are invisible to every single-event signature (detected_event = false) yet DO trip a stateful rule — a Google SecOps `match ... over <window>` count, a Panther Threshold, or a multi-stage correlation chain. They are caught only if the operation repeats enough times or the whole chain completes, so one careful execution still evades them. This is exactly the ground a per-event detector cannot hold and the POMDP planner must price against history, not a single action.
 
-**2 rows.**
+**4 rows.**
 
 | tactic | service | primary_permission | caught_only_by | technique |
 | --- | --- | --- | --- | --- |
+| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.destroy | gsecops:correlation x10 | cloudkms.cryptoKeyVersions.destroy |
+| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.update | gsecops:correlation x10 | cloudkms.cryptoKeyVersions.update |
 | post-exploitation | secretmanager | secretmanager.secrets.delete | gsecops:correlation x10 | secretmanager.secrets.delete |
 | post-exploitation | secretmanager | secretmanager.versions.destroy | gsecops:correlation x10 | secretmanager.versions.destroy |
 
@@ -398,7 +401,7 @@ _… 13 more rows (see findings.json)_
 
 > The per-technique view of the four-corpus merge. For every technique some rule catches, which vendors (Sigma / Elastic / Google SecOps / Panther) catch it, and how many agree. A high vendor_count = redundantly covered; 1 = only one vendor would catch it, so dropping that vendor blinds you to it.
 
-**52 rows.**
+**54 rows.**
 
 | tactic | service | primary_permission | vendor_count | vendors | technique |
 | --- | --- | --- | --- | --- | --- |
@@ -420,6 +423,8 @@ _… 13 more rows (see findings.json)_
 | privilege-escalation | container | container.cronJobs.update | 2 | panther, sigma | container.cronJobs.update |
 | privilege-escalation | iam | iam.roles.create | 2 | elastic, panther | iam.roles.create & iam.serviceAccounts.setIamPolicy |
 | persistence | storage | storage.hmacKeys.create | 1 | panther | storage.hmacKeys.create |
+| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.destroy | 1 | gsecops | cloudkms.cryptoKeyVersions.destroy |
+| post-exploitation | cloudkms | cloudkms.cryptoKeyVersions.update | 1 | gsecops | cloudkms.cryptoKeyVersions.update |
 | post-exploitation | cloudsql | cloudsql.instances.update | 1 | panther | cloudsql.instances.update, ( cloudsql.instances.get) |
 | post-exploitation | cloudsql | cloudsql.users.update | 1 | sigma | cloudsql.users.update |
 | post-exploitation | iam | iam.serviceAccounts.disable | 1 | sigma | iam.serviceAccounts.disable |
@@ -440,17 +445,15 @@ _… 13 more rows (see findings.json)_
 | privilege-escalation | compute | compute.snapshots.setIamPolicy | 1 | panther | compute.snapshots.setIamPolicy |
 | privilege-escalation | compute | compute.disks.setIamPolicy | 1 | panther | compute.disks.setIamPolicy |
 | privilege-escalation | container | container.daemonSets.create | 1 | panther | container.daemonSets.create |
-| privilege-escalation | container | container.jobs.create | 1 | sigma | container.jobs.create |
-| privilege-escalation | container | container.jobs.update | 1 | sigma | container.jobs.update |
 
-_… 12 more rows (see findings.json)_
+_… 14 more rows (see findings.json)_
 
 
 ## 12_vendor_overlap_per_operation — Which vendors watch each operation (overlap matrix)
 
 > The per-operation overlap. For every permission any rule watches, the set of vendors watching it. Operations watched by all four are heavily redundant; those watched by one are a single point of coverage. This is the raw diff between the detection stacks at the operation level.
 
-**135 rows.**
+**138 rows.**
 
 | operation | log_type | vendor_count | vendors |
 | --- | --- | --- | --- |
@@ -491,11 +494,11 @@ _… 12 more rows (see findings.json)_
 | cloudbuild.builds.create | ADMIN_ACTIVITY | 1 | panther |
 | cloudfunctions.functions.create | ADMIN_ACTIVITY | 1 | panther |
 | cloudfunctions.functions.update | ADMIN_ACTIVITY | 1 | panther |
-| cloudsql.instances.create | ADMIN_ACTIVITY | 1 | sigma |
-| cloudsql.instances.delete | ADMIN_ACTIVITY | 1 | sigma |
-| cloudsql.instances.update | ADMIN_ACTIVITY | 1 | panther |
+| cloudkms.cryptoKeyVersions.destroy | ADMIN_ACTIVITY | 1 | gsecops |
+| cloudkms.cryptoKeyVersions.update | ADMIN_ACTIVITY | 1 | gsecops |
+| cloudkms.cryptoKeyVersions.useToDecrypt | DATA_ACCESS | 1 | gsecops |
 
-_… 95 more rows (see findings.json)_
+_… 98 more rows (see findings.json)_
 
 
 ## 13_vendor_unique_operations — Each vendor's UNIQUE operations (what only they watch)
@@ -509,7 +512,7 @@ _… 95 more rows (see findings.json)_
 | panther | 50 | apikeys.keys.create, apikeys.keys.list, cloudbuild.builds.create, cloudfunctions.functions.create, cloudfunctions.functions.update, cloudsql.instances.update, compute.disks.create, compute.disks.setIamPolicy, compute.instanceTemplates.useReadOnly, compute.instances.create, compute.instances.pscInterfaceCreate, compute.instances.setMetadata, compute.instances.setServiceAccount, compute.machineImages.useReadOnly, compute.networks.use |
 | sigma | 29 | accesscontextmanager.accessLevels.delete, accesscontextmanager.accessPolicies.delete, accesscontextmanager.authorizedOrgsDescs.delete, accesscontextmanager.policies.delete, cloudsql.instances.create, cloudsql.instances.delete, cloudsql.users.delete, cloudsql.users.update, compute.packetMirrorings.create, compute.packetMirrorings.delete, compute.packetMirrorings.get, compute.packetMirrorings.list, compute.packetMirrorings.update, compute.vpnTunnels.create, compute.vpnTunnels.delete |
 | elastic | 18 | appengine.applications.update, compute.networks.delete, compute.routes.create, compute.routes.delete, container.clusterRoles.update, container.configMaps.delete, container.configMaps.update, container.pods.get, container.roles.update, container.secrets.get, container.secrets.list, container.selfSubjectAccessReviews.create, container.selfSubjectRulesReviews.create, pubsub.subscriptions.create, pubsub.subscriptions.delete |
-| gsecops | 13 | apikeys.keys.getKeyString, bigquery.datasets.setIamPolicy, iam.workloadIdentityPools.delete, iam.workloadIdentityPools.update, orgpolicy.policies.delete, orgpolicy.policies.update, resourcemanager.folders.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.projects.setIamPolicy, secretmanager.secrets.delete, secretmanager.versions.destroy, serviceusage.services.disable, storage.hmacKeys.delete |
+| gsecops | 16 | apikeys.keys.getKeyString, bigquery.datasets.setIamPolicy, cloudkms.cryptoKeyVersions.destroy, cloudkms.cryptoKeyVersions.update, cloudkms.cryptoKeyVersions.useToDecrypt, iam.workloadIdentityPools.delete, iam.workloadIdentityPools.update, orgpolicy.policies.delete, orgpolicy.policies.update, resourcemanager.folders.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.projects.setIamPolicy, secretmanager.secrets.delete, secretmanager.versions.destroy, serviceusage.services.disable |
 
 
 ## 14_vendor_unique_detections — Techniques only ONE vendor catches (incremental coverage)
@@ -521,7 +524,7 @@ _… 95 more rows (see findings.json)_
 | only_vendor | techniques_only_this_vendor_catches | sample |
 | --- | --- | --- |
 | panther | 18 | storage.hmacKeys.create, cloudsql.instances.update, apikeys.keys.create, cloudbuild.builds.create, cloudfunctions.functions.create, cloudfunctions.functions.update, cloudfunctions.functions.update, compute.instances.create, compute.snapshots.setIamPolicy, compute.disks.setIamPolicy, container.daemonSets.create, deploymentmanager.deployments.create |
+| gsecops | 8 | cloudkms.cryptoKeyVersions.destroy, cloudkms.cryptoKeyVersions.update, secretmanager.versions.destroy, secretmanager.secrets.delete, bigquery.datasets.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.folders.setIamPolicy, resourcemanager.projects.setIamPolicy |
 | elastic | 6 | pubsub.topics.delete, pubsub.subscriptions.create, pubsub.subscriptions.delete, appengine.applications.update, appengine.applications.update, pubsub.subscriptions.create |
-| gsecops | 6 | secretmanager.versions.destroy, secretmanager.secrets.delete, bigquery.datasets.setIamPolicy, resourcemanager.organizations.setIamPolicy, resourcemanager.folders.setIamPolicy, resourcemanager.projects.setIamPolicy |
 | sigma | 5 | cloudsql.users.update, iam.serviceAccounts.disable, container.jobs.create, container.jobs.update, iam.serviceAccounts.create |
 

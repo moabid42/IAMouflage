@@ -89,6 +89,24 @@ def scope_generic_iampolicy(token: str, service: str | None, resource: str | Non
     return f"{service}.{resource or '*'}.{verb}"
 
 
+def normalise_op_token(token: str, service: str | None, resource: str | None,
+                       canon: Canonicaliser) -> str:
+    """Resolve a product_event_type value to a form the canonicaliser can join.
+
+    product_event_type is the audit-log methodName, but SecOps writes it three awkward
+    ways that the method string alone can't resolve; the fix is to use the rule's other
+    event fields (target.application = service, resource_subtype = resource):
+      1. a bare, package-stripped gRPC method (`Decrypt`) -> its full curated name.
+      2. the shared IAMPolicy interface (`...IAMPolicy.SetIamPolicy`) -> scoped to
+         `<service>.<resource>.setIamPolicy`.
+      3. anything else -> unchanged (already a resolvable method/permission).
+    """
+    full = canon.full_from_bare(token)
+    if full:
+        return full
+    return scope_generic_iampolicy(token, service, resource)
+
+
 def _meta_dict(block: str) -> dict:
     m = re.search(r'\bmeta:\s*(.*?)\n\s*events:', block, re.S)
     return dict(_META.findall(m.group(1))) if m else {}
@@ -146,10 +164,11 @@ def parse_rule(text: str, path: Path, canon: Canonicaliser) -> DetectionRecord |
         if tok:
             tokens.append(tok)
 
-    # Scope any generic IAMPolicy method to the rule's service (+ exact resource if the
-    # rule pins one via resource_subtype).
+    # Resolve each product_event_type using the rule's context fields (service from
+    # target.application, resource from resource_subtype): lift bare gRPC methods and
+    # scope the generic IAMPolicy interface.
     service, resource = app_service(events), app_resource(events)
-    tokens = [scope_generic_iampolicy(t, service, resource) for t in tokens]
+    tokens = [normalise_op_token(t, service, resource, canon) for t in tokens]
 
     # Each product_event_type value is an alternative -> its own DNF group.
     token_groups = [[t] for t in dict.fromkeys(tokens)]

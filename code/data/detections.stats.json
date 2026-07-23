@@ -18,8 +18,8 @@
     "gcp_lb": 2
   },
   "patterns_expanded": 4,
-  "distinct_permissions": 135,
-  "rules_with_ops": 117,
+  "distinct_permissions": 138,
+  "rules_with_ops": 119,
   "event_only_rules": 135,
   "universe_size": 355
 }
