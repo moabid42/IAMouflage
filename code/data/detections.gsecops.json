@@ -59,13 +59,13 @@
    "groups": [
     [
      {
-      "token": "google.iam.v1.IAMPolicy.SetIamPolicy",
+      "token": "bigquery.*.setIamPolicy",
       "permissions": [],
-      "kind": "grpc_method",
-      "confidence": "generic",
-      "provenance": "rpc_methods.json[google.iam.v1.IAMPolicy.SetIamPolicy] <- https://docs.cloud.google.com/iam/docs/audit-logging",
-      "pattern": "\\.setIamPolicy$",
-      "note": "Emitted by many services; the concrete permission is resource-dependent and follows <service>.<resource>.setIamPolicy. Modelled as a pattern so it expands only to permissions techniques actually use."
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'bigquery.*.setIamPolicy' -> /^bigquery\\.[^.]*\\.setIamPolicy$/",
+      "pattern": "^bigquery\\.[^.]*\\.setIamPolicy$",
+      "note": ""
      }
     ]
    ],
@@ -152,7 +152,19 @@
    "platform": "GCP"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "resourcemanager.*.setIamPolicy",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'resourcemanager.*.setIamPolicy' -> /^resourcemanager\\.[^.]*\\.setIamPolicy$/",
+      "pattern": "^resourcemanager\\.[^.]*\\.setIamPolicy$",
+      "note": ""
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""
@@ -222,7 +234,19 @@
    "platform": "GCP"
   },
   "requirement": {
-   "groups": [],
+   "groups": [
+    [
+     {
+      "token": "resourcemanager.*.setIamPolicy",
+      "permissions": [],
+      "kind": "pattern",
+      "confidence": "pattern",
+      "provenance": "wildcard matcher 'resourcemanager.*.setIamPolicy' -> /^resourcemanager\\.[^.]*\\.setIamPolicy$/",
+      "pattern": "^resourcemanager\\.[^.]*\\.setIamPolicy$",
+      "note": ""
+     }
+    ]
+   ],
    "excluded": [],
    "confidence": "exact",
    "note": ""

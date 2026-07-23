@@ -258,7 +258,12 @@ class Canonicaliser:
         """
         if "*" not in tok and not tok.startswith("."):
             return None
-        body = re.escape(_strip_versions(tok.strip())).replace(r"\*", "[^.]*")
+        # Build the regex from the raw token: `*` is a one-segment wildcard. Do NOT
+        # version-strip here -- a mid-token `*` (e.g. `bigquery.*.setIamPolicy`, "any
+        # bigquery resource") would otherwise be deleted as a version segment, collapsing
+        # the pattern. (Version-wildcard method ids like `v*.Compute.Firewalls.Insert`
+        # never reach this rung; they resolve as REST methods first.)
+        body = re.escape(tok.strip()).replace(r"\*", "[^.]*")
         if tok.startswith("."):
             rx = f".*{body}$"
         elif tok.endswith("*"):

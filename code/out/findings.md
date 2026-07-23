@@ -13,8 +13,8 @@ finding is a **pure graph query** — no ML model is involved.
 
 | status | techniques | pct |
 | --- | --- | --- |
-| RULE_GAP | 131 | 51.6 |
-| DETECTED | 72 | 28.3 |
+| RULE_GAP | 151 | 59.4 |
+| DETECTED | 52 | 20.5 |
 | TELEMETRY_GAP | 49 | 19.3 |
 | CORRELATION_ONLY | 2 | 0.8 |
 
@@ -23,7 +23,7 @@ finding is a **pure graph query** — no ML model is involved.
 
 > The direct answer to "which situations can my detections not figure out?". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).
 
-**180 rows.**
+**200 rows.**
 
 | tactic | service | primary_permission | blind_class | needs_actAs | technique |
 | --- | --- | --- | --- | --- | --- |
@@ -68,14 +68,14 @@ finding is a **pure graph query** — no ML model is involved.
 | post-exploitation | cloudsql | cloudsql.instances.import | RULE_GAP | False | cloudsql.instances.import, storage.objects.get |
 | post-exploitation | cloudsql | cloudsql.instances.restoreBackup | RULE_GAP | False | cloudsql.instances.restoreBackup, cloudsql.backupRuns.get |
 
-_… 140 more rows (see findings.json)_
+_… 160 more rows (see findings.json)_
 
 
 ## 02_rule_gap_classA — Class A blind spots — logged by default, but no rule (write-a-signature gaps)
 
 > The "cheap wins". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today — there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.
 
-**143 rows.**
+**164 rows.**
 
 | service | logged_but_unwatched_permission | tactic | primary_permission | technique |
 | --- | --- | --- | --- | --- |
@@ -98,6 +98,7 @@ _… 140 more rows (see findings.json)_
 | appengine | appengine.versions.update | privilege-escalation | appengine.versions.getFileContents | appengine.versions.getFileContents, appengine.versions.update |
 | artifactregistry | artifactregistry.packages.delete | privilege-escalation | artifactregistry.tags.delete | artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list) |
 | artifactregistry | artifactregistry.repositories.delete | privilege-escalation | artifactregistry.repositories.delete | artifactregistry.repositories.delete |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | privilege-escalation | artifactregistry.repositories.setIamPolicy | artifactregistry.repositories.setIamPolicy |
 | artifactregistry | artifactregistry.repositories.update | privilege-escalation | artifactregistry.repositories.update | artifactregistry.repositories.update |
 | artifactregistry | artifactregistry.repositories.uploadArtifacts | privilege-escalation | artifactregistry.repositories.uploadArtifacts | artifactregistry.repositories.uploadArtifacts |
 | artifactregistry | artifactregistry.tags.delete | privilege-escalation | artifactregistry.tags.delete | artifactregistry.tags.delete, artifactregistry.versions.delete, artifactregistry.packages.delete, (artifactregistry.repositories.get, artifactregistry.tags.get, artifactregistry.tags.list) |
@@ -108,19 +109,18 @@ _… 140 more rows (see findings.json)_
 | bigquery | bigquery.models.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
 | bigquery | bigquery.models.getMetadata | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
 | bigquery | bigquery.tables.delete | privilege-escalation | bigquery.tables.delete | bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata) |
+| bigtable | bigtable.authorizedViews.setIamPolicy | privilege-escalation | bigtable.authorizedViews.setIamPolicy | bigtable.authorizedViews.setIamPolicy |
+| bigtable | bigtable.backups.setIamPolicy | privilege-escalation | bigtable.backups.setIamPolicy | bigtable.backups.setIamPolicy |
+| bigtable | bigtable.instances.setIamPolicy | privilege-escalation | bigtable.instances.setIamPolicy | bigtable.instances.setIamPolicy |
+| bigtable | bigtable.tables.setIamPolicy | privilege-escalation | bigtable.tables.setIamPolicy | bigtable.tables.setIamPolicy |
 | billing | billing.accounts.create | discovery | billing.accounts.create | billing.accounts.create |
 | cloudasset | cloudasset.assets.analyzeIamPolicy | discovery | cloudasset.assets.analyzeIamPolicy | cloudasset.assets.analyzeIamPolicy |
 | cloudasset | cloudasset.assets.analyzeMove | discovery | cloudasset.assets.analyzeMove | cloudasset.assets.analyzeMove |
 | cloudasset | cloudasset.assets.queryIamPolicy | discovery | cloudasset.assets.queryIamPolicy | cloudasset.assets.queryIamPolicy |
 | cloudasset | cloudasset.assets.searchAllIamPolicies | discovery | cloudasset.assets.searchAllIamPolicies | cloudasset.assets.searchAllIamPolicies |
 | cloudasset | cloudasset.assets.searchAllResources | discovery | cloudasset.assets.searchAllResources | cloudasset.assets.searchAllResources |
-| cloudbuild | cloudbuild.builds.approve | post-exploitation | cloudbuild.builds.approve | cloudbuild.builds.approve |
-| cloudfunctions | cloudfunctions.functions.delete | post-exploitation | cloudfunctions.functions.delete | cloudfunctions.functions.delete |
-| cloudfunctions | cloudfunctions.functions.sourceCodeGet | post-exploitation | cloudfunctions.functions.sourceCodeGet | cloudfunctions.functions.sourceCodeGet |
-| cloudfunctions | cloudfunctions.functions.sourceCodeSet | privilege-escalation | cloudfunctions.functions.sourceCodeSet | cloudfunctions.functions.sourceCodeSet |
-| cloudkms | cloudkms.cryptoKeyVersions.destroy | post-exploitation | cloudkms.cryptoKeyVersions.destroy | cloudkms.cryptoKeyVersions.destroy |
 
-_… 103 more rows (see findings.json)_
+_… 124 more rows (see findings.json)_
 
 
 ## 03_telemetry_gap_classB — Class B blind spots — Data Access logs OFF by default (signatures cannot help)
@@ -179,7 +179,7 @@ _… 9 more rows (see findings.json)_
 
 > A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default — so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a "Storage Buckets Enumeration" rule on storage.buckets.list, a DATA_ACCESS read.
 
-**32 rows.**
+**31 rows.**
 
 | source | rule | level | permission_matched | log_type | used_by_a_technique |
 | --- | --- | --- | --- | --- | --- |
@@ -189,7 +189,6 @@ _… 9 more rows (see findings.json)_
 | elastic | GKE Secret get or list with Suspicious User Agent | high | container.secrets.list | DATA_ACCESS | True |
 | elastic | GKE Secrets List from Unusual Source AS Organization | high | container.secrets.list | DATA_ACCESS | True |
 | elastic | GKE User Exec into Pod | medium | container.pods.get | DATA_ACCESS | False |
-| gsecops | GCP BigQuery Datasets Opened To Public | high | storage.objects.setIamPolicy | DATA_ACCESS | True |
 | gsecops | GCP Service API Key Retrieved | high | apikeys.keys.getKeyString | DATA_ACCESS | False |
 | panther | GCP DNS Zone Modified or Deleted | low | dns.managedZones.get | DATA_ACCESS | False |
 | panther | GCP Firewall Rule Modified | low | compute.firewalls.get | DATA_ACCESS | False |
@@ -221,7 +220,7 @@ _… 9 more rows (see findings.json)_
 
 > Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses — often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward "impact/destruction" and away from the privilege-escalation / credential-access operations that dominate the corpus.
 
-**49 rows.**
+**48 rows.**
 
 | source | rule | permissions_no_technique_uses | mitre_tactics |
 | --- | --- | --- | --- |
@@ -239,7 +238,6 @@ _… 9 more rows (see findings.json)_
 | elastic | GKE RBAC Wildcard Elevation on Existing Role | container.clusterRoles.update, container.roles.update |  |
 | elastic | GKE Suspicious Self-Subject Review via Service Account | container.selfSubjectAccessReviews.create, container.selfSubjectRulesReviews.create |  |
 | elastic | GKE User Exec into Pod | container.pods.get |  |
-| gsecops | GCP BigQuery Datasets Opened To Public | compute.images.setIamPolicy, iap.tunnelServices.setIamPolicy, iap.web.setIamPolicy, iap.webServiceVersions.setIamPolicy, iap.webServices.setIamPolicy, iap.webTypes.setIamPolicy |  |
 | gsecops | GCP Firewall Rule Opened To The World | compute.firewalls.create |  |
 | gsecops | GCP GCE Image Open To Public | compute.images.setIamPolicy |  |
 | gsecops | GCP IAM Organization Policy Updated Or Deleted | orgpolicy.policies.delete, orgpolicy.policies.update |  |
@@ -265,8 +263,9 @@ _… 9 more rows (see findings.json)_
 | panther | GCP compute.instances.create Privilege Escalation | compute.instanceTemplates.useReadOnly, compute.instances.pscInterfaceCreate, compute.machineImages.useReadOnly, compute.networks.use |  |
 | sigma | GCP Access Policy Deleted | accesscontextmanager.accessLevels.delete, accesscontextmanager.accessPolicies.delete, accesscontextmanager.authorizedOrgsDescs.delete, accesscontextmanager.policies.delete |  |
 | sigma | Google Cloud DNS Zone Modified or Deleted | dns.managedZones.delete, dns.managedZones.get, dns.managedZones.update |  |
+| sigma | Google Cloud Firewall Modified or Deleted | compute.firewalls.create, compute.firewalls.delete, compute.firewalls.get, compute.firewalls.update, compute.networks.updatePolicy |  |
 
-_… 9 more rows (see findings.json)_
+_… 8 more rows (see findings.json)_
 
 
 ## 06_coverage_by_tactic_service — Blind-spot concentration by tactic and service
@@ -279,44 +278,44 @@ _… 9 more rows (see findings.json)_
 | --- | --- | --- | --- | --- | --- |
 | privilege-escalation | container | 9 | 30 | 21 | 30.0 |
 | post-exploitation | logging | 0 | 13 | 13 | 0.0 |
+| post-exploitation | pubsub | 3 | 13 | 10 | 23.1 |
 | privilege-escalation | aiplatform | 0 | 9 | 9 | 0.0 |
+| privilege-escalation | iam | 3 | 12 | 9 | 25.0 |
 | post-exploitation | monitoring | 0 | 8 | 8 | 0.0 |
-| privilege-escalation | iam | 4 | 12 | 8 | 33.3 |
 | post-exploitation | cloudkms | 0 | 7 | 7 | 0.0 |
 | post-exploitation | cloudsql | 2 | 9 | 7 | 22.2 |
-| post-exploitation | pubsub | 6 | 13 | 7 | 46.2 |
 | unauthenticated-access | storage | 3 | 10 | 7 | 30.0 |
 | privilege-escalation | appengine | 2 | 8 | 6 | 25.0 |
+| privilege-escalation | artifactregistry | 0 | 6 | 6 | 0.0 |
+| privilege-escalation | compute | 3 | 9 | 6 | 33.3 |
 | discovery | cloudasset | 0 | 5 | 5 | 0.0 |
 | discovery | compute | 0 | 5 | 5 | 0.0 |
 | post-exploitation | secretmanager | 0 | 5 | 5 | 0.0 |
 | post-exploitation | securitycenter | 0 | 5 | 5 | 0.0 |
-| privilege-escalation | artifactregistry | 1 | 6 | 5 | 16.7 |
+| privilege-escalation | pubsub | 1 | 6 | 5 | 16.7 |
+| privilege-escalation | run | 2 | 7 | 5 | 28.6 |
 | post-exploitation | appengine | 0 | 4 | 4 | 0.0 |
-| privilege-escalation | compute | 5 | 9 | 4 | 55.6 |
-| privilege-escalation | run | 3 | 7 | 4 | 42.9 |
+| privilege-escalation | bigtable | 0 | 4 | 4 | 0.0 |
+| privilege-escalation | source | 0 | 4 | 4 | 0.0 |
 | privilege-escalation | storage | 2 | 6 | 4 | 33.3 |
 | discovery | serviceusage | 0 | 3 | 3 | 0.0 |
 | discovery | storage | 0 | 3 | 3 | 0.0 |
 | privilege-escalation | cloudbuild | 1 | 4 | 3 | 25.0 |
-| privilege-escalation | pubsub | 3 | 6 | 3 | 50.0 |
-| privilege-escalation | source | 1 | 4 | 3 | 25.0 |
+| privilege-escalation | cloudkms | 0 | 3 | 3 | 0.0 |
+| privilege-escalation | cloudtasks | 0 | 3 | 3 | 0.0 |
 | discovery | resourcemanager | 0 | 2 | 2 | 0.0 |
 | post-exploitation | cloudfunctions | 0 | 2 | 2 | 0.0 |
 | post-exploitation | storage | 4 | 6 | 2 | 66.7 |
 | privilege-escalation | bigquery | 3 | 5 | 2 | 60.0 |
-| privilege-escalation | cloudkms | 1 | 3 | 2 | 33.3 |
+| privilege-escalation | cloudfunctions | 3 | 5 | 2 | 60.0 |
 | privilege-escalation | cloudscheduler | 0 | 2 | 2 | 0.0 |
-| privilege-escalation | cloudtasks | 1 | 3 | 2 | 33.3 |
 | privilege-escalation | composer | 0 | 2 | 2 | 0.0 |
+| privilege-escalation | deploymentmanager | 1 | 3 | 2 | 33.3 |
 | privilege-escalation | osconfig | 0 | 2 | 2 | 0.0 |
+| privilege-escalation | secretmanager | 0 | 2 | 2 | 0.0 |
 | discovery | billing | 0 | 1 | 1 | 0.0 |
 | discovery | container | 0 | 1 | 1 | 0.0 |
 | persistence | logging | 0 | 1 | 1 | 0.0 |
-| post-exploitation | cloudbuild | 0 | 1 | 1 | 0.0 |
-| post-exploitation | iam | 1 | 2 | 1 | 50.0 |
-| privilege-escalation | apikeys | 1 | 2 | 1 | 50.0 |
-| privilege-escalation | batch | 0 | 1 | 1 | 0.0 |
 
 _… 13 more rows (see findings.json)_
 
@@ -345,26 +344,26 @@ _… 13 more rows (see findings.json)_
 
 | foothold_service | foothold_permission | hops | chain |
 | --- | --- | --- | --- |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
-| container | container.serviceAccounts.createToken | 4 | container.createToken, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
+| artifactregistry | artifactregistry.repositories.setIamPolicy | 4 | artifactregistry.setIamPolicy, aiplatform.create, aiplatform.create, aiplatform.create, aiplatform.create |
 
 
 ## 09_invisible_impersonation — Invisible service-account impersonation primitives

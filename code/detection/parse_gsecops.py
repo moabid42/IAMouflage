@@ -44,6 +44,39 @@ _PET_REGEX = re.compile(r'product_event_type\s*=\s*/([^/]+)/', re.IGNORECASE)
 _WINDOW = re.compile(r'\bover\s+([0-9]+[smhd])', re.IGNORECASE)
 _THRESHOLD = re.compile(r'#\w+\s*>=?\s*(\d+)')
 
+# `google.iam.v1.IAMPolicy.SetIamPolicy` (and bare `SetIamPolicy`/`GetIamPolicy`) is the
+# SHARED IAM-policy interface every service reuses; the method name alone does not say
+# which resource. YARA-L rules narrow it with `target.application` (the service). We use
+# that to scope the generic method to `<service>.*.set|getIamPolicy` instead of leaving it
+# as a global (all-services) pattern or dropping it.
+_TARGET_APP = re.compile(r'target\.application\s*=\s*"([^"]+)"', re.IGNORECASE)
+_GENERIC_IAMPOLICY = re.compile(
+    r'(^set|^get|\.IAMPolicy\.Set|\.IAMPolicy\.Get)iampolicy$', re.IGNORECASE)
+# googleapis host stem -> IAM permission service name (mostly identical; a few differ).
+_HOST_SERVICE = {"cloudresourcemanager": "resourcemanager"}
+
+
+def app_service(events: str) -> str | None:
+    m = _TARGET_APP.search(events)
+    if not m:
+        return None
+    stem = m.group(1).replace(".googleapis.com", "").strip()
+    return _HOST_SERVICE.get(stem, stem) if stem else None
+
+
+def scope_generic_iampolicy(token: str, service: str | None) -> str:
+    """Turn a generic Set/GetIamPolicy method into a service-scoped wildcard token.
+
+    `google.iam.v1.IAMPolicy.SetIamPolicy` + service `bigquery` -> `bigquery.*.setIamPolicy`
+    (the canonicaliser's pattern rung then expands it to the bigquery.*.setIamPolicy
+    permissions that matter). Service-specific forms like `beta.compute.images.setIamPolicy`
+    are NOT generic and pass through untouched. Without a service we cannot scope it.
+    """
+    if not service or not _GENERIC_IAMPOLICY.search(token):
+        return token
+    verb = "getIamPolicy" if "get" in token.lower()[-14:] else "setIamPolicy"
+    return f"{service}.*.{verb}"
+
 
 def _meta_dict(block: str) -> dict:
     m = re.search(r'\bmeta:\s*(.*?)\n\s*events:', block, re.S)
@@ -101,6 +134,10 @@ def parse_rule(text: str, path: Path, canon: Canonicaliser) -> DetectionRecord |
         tok = regex_to_pattern_token(rx)
         if tok:
             tokens.append(tok)
+
+    # Scope any generic IAMPolicy method to the rule's target.application service.
+    service = app_service(events)
+    tokens = [scope_generic_iampolicy(t, service) for t in tokens]
 
     # Each product_event_type value is an alternative -> its own DNF group.
     token_groups = [[t] for t in dict.fromkeys(tokens)]

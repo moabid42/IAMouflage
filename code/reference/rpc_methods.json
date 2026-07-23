@@ -65,10 +65,10 @@
  },
 
  "google.iam.v1.IAMPolicy.SetIamPolicy": {
-  "permissions": [], "pattern": "\\.setIamPolicy$", "permission_type": "ADMIN_WRITE",
+  "permissions": [], "permission_type": "ADMIN_WRITE",
   "audit_log": "ADMIN_ACTIVITY", "confidence": "generic",
   "source": "https://docs.cloud.google.com/iam/docs/audit-logging",
-  "note": "Emitted by many services; the concrete permission is resource-dependent and follows <service>.<resource>.setIamPolicy. Modelled as a pattern so it expands only to permissions techniques actually use."
+  "note": "The SHARED IAM-policy interface (any service implements google.iam.v1.IAMPolicy); the method name alone does not say which resource. The concrete permission is <service>.<resource>.setIamPolicy, and a rule identifies the service via other fields (Chronicle target.application). The gsecops parser scopes it to <service>.*.setIamPolicy using that field. With NO resource context it resolves to nothing on purpose -- a global pattern would falsely mark every setIamPolicy technique as covered."
  },
  "google.cloud.iap.v1.IdentityAwareProxyAdminService.SetIamPolicy": {
   "permissions": ["iap.tunnelServices.setIamPolicy", "iap.web.setIamPolicy",

@@ -6,13 +6,13 @@
     "rows": [
       {
         "status": "RULE_GAP",
-        "techniques": 131,
-        "pct": 51.6
+        "techniques": 151,
+        "pct": 59.4
       },
       {
         "status": "DETECTED",
-        "techniques": 72,
-        "pct": 28.3
+        "techniques": 52,
+        "pct": 20.5
       },
       {
         "status": "TELEMETRY_GAP",
@@ -29,7 +29,7 @@
   "01_blind_spot_techniques.cypher": {
     "title": "Every technique with zero detection coverage",
     "why": "The direct answer to \"which situations can my detections not figure out?\". These techniques have NO rule whose firing condition they satisfy on an on-by-default log, so executing them raises no alert (not even a correlation/threshold rule).",
-    "row_count": 180,
+    "row_count": 200,
     "rows": [
       {
         "tactic": "discovery",
@@ -562,10 +562,26 @@
       {
         "tactic": "post-exploitation",
         "service": "pubsub",
+        "primary_permission": "pubsub.schemas.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.schemas.setIamPolicy"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
         "primary_permission": "pubsub.snapshots.create",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "pubsub.snapshots.create, pubsub.snapshots.seek"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.setIamPolicy"
       },
       {
         "tactic": "post-exploitation",
@@ -590,6 +606,14 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "pubsub.topics.publish"
+      },
+      {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.topics.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.topics.setIamPolicy"
       },
       {
         "tactic": "post-exploitation",
@@ -826,6 +850,14 @@
       {
         "tactic": "privilege-escalation",
         "service": "artifactregistry",
+        "primary_permission": "artifactregistry.repositories.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "artifactregistry.repositories.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
         "primary_permission": "artifactregistry.repositories.update",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
@@ -873,6 +905,38 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.authorizedViews.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.authorizedViews.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.backups.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.backups.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.instances.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.instances.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "bigtable",
+        "primary_permission": "bigtable.tables.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "bigtable.tables.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "cloudbuild",
         "primary_permission": "cloudbuild.connections.fetchLinkableRepositories",
         "blind_class": "TELEMETRY_GAP",
@@ -894,6 +958,14 @@
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
         "technique": "cloudbuild.repositories.accessReadWriteToken"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudfunctions",
+        "primary_permission": "cloudfunctions.functions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": true,
+        "technique": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs"
       },
       {
         "tactic": "privilege-escalation",
@@ -921,6 +993,14 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "cloudkms",
+        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudkms.cryptoKeys.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "cloudscheduler",
         "primary_permission": "cloudscheduler.jobs.create",
         "blind_class": "RULE_GAP",
@@ -934,6 +1014,14 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": true,
         "technique": "cloudscheduler.jobs.update , iam.serviceAccounts.actAs, (cloudscheduler.locations.list)"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "cloudtasks",
+        "primary_permission": "cloudtasks.queues.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "cloudtasks.queues.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -986,10 +1074,26 @@
       {
         "tactic": "privilege-escalation",
         "service": "compute",
+        "primary_permission": "compute.instances.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.instances.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
         "primary_permission": "compute.instances.setMetadata",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
         "technique": "compute.instances.setMetadata"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "primary_permission": "compute.machineImages.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "compute.machineImages.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -1178,6 +1282,14 @@
       {
         "tactic": "privilege-escalation",
         "service": "deploymentmanager",
+        "primary_permission": "deploymentmanager.deployments.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "deploymentmanager.deployments.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
         "primary_permission": "deploymentmanager.deployments.update",
         "blind_class": "RULE_GAP",
         "needs_actAs": false,
@@ -1234,6 +1346,14 @@
       {
         "tactic": "privilege-escalation",
         "service": "iam",
+        "primary_permission": "iam.serviceAccounts.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "iam.serviceAccounts.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "iam",
         "primary_permission": "iam.serviceAccounts.signBlob",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
@@ -1274,10 +1394,26 @@
       {
         "tactic": "privilege-escalation",
         "service": "pubsub",
+        "primary_permission": "pubsub.snapshots.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.snapshots.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
         "primary_permission": "pubsub.subscriptions.consume",
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
         "technique": "pubsub.subscriptions.consume"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "pubsub",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "pubsub.subscriptions.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -1306,6 +1442,14 @@
       {
         "tactic": "privilege-escalation",
         "service": "run",
+        "primary_permission": "run.jobs.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "run.jobs.setIamPolicy"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
         "primary_permission": "run.jobs.update",
         "blind_class": "RULE_GAP",
         "needs_actAs": true,
@@ -1318,6 +1462,14 @@
         "blind_class": "RULE_GAP",
         "needs_actAs": true,
         "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
+        "primary_permission": "secretmanager.secrets.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "secretmanager.secrets.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -1342,6 +1494,14 @@
         "blind_class": "TELEMETRY_GAP",
         "needs_actAs": false,
         "technique": "source.repos.get"
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "source",
+        "primary_permission": "source.repos.setIamPolicy",
+        "blind_class": "RULE_GAP",
+        "needs_actAs": false,
+        "technique": "source.repos.setIamPolicy"
       },
       {
         "tactic": "privilege-escalation",
@@ -1476,7 +1636,7 @@
   "02_rule_gap_classA.cypher": {
     "title": "Class A blind spots \u2014 logged by default, but no rule (write-a-signature gaps)",
     "why": "The \"cheap wins\". The permission lands in ADMIN_ACTIVITY logs (always on), so the evidence exists in the customer's logs today \u2014 there is simply no rule watching it. Each row is a permission a signature could be authored against immediately.",
-    "row_count": 143,
+    "row_count": 164,
     "rows": [
       {
         "service": "aiplatform",
@@ -1613,6 +1773,13 @@
       },
       {
         "service": "artifactregistry",
+        "logged_but_unwatched_permission": "artifactregistry.repositories.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "artifactregistry.repositories.setIamPolicy",
+        "technique": "artifactregistry.repositories.setIamPolicy"
+      },
+      {
+        "service": "artifactregistry",
         "logged_but_unwatched_permission": "artifactregistry.repositories.update",
         "tactic": "privilege-escalation",
         "primary_permission": "artifactregistry.repositories.update",
@@ -1682,6 +1849,34 @@
         "technique": "bigquery.tables.delete, bigquery.datasets.delete & bigquery.models.delete (bigquery.models.getMetadata)"
       },
       {
+        "service": "bigtable",
+        "logged_but_unwatched_permission": "bigtable.authorizedViews.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.authorizedViews.setIamPolicy",
+        "technique": "bigtable.authorizedViews.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_permission": "bigtable.backups.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.backups.setIamPolicy",
+        "technique": "bigtable.backups.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_permission": "bigtable.instances.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.instances.setIamPolicy",
+        "technique": "bigtable.instances.setIamPolicy"
+      },
+      {
+        "service": "bigtable",
+        "logged_but_unwatched_permission": "bigtable.tables.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "bigtable.tables.setIamPolicy",
+        "technique": "bigtable.tables.setIamPolicy"
+      },
+      {
         "service": "billing",
         "logged_but_unwatched_permission": "billing.accounts.create",
         "tactic": "discovery",
@@ -1736,6 +1931,13 @@
         "tactic": "post-exploitation",
         "primary_permission": "cloudfunctions.functions.delete",
         "technique": "cloudfunctions.functions.delete"
+      },
+      {
+        "service": "cloudfunctions",
+        "logged_but_unwatched_permission": "cloudfunctions.functions.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudfunctions.functions.setIamPolicy",
+        "technique": "cloudfunctions.functions.setIamPolicy , iam.serviceAccounts.actAs"
       },
       {
         "service": "cloudfunctions",
@@ -1794,6 +1996,13 @@
         "technique": "cloudkms.cryptoKeyVersions.useToVerify"
       },
       {
+        "service": "cloudkms",
+        "logged_but_unwatched_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudkms.cryptoKeys.setIamPolicy",
+        "technique": "cloudkms.cryptoKeys.setIamPolicy"
+      },
+      {
         "service": "cloudscheduler",
         "logged_but_unwatched_permission": "cloudscheduler.jobs.create",
         "tactic": "privilege-escalation",
@@ -1844,6 +2053,13 @@
       },
       {
         "service": "cloudtasks",
+        "logged_but_unwatched_permission": "cloudtasks.queues.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "cloudtasks.queues.setIamPolicy",
+        "technique": "cloudtasks.queues.setIamPolicy"
+      },
+      {
+        "service": "cloudtasks",
         "logged_but_unwatched_permission": "cloudtasks.tasks.create",
         "tactic": "privilege-escalation",
         "primary_permission": "cloudtasks.tasks.create",
@@ -1890,6 +2106,20 @@
         "tactic": "privilege-escalation",
         "primary_permission": "compute.instances.osLogin",
         "technique": "compute.instances.osLogin"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_permission": "compute.instances.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.instances.setIamPolicy",
+        "technique": "compute.instances.setIamPolicy"
+      },
+      {
+        "service": "compute",
+        "logged_but_unwatched_permission": "compute.machineImages.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "compute.machineImages.setIamPolicy",
+        "technique": "compute.machineImages.setIamPolicy"
       },
       {
         "service": "compute",
@@ -2047,6 +2277,13 @@
       },
       {
         "service": "deploymentmanager",
+        "logged_but_unwatched_permission": "deploymentmanager.deployments.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "deploymentmanager.deployments.setIamPolicy",
+        "technique": "deploymentmanager.deployments.setIamPolicy"
+      },
+      {
+        "service": "deploymentmanager",
         "logged_but_unwatched_permission": "deploymentmanager.deployments.update",
         "tactic": "privilege-escalation",
         "primary_permission": "deploymentmanager.deployments.update",
@@ -2068,10 +2305,24 @@
       },
       {
         "service": "iam",
+        "logged_but_unwatched_permission": "aiplatform.endpoints.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.actAs",
+        "technique": "iam.serviceAccounts.actAs, ( aiplatform.endpoints.create, aiplatform.endpoints.deploy, aiplatform.endpoints.get ) or ( aiplatform.endpoints.setIamPolicy )"
+      },
+      {
+        "service": "iam",
         "logged_but_unwatched_permission": "iam.serviceAccountKeys.disable",
         "tactic": "post-exploitation",
         "primary_permission": "iam.serviceAccountKeys.disable",
         "technique": "iam.serviceAccountKeys.disable"
+      },
+      {
+        "service": "iam",
+        "logged_but_unwatched_permission": "iam.serviceAccounts.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "iam.serviceAccounts.setIamPolicy",
+        "technique": "iam.serviceAccounts.setIamPolicy"
       },
       {
         "service": "logging",
@@ -2243,6 +2494,13 @@
       },
       {
         "service": "pubsub",
+        "logged_but_unwatched_permission": "pubsub.schemas.setIamPolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.schemas.setIamPolicy",
+        "technique": "pubsub.schemas.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
         "logged_but_unwatched_permission": "pubsub.snapshots.create",
         "tactic": "privilege-escalation",
         "primary_permission": "pubsub.snapshots.create",
@@ -2261,6 +2519,27 @@
         "tactic": "post-exploitation",
         "primary_permission": "pubsub.snapshots.create",
         "technique": "pubsub.snapshots.create, pubsub.snapshots.seek"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_permission": "pubsub.snapshots.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.snapshots.setIamPolicy",
+        "technique": "pubsub.snapshots.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_permission": "pubsub.subscriptions.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "technique": "pubsub.subscriptions.setIamPolicy"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_permission": "pubsub.subscriptions.setIamPolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.subscriptions.setIamPolicy",
+        "technique": "pubsub.subscriptions.setIamPolicy"
       },
       {
         "service": "pubsub",
@@ -2289,6 +2568,13 @@
         "tactic": "post-exploitation",
         "primary_permission": "pubsub.topics.publish",
         "technique": "pubsub.topics.publish"
+      },
+      {
+        "service": "pubsub",
+        "logged_but_unwatched_permission": "pubsub.topics.setIamPolicy",
+        "tactic": "post-exploitation",
+        "primary_permission": "pubsub.topics.setIamPolicy",
+        "technique": "pubsub.topics.setIamPolicy"
       },
       {
         "service": "pubsub",
@@ -2348,6 +2634,13 @@
       },
       {
         "service": "run",
+        "logged_but_unwatched_permission": "run.jobs.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "run.jobs.setIamPolicy",
+        "technique": "run.jobs.setIamPolicy"
+      },
+      {
+        "service": "run",
         "logged_but_unwatched_permission": "run.jobs.update",
         "tactic": "privilege-escalation",
         "primary_permission": "run.jobs.update",
@@ -2359,6 +2652,13 @@
         "tactic": "privilege-escalation",
         "primary_permission": "run.services.update",
         "technique": "run.services.update , iam.serviceAccounts.actAs"
+      },
+      {
+        "service": "secretmanager",
+        "logged_but_unwatched_permission": "secretmanager.secrets.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "secretmanager.secrets.setIamPolicy",
+        "technique": "secretmanager.secrets.setIamPolicy"
       },
       {
         "service": "secretmanager",
@@ -2443,6 +2743,13 @@
         "tactic": "discovery",
         "primary_permission": "serviceusage.services.use",
         "technique": "serviceusage.services.use"
+      },
+      {
+        "service": "source",
+        "logged_but_unwatched_permission": "source.repos.setIamPolicy",
+        "tactic": "privilege-escalation",
+        "primary_permission": "source.repos.setIamPolicy",
+        "technique": "source.repos.setIamPolicy"
       },
       {
         "service": "source",
@@ -2936,7 +3243,7 @@
   "04_covered_but_unlogged.cypher": {
     "title": "Rules that look like coverage but are blind by default",
     "why": "A subtle, dangerous scenario: a rule EXISTS and matches a permission, but that permission is a Data Access operation that is off by default \u2014 so the rule silently never fires in a stock project. The SOC believes it has coverage; the graph shows it does not. Example: a \"Storage Buckets Enumeration\" rule on storage.buckets.list, a DATA_ACCESS read.",
-    "row_count": 32,
+    "row_count": 31,
     "rows": [
       {
         "source": "elastic",
@@ -2985,14 +3292,6 @@
         "permission_matched": "container.pods.get",
         "log_type": "DATA_ACCESS",
         "used_by_a_technique": false
-      },
-      {
-        "source": "gsecops",
-        "rule": "GCP BigQuery Datasets Opened To Public",
-        "level": "high",
-        "permission_matched": "storage.objects.setIamPolicy",
-        "log_type": "DATA_ACCESS",
-        "used_by_a_technique": true
       },
       {
         "source": "gsecops",
@@ -3199,7 +3498,7 @@
   "05_rules_without_technique.cypher": {
     "title": "Where the detection effort lands vs. where the attacks are",
     "why": "Complements the blind-spot view. These rules watch permissions that NO technique in the offensive corpus uses \u2014 often destruction/impact verbs (delete/patch of firewalls, DNS zones, VPN tunnels, packet mirrors). Useful, but it shows the detection sets are weighted toward \"impact/destruction\" and away from the privilege-escalation / credential-access operations that dominate the corpus.",
-    "row_count": 49,
+    "row_count": 48,
     "rows": [
       {
         "source": "elastic",
@@ -3318,19 +3617,6 @@
         "rule": "GKE User Exec into Pod",
         "permissions_no_technique_uses": [
           "container.pods.get"
-        ],
-        "mitre_tactics": null
-      },
-      {
-        "source": "gsecops",
-        "rule": "GCP BigQuery Datasets Opened To Public",
-        "permissions_no_technique_uses": [
-          "compute.images.setIamPolicy",
-          "iap.tunnelServices.setIamPolicy",
-          "iap.web.setIamPolicy",
-          "iap.webServiceVersions.setIamPolicy",
-          "iap.webServices.setIamPolicy",
-          "iap.webTypes.setIamPolicy"
         ],
         "mitre_tactics": null
       },
@@ -3676,6 +3962,14 @@
         "pct_detected": 0.0
       },
       {
+        "tactic": "post-exploitation",
+        "service": "pubsub",
+        "detected": 3,
+        "total": 13,
+        "blind": 10,
+        "pct_detected": 23.1
+      },
+      {
         "tactic": "privilege-escalation",
         "service": "aiplatform",
         "detected": 0,
@@ -3684,20 +3978,20 @@
         "pct_detected": 0.0
       },
       {
+        "tactic": "privilege-escalation",
+        "service": "iam",
+        "detected": 3,
+        "total": 12,
+        "blind": 9,
+        "pct_detected": 25.0
+      },
+      {
         "tactic": "post-exploitation",
         "service": "monitoring",
         "detected": 0,
         "total": 8,
         "blind": 8,
         "pct_detected": 0.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "iam",
-        "detected": 4,
-        "total": 12,
-        "blind": 8,
-        "pct_detected": 33.3
       },
       {
         "tactic": "post-exploitation",
@@ -3716,14 +4010,6 @@
         "pct_detected": 22.2
       },
       {
-        "tactic": "post-exploitation",
-        "service": "pubsub",
-        "detected": 6,
-        "total": 13,
-        "blind": 7,
-        "pct_detected": 46.2
-      },
-      {
         "tactic": "unauthenticated-access",
         "service": "storage",
         "detected": 3,
@@ -3738,6 +4024,22 @@
         "total": 8,
         "blind": 6,
         "pct_detected": 25.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "artifactregistry",
+        "detected": 0,
+        "total": 6,
+        "blind": 6,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "compute",
+        "detected": 3,
+        "total": 9,
+        "blind": 6,
+        "pct_detected": 33.3
       },
       {
         "tactic": "discovery",
@@ -3773,11 +4075,19 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "artifactregistry",
+        "service": "pubsub",
         "detected": 1,
         "total": 6,
         "blind": 5,
         "pct_detected": 16.7
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "run",
+        "detected": 2,
+        "total": 7,
+        "blind": 5,
+        "pct_detected": 28.6
       },
       {
         "tactic": "post-exploitation",
@@ -3789,19 +4099,19 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "compute",
-        "detected": 5,
-        "total": 9,
+        "service": "bigtable",
+        "detected": 0,
+        "total": 4,
         "blind": 4,
-        "pct_detected": 55.6
+        "pct_detected": 0.0
       },
       {
         "tactic": "privilege-escalation",
-        "service": "run",
-        "detected": 3,
-        "total": 7,
+        "service": "source",
+        "detected": 0,
+        "total": 4,
         "blind": 4,
-        "pct_detected": 42.9
+        "pct_detected": 0.0
       },
       {
         "tactic": "privilege-escalation",
@@ -3837,19 +4147,19 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "pubsub",
-        "detected": 3,
-        "total": 6,
+        "service": "cloudkms",
+        "detected": 0,
+        "total": 3,
         "blind": 3,
-        "pct_detected": 50.0
+        "pct_detected": 0.0
       },
       {
         "tactic": "privilege-escalation",
-        "service": "source",
-        "detected": 1,
-        "total": 4,
+        "service": "cloudtasks",
+        "detected": 0,
+        "total": 3,
         "blind": 3,
-        "pct_detected": 25.0
+        "pct_detected": 0.0
       },
       {
         "tactic": "discovery",
@@ -3885,11 +4195,11 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "cloudkms",
-        "detected": 1,
-        "total": 3,
+        "service": "cloudfunctions",
+        "detected": 3,
+        "total": 5,
         "blind": 2,
-        "pct_detected": 33.3
+        "pct_detected": 60.0
       },
       {
         "tactic": "privilege-escalation",
@@ -3901,14 +4211,6 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "cloudtasks",
-        "detected": 1,
-        "total": 3,
-        "blind": 2,
-        "pct_detected": 33.3
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "composer",
         "detected": 0,
         "total": 2,
@@ -3917,7 +4219,23 @@
       },
       {
         "tactic": "privilege-escalation",
+        "service": "deploymentmanager",
+        "detected": 1,
+        "total": 3,
+        "blind": 2,
+        "pct_detected": 33.3
+      },
+      {
+        "tactic": "privilege-escalation",
         "service": "osconfig",
+        "detected": 0,
+        "total": 2,
+        "blind": 2,
+        "pct_detected": 0.0
+      },
+      {
+        "tactic": "privilege-escalation",
+        "service": "secretmanager",
         "detected": 0,
         "total": 2,
         "blind": 2,
@@ -3981,35 +4299,11 @@
       },
       {
         "tactic": "privilege-escalation",
-        "service": "cloudfunctions",
-        "detected": 4,
-        "total": 5,
-        "blind": 1,
-        "pct_detected": 80.0
-      },
-      {
-        "tactic": "privilege-escalation",
         "service": "dataproc",
         "detected": 0,
         "total": 1,
         "blind": 1,
         "pct_detected": 0.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "deploymentmanager",
-        "detected": 2,
-        "total": 3,
-        "blind": 1,
-        "pct_detected": 66.7
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "secretmanager",
-        "detected": 1,
-        "total": 2,
-        "blind": 1,
-        "pct_detected": 50.0
       },
       {
         "tactic": "privilege-escalation",
@@ -4048,14 +4342,6 @@
         "service": "storage",
         "detected": 1,
         "total": 1,
-        "blind": 0,
-        "pct_detected": 100.0
-      },
-      {
-        "tactic": "privilege-escalation",
-        "service": "bigtable",
-        "detected": 4,
-        "total": 4,
         "blind": 0,
         "pct_detected": 100.0
       },
@@ -4158,11 +4444,11 @@
     "row_count": 20,
     "rows": [
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4170,11 +4456,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4182,11 +4468,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4194,11 +4480,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4206,11 +4492,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4218,11 +4504,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4230,11 +4516,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4242,11 +4528,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4254,11 +4540,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4266,11 +4552,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4278,11 +4564,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4290,11 +4576,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4302,11 +4588,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4314,11 +4600,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4326,11 +4612,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4338,11 +4624,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4350,11 +4636,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4362,11 +4648,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4374,11 +4660,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
@@ -4386,11 +4672,11 @@
         ]
       },
       {
-        "foothold_service": "container",
-        "foothold_permission": "container.serviceAccounts.createToken",
+        "foothold_service": "artifactregistry",
+        "foothold_permission": "artifactregistry.repositories.setIamPolicy",
         "hops": 4,
         "chain": [
-          "container.createToken",
+          "artifactregistry.setIamPolicy",
           "aiplatform.create",
           "aiplatform.create",
           "aiplatform.create",
